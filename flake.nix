@@ -213,7 +213,6 @@
             checkVersion
             tagNationalities
             pkgs.calibre
-            pkgs.jre
             pkgs.git
             pkgs.epubcheck
             pkgs.delta
