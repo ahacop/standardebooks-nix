@@ -5,6 +5,7 @@ _se_ext() {
   commands=(
     'check-version:Check for Standard Ebooks tools updates'
     'docs:Browse and search SE documentation'
+    'find-archaic-words:Find archaic spellings not yet in the word list'
     'modernize-spelling:Apply archaic-to-modern spelling replacements'
     'tag-nationalities:Tag nationality terms with epub\:type attributes'
     'search-usage:Search SE GitHub for real-world semantic tag usage'
@@ -30,6 +31,9 @@ _se_ext() {
             '2:context-term:' \
             '--limit[Max repos to show]:number:' \
             '--full[Fetch file contents for richer context]'
+          ;;
+        find-archaic-words)
+          _arguments '1:ebook-directory:_directories'
           ;;
         modernize-spelling)
           _arguments \

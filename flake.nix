@@ -26,6 +26,12 @@
           pkgs.python3
           pkgs.coreutils
           pkgs.findutils
+          (pkgs.aspellWithDicts (
+            dicts: with dicts; [
+              en
+              en-computers
+            ]
+          ))
         ];
 
         se-ext = pkgs.stdenv.mkDerivation {

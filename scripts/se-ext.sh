@@ -11,6 +11,7 @@ show_help() {
   echo "COMMANDS"
   echo "  check-version          Check for Standard Ebooks tools updates"
   echo "  docs                   Browse and search SE documentation"
+  echo "  find-archaic-words     Find archaic spellings not yet in the word list"
   echo "  modernize-spelling     Apply archaic-to-modern spelling replacements"
   echo "  tag-nationalities      Tag nationality terms with epub:type attributes"
   echo "  search-usage           Search SE GitHub for real-world semantic tag usage"
@@ -22,6 +23,7 @@ show_help() {
 list_commands() {
   echo "check-version"
   echo "docs"
+  echo "find-archaic-words"
   echo "modernize-spelling"
   echo "tag-nationalities"
   echo "search-usage"
@@ -35,6 +37,10 @@ case "${1:-}" in
   docs)
     shift
     source "$SCRIPT_DIR/se-docs.sh"
+    ;;
+  find-archaic-words)
+    shift
+    source "$SCRIPT_DIR/se-find-archaic-words.sh"
     ;;
   modernize-spelling)
     shift
