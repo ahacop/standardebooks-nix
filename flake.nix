@@ -44,123 +44,30 @@
           TEXT_DIR="$EBOOK_DIR/src/epub/text"
 
           if [ ! -d "$TEXT_DIR" ]; then
-            echo "❌ Error: Directory not found: $TEXT_DIR"
+            echo "Error: Directory not found: $TEXT_DIR"
             exit 1
           fi
-
-          echo "🏷️  Tagging nationalities in $EBOOK_DIR..."
 
           # Find all chapter files
           CHAPTER_FILES=$(find "$TEXT_DIR" -name "chapter-*.xhtml" | sort)
 
           if [ -z "$CHAPTER_FILES" ]; then
-            echo "❌ No chapter files found in $TEXT_DIR"
+            echo "Error: No chapter files found in $TEXT_DIR"
             exit 1
           fi
 
-          # Count of files processed
-          COUNT=0
+          # Build a regex alternation of all nationality terms
+          # Multi-word terms first so they match before their components
+          REGEX='\b(Bissau-Guinean|Cabo Verdean|Central African|Costa Rican|I-Kiribati|Ni-Vanuatu|North Korean|Northern Marianan|Puerto Rican|Saint Lucian|Saint Vincentian|Saudi Arabian|Sierra Leonean|South African|South Africans|South Korean|South Koreans|South Sudanese|Sri Lankan|Sri Lankans|São Toméan|Afghan|Afghans|Albanian|Albanians|Algerian|Algerians|American|Americans|Andorran|Andorrans|Angolan|Angolans|Antiguan|Antiguans|Arabian|Arabians|Argentine|Argentines|Armenian|Armenians|Assyrian|Assyrians|Athenian|Athenians|Australian|Australians|Austrian|Austrians|Azerbaijani|Azeri|Azeris|Babylonian|Babylonians|Bahamian|Bahamians|Bahraini|Bahrainis|Barbadian|Barbadians|Barbudan|Barbudans|Basotho|Belarusian|Belarusians|Belgian|Belgians|Belizean|Belizeans|Bengali|Bengalis|Beninese|Beninois|Bhutanese|Bohemian|Bohemians|Bolivian|Bolivians|Bosnian|Bosnians|Botswanan|Botswanans|Brazilian|Brazilians|British|Briton|Britons|Bruneian|Bruneians|Bulgarian|Bulgarians|Burkinabé|Burmese|Burundian|Burundians|Byzantine|Byzantines|Cambodian|Cambodians|Cameroonian|Cameroonians|Canadian|Canadians|Carthaginian|Carthaginians|Celtic|Celts|Chadian|Chadians|Chilean|Chileans|Chinese|Colombian|Colombians|Comoran|Comorans|Comorian|Comorians|Congolese|Croatian|Croatians|Cuban|Cubans|Cypriot|Cypriots|Czech|Czechs|Danish|Danes|Djiboutian|Djiboutians|Dominican|Dominicans|Dutch|Ecuadorian|Ecuadorians|Egyptian|Egyptians|Emirati|Emiratis|Emirian|Emiri|English|Equatoguinean|Eritrean|Eritreans|Estonian|Estonians|Ethiopian|Ethiopians|European|Europeans|Fijian|Fijians|Filipino|Filipinos|Finnish|Finns|Florentine|Florentines|Frankish|Franks|French|Gabonese|Gallic|Gauls|Gambian|Gambians|Gaul|Genoese|Georgian|Georgians|German|Germans|Ghanaian|Ghanaians|Gothic|Goths|Greek|Greeks|Grenadian|Grenadians|Guatemalan|Guatemalans|Guinean|Guineans|Guyanese|Haitian|Haitians|Hellenic|Hellenes|Herzegovinian|Herzegovinians|Honduran|Hondurans|Hungarian|Hungarians|Icelandic|Icelanders|Indian|Indians|Indonesian|Indonesians|Iranian|Iranians|Iraqi|Iraqis|Irish|Israeli|Israelis|Italian|Italians|Ivorian|Ivorians|Japanese|Jordanian|Jordanians|Kazakh|Kazakhs|Kazakhstani|Kazakhstanis|Kenyan|Kenyans|Kirgiz|Kirghiz|Kittitian|Kittitians|Korean|Koreans|Kuwaiti|Kuwaitis|Kyrgyz|Kyrgyzstani|Kyrgyzstanis|Lao|Laotian|Laotians|Latvian|Latvians|Lebanese|Lettish|Liberian|Liberians|Libyan|Libyans|Liechtensteiner|Liechtensteiners|Lithuanian|Lithuanians|Lombard|Lombards|Luxembourgish|Luxembourgers|Macedonian|Macedonians|Magyar|Magyars|Malagasy|Malawian|Malawians|Malaysian|Malaysians|Maldivian|Maldivians|Malian|Malians|Malinese|Maltese|Marshallese|Martinican|Martinicans|Martiniquais|Mauritanian|Mauritanians|Mauritian|Mauritians|Mexican|Mexicans|Micronesian|Micronesians|Moldovan|Moldovans|Monacan|Monacans|Monégasque|Monégasques|Mongolian|Mongolians|Montenegrin|Montenegrins|Moorish|Moors|Moroccan|Moroccans|Motswana|Mozambican|Mozambicans|Namibian|Namibians|Nauruan|Nauruans|Nepali|Nepalis|Nepalese|Netherlandic|Nevisian|Nevisians|Nicaraguan|Nicaraguans|Nigerian|Nigerians|Nigerien|Nigeriens|Norman|Normans|Norwegian|Norwegians|Omani|Omanis|Ostrogoth|Ostrogoths|Ottoman|Ottomans|Pakistani|Pakistanis|Palauan|Palauans|Palestinian|Palestinians|Panamanian|Panamanians|Papuan|Papuans|Paraguayan|Paraguayans|Persian|Persians|Peruvian|Peruvians|Philippine|Pict|Picts|Polish|Poles|Portuguese|Prussian|Prussians|Qatari|Qataris|Roman|Romans|Romanian|Romanians|Romish|Russian|Russians|Rwandan|Rwandans|Salvadoran|Salvadorans|Sammarinese|Samoan|Samoans|Saracen|Saracens|Saudi|Saudis|Saxon|Saxons|Saxony|Scottish|Scots|Senegalese|Serbian|Serbs|Seychellois|Singaporean|Singaporeans|Slovak|Slovaks|Slovene|Slovenes|Slovenian|Slovenians|Somali|Somalis|Spanish|Spaniard|Spaniards|Spartan|Spartans|Sudanese|Surinamese|Swazi|Swazis|Swedish|Swedes|Swiss|Syrian|Syrians|Tajikistani|Tajikistanis|Tanzanian|Tanzanians|Thai|Thais|Timorese|Tobagonian|Tobagonians|Togolese|Tokelauan|Tokelauans|Tongan|Tongans|Trinidadian|Trinidadians|Tunisian|Tunisians|Turkish|Turks|Turkmen|Tuvaluan|Tuvaluans|Ugandan|Ugandans|Ukrainian|Ukrainians|Uruguayan|Uruguayans|Uzbek|Uzbeks|Uzbekistani|Uzbekistanis|Vandal|Vandals|Vanuatuan|Vanuatuans|Vatican|Venetian|Venetians|Venezuelan|Venezuelans|Vietnamese|Vincentian|Vincentians|Visigoth|Visigoths|Welsh|Yemeni|Yemenis|Zambian|Zambians|Zelanian|Zimbabwean|Zimbabweans)\b'
 
-          # Comprehensive list of nationality terms (modern and historical)
-          # Based on Wikipedia's list of adjectival and demonymic forms
-          # Includes plural forms for national groups per Z39.98 definition
-          NATIONALITIES=(
-            "Afghan" "Afghans" "Albanian" "Albanians" "Algerian" "Algerians"
-            "American" "Americans" "Andorran" "Andorrans" "Angolan" "Angolans"
-            "Antiguan" "Antiguans" "Arabian" "Arabians" "Argentine" "Argentines"
-            "Armenian" "Armenians" "Assyrian" "Assyrians" "Athenian" "Athenians"
-            "Australian" "Australians" "Austrian" "Austrians" "Azerbaijani"
-            "Azeri" "Azeris" "Babylonian" "Babylonians" "Bahamian" "Bahamians"
-            "Bahraini" "Bahrainis" "Barbadian" "Barbadians" "Barbudan" "Barbudans"
-            "Basotho" "Belarusian" "Belarusians" "Belgian" "Belgians" "Belizean"
-            "Belizeans" "Bengali" "Bengalis" "Beninese" "Beninois" "Bhutanese"
-            "Bissau-Guinean" "Bohemian" "Bohemians" "Bolivian" "Bolivians"
-            "Bosnian" "Bosnians" "Botswanan" "Botswanans" "Brazilian" "Brazilians"
-            "British" "Briton" "Britons" "Bruneian" "Bruneians" "Bulgarian"
-            "Bulgarians" "Burkinabé" "Burmese" "Burundian" "Burundians"
-            "Byzantine" "Byzantines" "Cabo Verdean" "Cambodian" "Cambodians"
-            "Cameroonian" "Cameroonians" "Canadian" "Canadians" "Carthaginian"
-            "Carthaginians" "Celtic" "Celts" "Central African" "Chadian" "Chadians"
-            "Chilean" "Chileans" "Chinese" "Colombian" "Colombians" "Comoran"
-            "Comorans" "Comorian" "Comorians" "Congolese" "Costa Rican"
-            "Croatian" "Croatians" "Cuban" "Cubans" "Cypriot" "Cypriots" "Czech"
-            "Czechs" "Danish" "Danes" "Djiboutian" "Djiboutians" "Dominican"
-            "Dominicans" "Dutch" "Ecuadorian" "Ecuadorians" "Egyptian" "Egyptians"
-            "Emirati" "Emiratis" "Emirian" "Emiri" "English" "Equatoguinean"
-            "Eritrean" "Eritreans" "Estonian" "Estonians" "Ethiopian" "Ethiopians"
-            "European" "Europeans" "Fijian" "Fijians" "Filipino" "Filipinos"
-            "Finnish" "Finns" "Florentine" "Florentines" "Frankish" "Franks"
-            "French" "Gabonese" "Gallic" "Gauls" "Gambian" "Gambians" "Gaul"
-            "Genoese" "Georgian" "Georgians" "German" "Germans" "Ghanaian"
-            "Ghanaians" "Gothic" "Goths" "Greek" "Greeks" "Grenadian" "Grenadians"
-            "Guatemalan" "Guatemalans" "Guinean" "Guineans" "Guyanese" "Haitian"
-            "Haitians" "Hellenic" "Hellenes" "Herzegovinian" "Herzegovinians"
-            "Honduran" "Hondurans" "Hungarian" "Hungarians" "I-Kiribati"
-            "Icelandic" "Icelanders" "Indian" "Indians" "Indonesian" "Indonesians"
-            "Iranian" "Iranians" "Iraqi" "Iraqis" "Irish" "Israeli" "Israelis"
-            "Italian" "Italians" "Ivorian" "Ivorians" "Japanese" "Jordanian"
-            "Jordanians" "Kazakh" "Kazakhs" "Kazakhstani" "Kazakhstanis" "Kenyan"
-            "Kenyans" "Kirgiz" "Kirghiz" "Kittitian" "Kittitians" "Korean"
-            "Koreans" "Kuwaiti" "Kuwaitis" "Kyrgyz" "Kyrgyzstani" "Kyrgyzstanis"
-            "Lao" "Laotian" "Laotians" "Latvian" "Latvians" "Lebanese" "Lettish"
-            "Liberian" "Liberians" "Libyan" "Libyans" "Liechtensteiner"
-            "Liechtensteiners" "Lithuanian" "Lithuanians" "Lombard" "Lombards"
-            "Luxembourgish" "Luxembourgers" "Macedonian" "Macedonians" "Magyar"
-            "Magyars" "Malagasy" "Malawian" "Malawians" "Malaysian" "Malaysians"
-            "Maldivian" "Maldivians" "Malian" "Malians" "Malinese" "Maltese"
-            "Marshallese" "Martinican" "Martinicans" "Martiniquais" "Mauritanian"
-            "Mauritanians" "Mauritian" "Mauritians" "Mexican" "Mexicans"
-            "Micronesian" "Micronesians" "Moldovan" "Moldovans" "Monacan"
-            "Monacans" "Monégasque" "Monégasques" "Mongolian" "Mongolians"
-            "Montenegrin" "Montenegrins" "Moorish" "Moors" "Moroccan" "Moroccans"
-            "Motswana" "Mozambican" "Mozambicans" "Namibian" "Namibians" "Nauruan"
-            "Nauruans" "Nepali" "Nepalis" "Nepalese" "Netherlandic" "Nevisian"
-            "Nevisians" "Ni-Vanuatu" "Nicaraguan" "Nicaraguans" "Nigerian"
-            "Nigerians" "Nigerien" "Nigeriens" "Norman" "Normans" "North Korean"
-            "Northern Marianan" "Norwegian" "Norwegians" "Omani" "Omanis"
-            "Ostrogoth" "Ostrogoths" "Ottoman" "Ottomans" "Pakistani" "Pakistanis"
-            "Palauan" "Palauans" "Palestinian" "Palestinians" "Panamanian"
-            "Panamanians" "Papuan" "Papuans" "Paraguayan" "Paraguayans" "Persian"
-            "Persians" "Peruvian" "Peruvians" "Philippine" "Pict" "Picts" "Polish"
-            "Poles" "Portuguese" "Prussian" "Prussians" "Puerto Rican" "Qatari"
-            "Qataris" "Roman" "Romans" "Romanian" "Romanians" "Romish" "Russian"
-            "Russians" "Rwandan" "Rwandans" "Saint Lucian" "Saint Vincentian"
-            "Salvadoran" "Salvadorans" "Sammarinese" "Samoan" "Samoans" "Saracen"
-            "Saracens" "Saudi" "Saudis" "Saudi Arabian" "Saxon" "Saxons" "Saxony"
-            "Scottish" "Scots" "Senegalese" "Serbian" "Serbs" "Seychellois"
-            "Sierra Leonean" "Singaporean" "Singaporeans" "Slovak" "Slovaks"
-            "Slovene" "Slovenes" "Slovenian" "Slovenians" "Somali" "Somalis"
-            "South African" "South Africans" "South Korean" "South Koreans"
-            "South Sudanese" "Spanish" "Spaniard" "Spaniards" "Spartan" "Spartans"
-            "Sri Lankan" "Sri Lankans" "Sudanese" "Surinamese" "Swazi" "Swazis"
-            "Swedish" "Swedes" "Swiss" "Syrian" "Syrians" "São Toméan" "Tajikistani"
-            "Tajikistanis" "Tanzanian" "Tanzanians" "Thai" "Thais" "Timorese"
-            "Tobagonian" "Tobagonians" "Togolese" "Tokelauan" "Tokelauans"
-            "Tongan" "Tongans" "Trinidadian" "Trinidadians" "Tunisian" "Tunisians"
-            "Turkish" "Turks" "Turkmen" "Tuvaluan" "Tuvaluans" "Ugandan" "Ugandans"
-            "Ukrainian" "Ukrainians" "Uruguayan" "Uruguayans" "Uzbek" "Uzbeks"
-            "Uzbekistani" "Uzbekistanis" "Vandal" "Vandals" "Vanuatuan" "Vanuatuans"
-            "Vatican" "Venetian" "Venetians" "Venezuelan" "Venezuelans" "Vietnamese"
-            "Vincentian" "Vincentians" "Visigoth" "Visigoths" "Welsh" "Yemeni"
-            "Yemenis" "Zambian" "Zambians" "Zelanian" "Zimbabwean" "Zimbabweans"
-          )
+          # Skip words already inside a z3998:nationality span
+          # Uses a negative lookbehind for the opening tag
+          REGEX="(?<!z3998:nationality\">)$REGEX"
 
-          for file in $CHAPTER_FILES; do
-            # Apply sed replacements for each nationality
-            for nationality in "''${NATIONALITIES[@]}"; do
-              # Use word boundaries to match whole words only
-              # Avoid matching if already wrapped in a span tag
-              ${pkgs.gnused}/bin/sed -i "s|\b\($nationality\)\b\([^<]*\)\(<\)|<span epub:type=\"z3998:nationality\">\1</span>\2\3|g" "$file"
-              ${pkgs.gnused}/bin/sed -i "s|\([^>]\)\b\($nationality\)\b\([^<]\)|\1<span epub:type=\"z3998:nationality\">\2</span>\3|g" "$file"
-              ${pkgs.gnused}/bin/sed -i "s|^\b\($nationality\)\b\([^<]\)|<span epub:type=\"z3998:nationality\">\1</span>\2|g" "$file"
-            done
+          REPLACE='<span epub:type="z3998:nationality">\1</span>'
 
-            COUNT=$((COUNT + 1))
-          done
-
-          echo "✓ Tagged nationalities in $COUNT chapter files"
-          echo ""
-          echo "⚠️  Please review the changes with git diff before committing"
+          # shellcheck disable=SC2086
+          se interactive-replace "$REGEX" "$REPLACE" $CHAPTER_FILES
         '';
 
         # Git configuration for better diff viewing with long lines
