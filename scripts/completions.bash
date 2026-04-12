@@ -3,14 +3,19 @@ _se_ext() {
   COMPREPLY=()
   cur="${COMP_WORDS[COMP_CWORD]}"
   prev="${COMP_WORDS[COMP_CWORD-1]}"
-  commands="check-version tag-nationalities search-usage"
+  commands="check-version docs tag-nationalities search-usage"
 
   if [ "$COMP_CWORD" -eq 1 ]; then
     COMPREPLY=($(compgen -W "$commands --help --version" -- "$cur"))
     return
   fi
 
-  case "$prev" in
+  case "${COMP_WORDS[1]}" in
+    docs)
+      if [ "$COMP_CWORD" -eq 2 ]; then
+        COMPREPLY=($(compgen -W "search open --path --claude-md --help" -- "$cur"))
+      fi
+      ;;
     search-usage)
       if [ "$COMP_CWORD" -eq 3 ]; then
         COMPREPLY=($(compgen -W "--limit --full" -- "$cur"))

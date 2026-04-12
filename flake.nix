@@ -30,25 +30,35 @@
 
         se-ext = pkgs.stdenv.mkDerivation {
           name = "se-ext";
-          src = ./scripts;
+          src = pkgs.lib.fileset.toSource {
+            root = ./.;
+            fileset = pkgs.lib.fileset.unions [
+              ./scripts
+              ./docs/se-manual
+            ];
+          };
 
           nativeBuildInputs = [ pkgs.makeWrapper ];
 
           installPhase = ''
-            mkdir -p $out/bin $out/share/bash-completion/completions $out/share/zsh/site-functions
+            mkdir -p $out/bin $out/share/se-docs $out/share/bash-completion/completions $out/share/zsh/site-functions
+
+            # Install documentation
+            cp -r docs/se-manual/* $out/share/se-docs/
 
             # Install all scripts into bin/
-            for f in *.sh; do
-              install -m 755 "$f" "$out/bin/$f"
+            for f in scripts/*.sh; do
+              install -m 755 "$f" "$out/bin/$(basename "$f")"
             done
 
             # Create the se-ext wrapper with runtime deps on PATH
             makeWrapper $out/bin/se-ext.sh $out/bin/se-ext \
-              --prefix PATH : ${pkgs.lib.makeBinPath runtimeDeps}
+              --prefix PATH : ${pkgs.lib.makeBinPath runtimeDeps} \
+              --set SE_DOCS $out/share/se-docs
 
             # Install completions
-            install -m 644 completions.bash $out/share/bash-completion/completions/se-ext
-            install -m 644 completions.zsh $out/share/zsh/site-functions/_se_ext
+            install -m 644 scripts/completions.bash $out/share/bash-completion/completions/se-ext
+            install -m 644 scripts/completions.zsh $out/share/zsh/site-functions/_se_ext
           '';
         };
 
@@ -144,6 +154,9 @@
               ${pkgs.pipx}/bin/pipx install standardebooks
             fi
 
+            # Make SE docs available
+            export SE_DOCS="${se-ext}/share/se-docs"
+
             # Check for updates
             se-ext check-version
 
@@ -151,6 +164,9 @@
             echo "Standard Ebooks development environment"
             echo "Tools available: se (Standard Ebooks), se-ext (extended tools)"
             echo "Run 'se-ext --help' for extended tool commands."
+            echo ""
+            echo "SE docs available: se-ext docs, se-ext docs search <term>"
+            echo "For Claude Code: se-ext docs --claude-md"
             echo ""
             echo "Git diff improvements enabled:"
             echo "  • Delta pager for better long-line diffs"

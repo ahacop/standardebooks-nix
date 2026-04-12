@@ -4,6 +4,7 @@ _se_ext() {
   local -a commands
   commands=(
     'check-version:Check for Standard Ebooks tools updates'
+    'docs:Browse and search SE documentation'
     'tag-nationalities:Tag nationality terms with epub\:type attributes'
     'search-usage:Search SE GitHub for real-world semantic tag usage'
   )
@@ -18,6 +19,10 @@ _se_ext() {
       ;;
     args)
       case "$words[1]" in
+        docs)
+          _arguments \
+            '1:subcommand:(search open --path --claude-md --help)'
+          ;;
         search-usage)
           _arguments \
             '1:search-term:' \

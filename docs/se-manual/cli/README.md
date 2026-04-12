@@ -1,0 +1,22 @@
+# se — Standard Ebooks Toolset (3.0.3)
+
+usage: se [-h] [-p] [-v] COMMAND [ARGS ...]
+
+The entry point for the Standard Ebooks toolset.
+
+positional arguments:
+  COMMAND        one of: add-file british2american build build-ids build-
+                 images build-loi build-manifest build-spine build-svg-titles
+                 build-title build-toc clean compare-versions create-draft
+                 css-select dec2roman extract-ebook find-mismatched-dashes
+                 find-mismatched-diacritics find-unusual-characters help
+                 hyphenate interactive-replace lint make-url-safe modernize-
+                 spelling prepare-release recompose-epub renumber-endnotes
+                 roman2dec semanticate shift-endnotes shift-illustrations
+                 split-file titlecase typogrify unicode-names word-count xpath
+  ARGS           arguments for the subcommand
+
+options:
+  -h, --help     show this help message and exit
+  -p, --plain    print plain text output, without tables or formatting
+  -v, --version  print version number and exit
