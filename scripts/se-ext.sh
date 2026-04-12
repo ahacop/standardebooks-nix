@@ -11,6 +11,7 @@ show_help() {
   echo "COMMANDS"
   echo "  check-version          Check for Standard Ebooks tools updates"
   echo "  docs                   Browse and search SE documentation"
+  echo "  modernize-spelling     Apply archaic-to-modern spelling replacements"
   echo "  tag-nationalities      Tag nationality terms with epub:type attributes"
   echo "  search-usage           Search SE GitHub for real-world semantic tag usage"
   echo ""
@@ -21,6 +22,7 @@ show_help() {
 list_commands() {
   echo "check-version"
   echo "docs"
+  echo "modernize-spelling"
   echo "tag-nationalities"
   echo "search-usage"
 }
@@ -33,6 +35,10 @@ case "${1:-}" in
   docs)
     shift
     source "$SCRIPT_DIR/se-docs.sh"
+    ;;
+  modernize-spelling)
+    shift
+    source "$SCRIPT_DIR/se-modernize-spelling.sh"
     ;;
   tag-nationalities)
     shift

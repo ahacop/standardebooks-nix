@@ -5,6 +5,7 @@ _se_ext() {
   commands=(
     'check-version:Check for Standard Ebooks tools updates'
     'docs:Browse and search SE documentation'
+    'modernize-spelling:Apply archaic-to-modern spelling replacements'
     'tag-nationalities:Tag nationality terms with epub\:type attributes'
     'search-usage:Search SE GitHub for real-world semantic tag usage'
   )
@@ -29,6 +30,11 @@ _se_ext() {
             '2:context-term:' \
             '--limit[Max repos to show]:number:' \
             '--full[Fetch file contents for richer context]'
+          ;;
+        modernize-spelling)
+          _arguments \
+            '--yes[Apply all replacements without confirmation]' \
+            '1:ebook-directory:_directories'
           ;;
         tag-nationalities)
           _arguments '1:ebook-directory:_directories'

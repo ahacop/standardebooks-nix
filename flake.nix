@@ -34,6 +34,7 @@
             root = ./.;
             fileset = pkgs.lib.fileset.unions [
               ./scripts
+              ./data
               ./docs/se-manual
             ];
           };
@@ -41,10 +42,13 @@
           nativeBuildInputs = [ pkgs.makeWrapper ];
 
           installPhase = ''
-            mkdir -p $out/bin $out/share/se-docs $out/share/bash-completion/completions $out/share/zsh/site-functions
+            mkdir -p $out/bin $out/share/se-docs $out/share/se-ext-data $out/share/bash-completion/completions $out/share/zsh/site-functions
 
             # Install documentation
             cp -r docs/se-manual/* $out/share/se-docs/
+
+            # Install data files
+            cp -r data/* $out/share/se-ext-data/
 
             # Install all scripts into bin/
             for f in scripts/*.sh; do
@@ -54,7 +58,8 @@
             # Create the se-ext wrapper with runtime deps on PATH
             makeWrapper $out/bin/se-ext.sh $out/bin/se-ext \
               --prefix PATH : ${pkgs.lib.makeBinPath runtimeDeps} \
-              --set SE_DOCS $out/share/se-docs
+              --set SE_DOCS $out/share/se-docs \
+              --set SE_EXT_DATA $out/share/se-ext-data
 
             # Install completions
             install -m 644 scripts/completions.bash $out/share/bash-completion/completions/se-ext
@@ -154,8 +159,9 @@
               ${pkgs.pipx}/bin/pipx install standardebooks
             fi
 
-            # Make SE docs available
+            # Make SE docs and data available
             export SE_DOCS="${se-ext}/share/se-docs"
+            export SE_EXT_DATA="${se-ext}/share/se-ext-data"
 
             # Check for updates
             se-ext check-version
