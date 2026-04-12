@@ -7,6 +7,7 @@ _se_ext() {
     'docs:Browse and search SE documentation'
     'find-archaic-words:Find archaic spellings not yet in the word list'
     'modernize-spelling:Apply archaic-to-modern spelling replacements'
+    'page-scans:Open page scan URLs from ebook metadata'
     'tag-nationalities:Tag nationality terms with epub\:type attributes'
     'search-usage:Search SE GitHub for real-world semantic tag usage'
   )
@@ -38,6 +39,12 @@ _se_ext() {
         modernize-spelling)
           _arguments \
             '--yes[Apply all replacements without confirmation]' \
+            '1:ebook-directory:_directories'
+          ;;
+        page-scans)
+          _arguments \
+            '--search[Search term to append to URL]:term:' \
+            '--list[List URLs without opening]' \
             '1:ebook-directory:_directories'
           ;;
         tag-nationalities)
