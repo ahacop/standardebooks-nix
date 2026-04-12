@@ -17,37 +17,39 @@
       let
         pkgs = nixpkgs.legacyPackages.${system};
 
-        checkVersion = pkgs.writeShellApplication {
-          name = "se-check-version";
-          runtimeInputs = [
-            pkgs.pipx
-            pkgs.jq
-            pkgs.curl
-          ];
-          text = builtins.readFile ./scripts/se-check-version.sh;
-        };
+        runtimeDeps = [
+          pkgs.pipx
+          pkgs.jq
+          pkgs.curl
+          pkgs.gh
+          pkgs.gawk
+          pkgs.python3
+          pkgs.coreutils
+          pkgs.findutils
+        ];
 
-        tagNationalities = pkgs.writeShellApplication {
-          name = "se-tag-nationalities";
-          runtimeInputs = [ pkgs.findutils ];
-          text = builtins.readFile ./scripts/se-tag-nationalities.sh;
-        };
+        se-ext = pkgs.stdenv.mkDerivation {
+          name = "se-ext";
+          src = ./scripts;
 
-        searchUsage = pkgs.writeShellApplication {
-          name = "se-search-usage";
-          runtimeInputs = [
-            pkgs.gh
-            pkgs.jq
-            pkgs.gawk
-            pkgs.python3
-            pkgs.coreutils
-          ];
-          text = builtins.readFile ./scripts/se-search-usage.sh;
-        };
+          nativeBuildInputs = [ pkgs.makeWrapper ];
 
-        listScripts = pkgs.writeShellApplication {
-          name = "se-list-scripts";
-          text = builtins.readFile ./scripts/se-list-scripts.sh;
+          installPhase = ''
+            mkdir -p $out/bin $out/share/bash-completion/completions $out/share/zsh/site-functions
+
+            # Install all scripts into bin/
+            for f in *.sh; do
+              install -m 755 "$f" "$out/bin/$f"
+            done
+
+            # Create the se-ext wrapper with runtime deps on PATH
+            makeWrapper $out/bin/se-ext.sh $out/bin/se-ext \
+              --prefix PATH : ${pkgs.lib.makeBinPath runtimeDeps}
+
+            # Install completions
+            install -m 644 completions.bash $out/share/bash-completion/completions/se-ext
+            install -m 644 completions.zsh $out/share/zsh/site-functions/_se_ext
+          '';
         };
 
         # Git configuration for better diff viewing with long lines
@@ -83,34 +85,18 @@
         '';
       in
       {
-        apps.check-version = {
-          type = "app";
-          program = "${checkVersion}/bin/se-check-version";
-        };
+        packages.default = se-ext;
 
-        apps.tag-nationalities = {
+        apps.default = {
           type = "app";
-          program = "${tagNationalities}/bin/se-tag-nationalities";
-        };
-
-        apps.search-usage = {
-          type = "app";
-          program = "${searchUsage}/bin/se-search-usage";
-        };
-
-        apps.list-scripts = {
-          type = "app";
-          program = "${listScripts}/bin/se-list-scripts";
+          program = "${se-ext}/bin/se-ext";
         };
 
         devShells.default = pkgs.mkShell {
           packages = [
             pkgs.pipx
             pkgs.python3
-            checkVersion
-            tagNationalities
-            searchUsage
-            listScripts
+            se-ext
             pkgs.calibre
             pkgs.git
             pkgs.epubcheck
@@ -159,11 +145,12 @@
             fi
 
             # Check for updates
-            se-check-version
+            se-ext check-version
 
             echo ""
             echo "Standard Ebooks development environment"
-            echo "Tools available: se (all Standard Ebooks commands), se-list-scripts"
+            echo "Tools available: se (Standard Ebooks), se-ext (extended tools)"
+            echo "Run 'se-ext --help' for extended tool commands."
             echo ""
             echo "Git diff improvements enabled:"
             echo "  • Delta pager for better long-line diffs"
