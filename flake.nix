@@ -70,6 +70,14 @@
           se interactive-replace "$REGEX" "$REPLACE" $CHAPTER_FILES
         '';
 
+        listScripts = pkgs.writeShellScriptBin "se-list-scripts" ''
+          echo "Available scripts:"
+          echo ""
+          echo "  se-check-version       Check for Standard Ebooks tools updates"
+          echo "  se-tag-nationalities   Tag nationality terms with epub:type attributes"
+          echo "  se-list-scripts        List available scripts"
+        '';
+
         # Git configuration for better diff viewing with long lines
         gitConfigLocal = pkgs.writeText "gitconfig-local" ''
           [core]
@@ -113,12 +121,18 @@
           program = "${tagNationalities}/bin/se-tag-nationalities";
         };
 
+        apps.list-scripts = {
+          type = "app";
+          program = "${listScripts}/bin/se-list-scripts";
+        };
+
         devShells.default = pkgs.mkShell {
           packages = [
             pkgs.pipx
             pkgs.python3
             checkVersion
             tagNationalities
+            listScripts
             pkgs.calibre
             pkgs.git
             pkgs.epubcheck
@@ -171,7 +185,7 @@
 
             echo ""
             echo "Standard Ebooks development environment"
-            echo "Tools available: se (all Standard Ebooks commands)"
+            echo "Tools available: se (all Standard Ebooks commands), se-list-scripts"
             echo ""
             echo "Git diff improvements enabled:"
             echo "  • Delta pager for better long-line diffs"
