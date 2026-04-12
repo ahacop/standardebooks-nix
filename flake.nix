@@ -34,10 +34,34 @@
         '';
 
         tagNationalities = pkgs.writeShellScriptBin "se-tag-nationalities" ''
-          if [ -z "$1" ]; then
+          if [ -z "$1" ] || [ "$1" = "--help" ] || [ "$1" = "-h" ]; then
             echo "Usage: se-tag-nationalities <ebook-directory>"
+            echo ""
+            echo "Interactively tag nationality/demonym terms with z3998:nationality semantic"
+            echo "markup in chapter files. Uses 'se interactive-replace' so each match can be"
+            echo "reviewed before accepting."
+            echo ""
+            echo "WHEN TO TAG"
+            echo "  Standard Ebooks tags demonyms broadly — not just when referring to people."
+            echo "  Based on actual SE production usage, tag nationality terms in ALL of these cases:"
+            echo ""
+            echo "  People/groups:     'the Apaches had not yet caught up'"
+            echo "  Describing people: 'the English gentlemen'"
+            echo "  Describing things: 'English park scenery', 'British literature'"
+            echo "  Languages:         'spoke in Apache'"
+            echo ""
+            echo "WHEN NOT TO TAG"
+            echo "  Place names use z3998:place instead (e.g. 'England', 'France', 'London')."
+            echo "  If the word IS the place rather than the people/culture of that place, skip it."
+            echo ""
+            echo "WATCH FOR FALSE POSITIVES"
+            echo "  Some terms have non-nationality meanings. Review carefully:"
+            echo "    'Indian corn', 'Turkish bath', 'Roman numeral', 'French door'"
+            echo "  These idiomatic/generic uses may or may not warrant tagging — use judgment"
+            echo "  and check how recent SE productions handle similar cases."
+            echo ""
             echo "Example: se-tag-nationalities /path/to/charles-brockden-brown_wieland"
-            exit 1
+            exit 0
           fi
 
           EBOOK_DIR="$1"
