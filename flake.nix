@@ -62,7 +62,7 @@
             done
 
             # Create the se-ext wrapper with runtime deps on PATH
-            makeWrapper $out/bin/se-ext.sh $out/bin/se-ext \
+            makeWrapper $out/bin/ext.sh $out/bin/se-ext \
               --prefix PATH : ${pkgs.lib.makeBinPath runtimeDeps} \
               --set SE_DOCS $out/share/se-docs \
               --set SE_EXT_DATA $out/share/se-ext-data

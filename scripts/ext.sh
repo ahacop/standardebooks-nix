@@ -32,27 +32,27 @@ list_commands() {
 case "${1:-}" in
   check-version)
     shift
-    source "$SCRIPT_DIR/se-check-version.sh"
+    source "$SCRIPT_DIR/check-version.sh"
     ;;
   docs)
     shift
-    source "$SCRIPT_DIR/se-docs.sh"
+    source "$SCRIPT_DIR/docs.sh"
     ;;
   find-archaic-words)
     shift
-    source "$SCRIPT_DIR/se-find-archaic-words.sh"
+    source "$SCRIPT_DIR/find-archaic-words.sh"
     ;;
   modernize-spelling)
     shift
-    source "$SCRIPT_DIR/se-modernize-spelling.sh"
+    source "$SCRIPT_DIR/modernize-spelling.sh"
     ;;
   tag-nationalities)
     shift
-    source "$SCRIPT_DIR/se-tag-nationalities.sh"
+    source "$SCRIPT_DIR/tag-nationalities.sh"
     ;;
   search-usage)
     shift
-    source "$SCRIPT_DIR/se-search-usage.sh"
+    source "$SCRIPT_DIR/search-usage.sh"
     ;;
   --version|-v)
     echo "se-ext $VERSION"
