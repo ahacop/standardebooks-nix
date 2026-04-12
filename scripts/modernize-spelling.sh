@@ -39,10 +39,26 @@ if [ -z "$TEXT_FILES" ]; then
   exit 1
 fi
 
-# Case-aware replacement: for each archaic→modern pair, replace lowercase,
-# Title Case, and UPPER CASE variants using sed with word boundaries.
+# Verify we're inside a git repo
+if ! git -C "$EBOOK_DIR" rev-parse --git-dir >/dev/null 2>&1; then
+  echo "Error: $EBOOK_DIR is not inside a git repository" >&2
+  exit 1
+fi
 
-apply_pair() {
+# Read word pairs and sort longest-first to avoid substring conflicts
+# (e.g., "faultering" must be processed before "faulter")
+pairs=()
+while IFS=$'\t' read -r archaic modern || [ -n "$archaic" ]; do
+  [ -z "$archaic" ] && continue
+  [[ "$archaic" == \#* ]] && continue
+  pairs+=("$archaic	$modern")
+done < "$WORD_LIST"
+
+mapfile -t sorted < <(for p in "${pairs[@]}"; do echo "$p"; done | awk -F'\t' '{print length($1), $0}' | sort -rnk1 | cut -d' ' -f2-)
+
+# For each word pair, replace all case variants and commit if changes were made.
+
+apply_and_commit() {
   local archaic="$1"
   local modern="$2"
 
@@ -56,46 +72,49 @@ apply_pair() {
   mod_title="$(echo "${modern:0:1}" | tr '[:lower:]' '[:upper:]')${modern:1}"
   mod_upper="$(echo "$modern" | tr '[:lower:]' '[:upper:]')"
 
-  local -a pairs=()
-  pairs+=("\\b$arch_title\\b" "$mod_title")
+  local -a variants=()
+  variants+=("\\b$arch_title\\b" "$mod_title")
   if [ "$arch_upper" != "$arch_title" ]; then
-    pairs+=("\\b$arch_upper\\b" "$mod_upper")
+    variants+=("\\b$arch_upper\\b" "$mod_upper")
   fi
   if [ "$arch_lower" != "$arch_title" ]; then
-    pairs+=("\\b$arch_lower\\b" "$mod_lower")
+    variants+=("\\b$arch_lower\\b" "$mod_lower")
   fi
 
+  local found=false
   local i=0
-  while [ $i -lt ${#pairs[@]} ]; do
-    local pat="${pairs[$i]}"
-    local rep="${pairs[$((i + 1))]}"
+  while [ $i -lt ${#variants[@]} ]; do
+    local pat="${variants[$i]}"
+    local rep="${variants[$((i + 1))]}"
     i=$((i + 2))
 
-    # Check if any files contain matches before running sed
     # shellcheck disable=SC2086
     if grep -Plq "$pat" $TEXT_FILES 2>/dev/null; then
       # shellcheck disable=SC2086
       sed -i -E "s/$pat/$rep/g" $TEXT_FILES
-      echo "Replaced: $pat -> $rep"
+      found=true
     fi
   done
+
+  if [ "$found" = true ]; then
+    git -C "$EBOOK_DIR" add src/epub/text/
+    git -C "$EBOOK_DIR" commit -m "[Editorial] $archaic -> $modern" --quiet
+    echo "Committed: [Editorial] $archaic -> $modern"
+    return 0
+  fi
+
+  return 1
 }
 
 count=0
-replaced=0
-while IFS=$'\t' read -r archaic modern || [ -n "$archaic" ]; do
-  # Skip empty lines and comments
-  [ -z "$archaic" ] && continue
-  [[ "$archaic" == \#* ]] && continue
+committed=0
+for entry in "${sorted[@]}"; do
+  archaic="${entry%%	*}"
+  modern="${entry#*	}"
 
-  apply_pair "$archaic" "$modern"
+  apply_and_commit "$archaic" "$modern" && committed=$((committed + 1))
   count=$((count + 1))
-done < "$WORD_LIST"
+done
 
 echo ""
-echo "Processed $count word pairs from $WORD_LIST"
-echo ""
-echo "To find new archaic spelling candidates, run:"
-echo "  se-ext find-archaic-words <ebook-directory>"
-echo ""
-echo "Then use /modernize-spellings to review and add them to the word list."
+echo "Processed $count word pairs, committed $committed changes."
