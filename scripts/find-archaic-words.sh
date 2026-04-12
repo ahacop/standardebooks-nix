@@ -8,7 +8,6 @@ if [ "$1" = "--help" ] || [ "$1" = "-h" ]; then
   echo "en_US and en_GB dictionaries — only words missing from BOTH are flagged."
   echo ""
   echo "Outputs a TSV list of candidates with context lines to stdout."
-  echo "Use with the /modernize-spellings skill for agent-assisted review."
   echo ""
   echo "OPTIONS"
   echo "  <ebook-directory>  Path to the ebook project root (default: .)"
@@ -31,8 +30,6 @@ if [ ! -f "$WORD_LIST" ]; then
   echo "Error: Word list not found: $WORD_LIST" >&2
   exit 1
 fi
-
-IGNORE_FILE="$EBOOK_DIR/.se-ext-ignore"
 
 # Collect all XHTML text files
 TEXT_FILES=()
@@ -59,23 +56,14 @@ ALL_LOWER=$(echo "$STRIPPED" | grep -oP "[a-zA-Z][a-zA-Z'-]*[a-zA-Z]" | tr '[:up
 # Step 3: Build set of known archaic words from the word list
 KNOWN_ARCHAIC=$(cut -f1 "$WORD_LIST" | grep -v '^#' | grep -v '^$' | sort -u)
 
-# Step 4: Load ignore list
-IGNORED=""
-if [ -f "$IGNORE_FILE" ]; then
-  IGNORED=$(grep -v '^#' "$IGNORE_FILE" | grep -v '^$' | sort -u)
-fi
-
-# Step 5: Check against en_US and en_GB — keep only words unknown to BOTH
+# Step 4: Check against en_US and en_GB — keep only words unknown to BOTH
 UNKNOWN_US=$(echo "$ALL_LOWER" | aspell list -l en_US 2>/dev/null | sort -u)
 UNKNOWN_GB=$(echo "$ALL_LOWER" | aspell list -l en_GB 2>/dev/null | sort -u)
 UNKNOWN_BOTH=$(comm -12 <(echo "$UNKNOWN_US") <(echo "$UNKNOWN_GB"))
 
-# Step 6: Filter out proper nouns, known archaic words, and ignored words
+# Step 5: Filter out proper nouns and known archaic words
 CANDIDATES=$(comm -23 <(echo "$UNKNOWN_BOTH") <(echo "$PROPER_NOUNS"))
 CANDIDATES=$(comm -23 <(echo "$CANDIDATES") <(echo "$KNOWN_ARCHAIC"))
-if [ -n "$IGNORED" ]; then
-  CANDIDATES=$(comm -23 <(echo "$CANDIDATES") <(echo "$IGNORED" | sort -u))
-fi
 
 # Filter out very short words (artifacts)
 CANDIDATES=$(echo "$CANDIDATES" | awk 'length >= 3')

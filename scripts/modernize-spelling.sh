@@ -120,3 +120,8 @@ done < "$WORD_LIST"
 
 echo ""
 echo "Processed $count word pairs from $WORD_LIST"
+echo ""
+echo "To find new archaic spelling candidates, run:"
+echo "  se-ext find-archaic-words <ebook-directory>"
+echo ""
+echo "Then use /modernize-spellings to review and add them to the word list."
