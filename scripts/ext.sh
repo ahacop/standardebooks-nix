@@ -15,6 +15,7 @@ show_help() {
   echo "  modernize-spelling     Apply archaic-to-modern spelling replacements"
   echo "  tag-nationalities      Tag nationality terms with epub:type attributes"
   echo "  page-scans             Open page scan URLs from ebook metadata"
+  echo "  preview                Build the ebook and open it in the default reader"
   echo "  search-usage           Search SE GitHub for real-world semantic tag usage"
   echo ""
   echo "Run 'se-ext <command> --help' for more info on a command."
@@ -27,6 +28,7 @@ list_commands() {
   echo "find-archaic-words"
   echo "modernize-spelling"
   echo "page-scans"
+  echo "preview"
   echo "tag-nationalities"
   echo "search-usage"
 }
@@ -51,6 +53,10 @@ case "${1:-}" in
   page-scans)
     shift
     source "$SCRIPT_DIR/page-scans.sh"
+    ;;
+  preview)
+    shift
+    source "$SCRIPT_DIR/preview.sh"
     ;;
   tag-nationalities)
     shift

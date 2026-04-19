@@ -3,7 +3,7 @@ _se_ext() {
   COMPREPLY=()
   cur="${COMP_WORDS[COMP_CWORD]}"
   prev="${COMP_WORDS[COMP_CWORD-1]}"
-  commands="check-version docs find-archaic-words modernize-spelling page-scans tag-nationalities search-usage"
+  commands="check-version docs find-archaic-words modernize-spelling page-scans preview tag-nationalities search-usage"
 
   if [ "$COMP_CWORD" -eq 1 ]; then
     COMPREPLY=($(compgen -W "$commands --help --version" -- "$cur"))
@@ -28,6 +28,9 @@ _se_ext() {
       ;;
     page-scans)
       COMPREPLY=($(compgen -W "--search --list --help" -- "$cur"))
+      ;;
+    preview)
+      COMPREPLY=($(compgen -W "--output-dir --advanced --help" -- "$cur"))
       ;;
     search-usage)
       if [ "$COMP_CWORD" -eq 3 ]; then

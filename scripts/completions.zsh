@@ -8,6 +8,7 @@ _se_ext() {
     'find-archaic-words:Find archaic spellings not yet in the word list'
     'modernize-spelling:Apply archaic-to-modern spelling replacements'
     'page-scans:Open page scan URLs from ebook metadata'
+    'preview:Build the ebook and open it in the default reader'
     'tag-nationalities:Tag nationality terms with epub\:type attributes'
     'search-usage:Search SE GitHub for real-world semantic tag usage'
   )
@@ -45,6 +46,12 @@ _se_ext() {
           _arguments \
             '--search[Search term to append to URL]:term:' \
             '--list[List URLs without opening]' \
+            '1:ebook-directory:_directories'
+          ;;
+        preview)
+          _arguments \
+            '--output-dir[Build output directory]:dir:_directories' \
+            '--advanced[Open the advanced .epub]' \
             '1:ebook-directory:_directories'
           ;;
         tag-nationalities)
