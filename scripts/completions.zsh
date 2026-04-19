@@ -25,7 +25,7 @@ _se_ext() {
       case "$words[1]" in
         docs)
           _arguments \
-            '1:subcommand:(search open --path --claude-md --help)'
+            '1:subcommand:(index search open headings section --path --claude-md --help)'
           ;;
         search-usage)
           _arguments \

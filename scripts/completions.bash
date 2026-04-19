@@ -13,7 +13,7 @@ _se_ext() {
   case "${COMP_WORDS[1]}" in
     docs)
       if [ "$COMP_CWORD" -eq 2 ]; then
-        COMPREPLY=($(compgen -W "search open --path --claude-md --help" -- "$cur"))
+        COMPREPLY=($(compgen -W "index search open headings section --path --claude-md --help" -- "$cur"))
       fi
       ;;
     find-archaic-words)
