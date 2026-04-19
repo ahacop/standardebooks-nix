@@ -99,7 +99,7 @@ append_search() {
 
   case "$url" in
     *archive.org/details/*)
-      echo "${url}?ui=theater&view=1up&q=${encoded}"
+      echo "${url%/}/mode/1up?q=${encoded}"
       ;;
     *books.google.com/*)
       if [[ "$url" == *"?"* ]]; then
