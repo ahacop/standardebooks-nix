@@ -1,7 +1,7 @@
 .PHONY: check-version
 
 check-version:
-	@pinned=$$(grep -oP 'standardebooks==\K[^"]+' pyproject.toml); \
+	@pinned=$$(grep -oP 'standardebooks==\K[^"]+' nix/uv/pyproject.toml); \
 	latest=$$(curl -fsSL https://pypi.org/pypi/standardebooks/json | jq -r '.info.version'); \
 	echo "pinned: $$pinned"; \
 	echo "latest: $$latest"; \

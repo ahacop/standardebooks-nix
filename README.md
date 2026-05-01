@@ -31,12 +31,12 @@ Run `se-ext --help` or `se-ext <command> --help` for details.
 
 ## Updating the Standard Ebooks toolchain
 
-`se` is built from `pyproject.toml` + `uv.lock`. To bump to a newer release:
+`se` is built from `nix/uv/pyproject.toml` + `nix/uv/uv.lock`. To bump to a newer release:
 
 ```bash
-# edit pyproject.toml to change standardebooks==X.Y.Z, then:
-nix-shell -p uv --run "uv lock --python 3.13"
-git add pyproject.toml uv.lock
+# edit nix/uv/pyproject.toml to change standardebooks==X.Y.Z, then:
+cd nix/uv && nix-shell -p uv --run "uv lock --python 3.13" && cd -
+git add nix/uv/pyproject.toml nix/uv/uv.lock
 nix flake check
 ```
 

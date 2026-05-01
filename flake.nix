@@ -59,7 +59,7 @@
         # ---------------------------------------------------------------------
         python = pkgs.python313;
 
-        workspace = uv2nix.lib.workspace.loadWorkspace { workspaceRoot = ./.; };
+        workspace = uv2nix.lib.workspace.loadWorkspace { workspaceRoot = ./nix/uv; };
 
         # Prefer wheels (fast). Native wheels get autoPatchelfHook below.
         overlay = workspace.mkPyprojectOverlay {
