@@ -23,21 +23,21 @@ This will give you access to:
 `se-ext` provides additional helpers for ebook production:
 
 ```bash
-se-ext check-version        # Check for Standard Ebooks tools updates
 se-ext tag-nationalities    # Interactively tag nationality terms
 se-ext search-usage         # Search SE GitHub for semantic tag usage
 ```
 
 Run `se-ext --help` or `se-ext <command> --help` for details.
 
-## Version checking
+## Updating the Standard Ebooks toolchain
 
-The environment automatically checks for new releases of the Standard Ebooks tools when you load the shell.
-
-You can also manually check with:
+`se` is built from `pyproject.toml` + `uv.lock`. To bump to a newer release:
 
 ```bash
-nix run github:ahacop/standardebooks-nix -- check-version
+# edit pyproject.toml to change standardebooks==X.Y.Z, then:
+nix-shell -p uv --run "uv lock --python 3.13"
+git add pyproject.toml uv.lock
+nix flake check
 ```
 
 ## License

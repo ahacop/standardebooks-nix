@@ -9,7 +9,6 @@ show_help() {
   echo "Usage: se-ext <command> [args...]"
   echo ""
   echo "COMMANDS"
-  echo "  check-version          Check for Standard Ebooks tools updates"
   echo "  docs                   Browse and search SE documentation"
   echo "  find-archaic-words     Find archaic spellings not yet in the word list"
   echo "  modernize-spelling     Apply archaic-to-modern spelling replacements"
@@ -23,7 +22,6 @@ show_help() {
 
 # List subcommands (used by completion)
 list_commands() {
-  echo "check-version"
   echo "docs"
   echo "find-archaic-words"
   echo "modernize-spelling"
@@ -34,10 +32,6 @@ list_commands() {
 }
 
 case "${1:-}" in
-  check-version)
-    shift
-    source "$SCRIPT_DIR/check-version.sh"
-    ;;
   docs)
     shift
     source "$SCRIPT_DIR/docs.sh"

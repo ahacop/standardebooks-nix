@@ -3,7 +3,6 @@
 _se_ext() {
   local -a commands
   commands=(
-    'check-version:Check for Standard Ebooks tools updates'
     'docs:Browse and search SE documentation'
     'find-archaic-words:Find archaic spellings not yet in the word list'
     'modernize-spelling:Apply archaic-to-modern spelling replacements'
