@@ -24,7 +24,20 @@ _se_ext() {
       case "$words[1]" in
         docs)
           _arguments \
-            '1:subcommand:(index search open headings section --path --claude-md --help)'
+            '1:subcommand:(index ls search open headings section lines --path --claude-md --help)' \
+            '*::search-arg:->docs_search_args'
+          case "$state" in
+            docs_search_args)
+              if [ "$words[2]" = "search" ]; then
+                _arguments \
+                  '--context[Lines of context around match]:n:' \
+                  '-C[Lines of context around match]:n:' \
+                  '--scope[Limit to scope dir]:dir:(manual contribute cli third-party)' \
+                  '--exclude[Exclude scope dir]:dir:(manual contribute cli third-party)' \
+                  '--absolute[Print absolute paths]'
+              fi
+              ;;
+          esac
           ;;
         search-usage)
           _arguments \

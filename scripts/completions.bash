@@ -13,7 +13,16 @@ _se_ext() {
   case "${COMP_WORDS[1]}" in
     docs)
       if [ "$COMP_CWORD" -eq 2 ]; then
-        COMPREPLY=($(compgen -W "index search open headings section --path --claude-md --help" -- "$cur"))
+        COMPREPLY=($(compgen -W "index ls search open headings section lines --path --claude-md --help" -- "$cur"))
+      elif [ "${COMP_WORDS[2]}" = "search" ]; then
+        case "$prev" in
+          --scope|--exclude)
+            COMPREPLY=($(compgen -W "manual contribute cli third-party" -- "$cur")) ;;
+          -C|--context)
+            COMPREPLY=() ;;
+          *)
+            COMPREPLY=($(compgen -W "--context --scope --exclude --absolute" -- "$cur")) ;;
+        esac
       fi
       ;;
     find-archaic-words)
