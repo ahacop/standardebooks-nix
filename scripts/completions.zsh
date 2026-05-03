@@ -8,7 +8,6 @@ _se_ext() {
     'modernize-spelling:Apply archaic-to-modern spelling replacements'
     'page-scans:Open page scan URLs from ebook metadata'
     'preview:Build the ebook and open it in the default reader'
-    'tag-nationalities:Tag nationality terms with epub\:type attributes'
     'search-usage:Search SE GitHub for real-world semantic tag usage'
   )
 
@@ -65,9 +64,6 @@ _se_ext() {
             '--output-dir[Build output directory]:dir:_directories' \
             '--advanced[Open the advanced .epub]' \
             '1:ebook-directory:_directories'
-          ;;
-        tag-nationalities)
-          _arguments '1:ebook-directory:_directories'
           ;;
       esac
       ;;

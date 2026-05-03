@@ -23,7 +23,7 @@ This will give you access to:
 `se-ext` provides additional helpers for ebook production:
 
 ```bash
-se-ext tag-nationalities    # Interactively tag nationality terms
+se-ext docs                 # Browse and search SE Manual / CLI reference
 se-ext search-usage         # Search SE GitHub for semantic tag usage
 ```
 
