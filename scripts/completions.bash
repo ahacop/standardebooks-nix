@@ -3,7 +3,7 @@ _se_ext() {
   COMPREPLY=()
   cur="${COMP_WORDS[COMP_CWORD]}"
   prev="${COMP_WORDS[COMP_CWORD-1]}"
-  commands="docs find-archaic-words modernize-spelling page-scans preview search-usage"
+  commands="claude-init docs find-archaic-words modernize-spelling page-scans preview search-usage"
 
   if [ "$COMP_CWORD" -eq 1 ]; then
     COMPREPLY=($(compgen -W "$commands --help --version" -- "$cur"))
@@ -11,6 +11,9 @@ _se_ext() {
   fi
 
   case "${COMP_WORDS[1]}" in
+    claude-init)
+      COMPREPLY=($(compgen -W "--write --append --force --path --help" -- "$cur"))
+      ;;
     docs)
       if [ "$COMP_CWORD" -eq 2 ]; then
         COMPREPLY=($(compgen -W "index ls search open headings section lines --path --claude-md --help" -- "$cur"))

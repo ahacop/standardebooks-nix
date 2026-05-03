@@ -29,6 +29,21 @@ se-ext search-usage         # Search SE GitHub for semantic tag usage
 
 Run `se-ext --help` or `se-ext <command> --help` for details.
 
+## Claude Code / agent setup
+
+If you use Claude Code or a similar agent in your ebook project, drop a
+ready-made `CLAUDE.md` into the project root:
+
+```bash
+se-ext claude-init --write
+```
+
+The template documents the `se` and `se-ext` workflow, SE commit-message
+style, the in-repo `se-ext docs` reference, and the precedent-search
+conventions used across the SE corpus. Use `--append` to add it to an
+existing `CLAUDE.md`, or run `se-ext claude-init` with no args to print it
+to stdout.
+
 ## Updating the Standard Ebooks toolchain
 
 `se` is built from `nix/uv/pyproject.toml` + `nix/uv/uv.lock`. To bump to a newer release:

@@ -155,19 +155,23 @@
               ./scripts
               ./data
               ./docs/se-manual
+              ./templates
             ];
           };
 
           nativeBuildInputs = [ pkgs.makeWrapper ];
 
           installPhase = ''
-            mkdir -p $out/bin $out/share/se-docs $out/share/se-ext-data $out/share/bash-completion/completions $out/share/zsh/site-functions
+            mkdir -p $out/bin $out/share/se-docs $out/share/se-ext-data $out/share/se-ext/templates $out/share/bash-completion/completions $out/share/zsh/site-functions
 
             # Install documentation
             cp -r docs/se-manual/* $out/share/se-docs/
 
             # Install data files
             cp -r data/* $out/share/se-ext-data/
+
+            # Install templates (e.g. CLAUDE.md)
+            cp -r templates/* $out/share/se-ext/templates/
 
             # Install all scripts into bin/
             for f in scripts/*.sh; do
@@ -178,7 +182,8 @@
             makeWrapper $out/bin/ext.sh $out/bin/se-ext \
               --prefix PATH : ${pkgs.lib.makeBinPath seExtRuntimeDeps} \
               --set SE_DOCS $out/share/se-docs \
-              --set SE_EXT_DATA $out/share/se-ext-data
+              --set SE_EXT_DATA $out/share/se-ext-data \
+              --set SE_EXT_TEMPLATE_DIR $out/share/se-ext/templates
 
             # Install completions
             install -m 644 scripts/completions.bash $out/share/bash-completion/completions/se-ext
@@ -251,9 +256,10 @@
             ${pkgs.git}/bin/git config --local difftool.prompt false
             ${pkgs.git}/bin/git config --local difftool.difftastic.cmd '${pkgs.difftastic}/bin/difft "$LOCAL" "$REMOTE"'
 
-            # Make SE docs and data available
+            # Make SE docs, data, and templates available
             export SE_DOCS="${se-ext}/share/se-docs"
             export SE_EXT_DATA="${se-ext}/share/se-ext-data"
+            export SE_EXT_TEMPLATE_DIR="${se-ext}/share/se-ext/templates"
 
             echo ""
             echo "Standard Ebooks development environment"
@@ -261,6 +267,9 @@
             echo "Run 'se-ext --help' for extended tool commands."
             echo ""
             echo "SE docs available: se-ext docs, se-ext docs search <term>"
+            echo ""
+            echo "Working with Claude Code or another agent? Drop a CLAUDE.md in"
+            echo "this project with: se-ext claude-init --write"
             echo ""
             echo "Git diff improvements enabled:"
             echo "  • Delta pager for better long-line diffs"

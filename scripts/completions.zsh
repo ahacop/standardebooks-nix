@@ -3,6 +3,7 @@
 _se_ext() {
   local -a commands
   commands=(
+    'claude-init:Print or install a CLAUDE.md for this flake'
     'docs:Browse and search SE documentation'
     'find-archaic-words:Find archaic spellings not yet in the word list'
     'modernize-spelling:Apply archaic-to-modern spelling replacements'
@@ -21,6 +22,13 @@ _se_ext() {
       ;;
     args)
       case "$words[1]" in
+        claude-init)
+          _arguments \
+            '--write[Write template to ./CLAUDE.md]' \
+            '--append[Append template to ./CLAUDE.md]' \
+            '--force[Overwrite existing CLAUDE.md when used with --write]' \
+            '--path[Print path to the template file]'
+          ;;
         docs)
           _arguments \
             '1:subcommand:(index ls search open headings section lines --path --claude-md --help)' \
