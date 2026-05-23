@@ -3,7 +3,7 @@ name = "standardebooks-nix"
 version = "0.0.0"
 description = "Lock file for the standardebooks toolchain consumed by flake.nix via uv2nix."
 requires-python = ">=3.10.12"
-dependencies = ["standardebooks==3.0.3"]
+dependencies = ["standardebooks==3.0.4"]
 
 # Sdist-only packages whose pyproject doesn't declare its build backend.
 # uv2nix needs us to inject setuptools so the build env can locate it.

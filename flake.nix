@@ -130,7 +130,7 @@
         ];
 
         se =
-          pkgs.runCommand "standardebooks-3.0.3"
+          pkgs.runCommand "standardebooks-3.0.4"
             {
               nativeBuildInputs = [ pkgs.makeWrapper ];
               passthru.unwrapped = seVenv;
