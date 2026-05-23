@@ -70,6 +70,13 @@
 
           workspace = uv2nix.lib.workspace.loadWorkspace { workspaceRoot = ./nix/uv; };
 
+          # Resolved standardebooks version, read straight from the uv lockfile
+          # so the derivation name can never drift from what's installed.
+          seVersion =
+            (lib.findFirst (p: p.name == "standardebooks") (throw "standardebooks not found in nix/uv/uv.lock")
+              (builtins.fromTOML (builtins.readFile ./nix/uv/uv.lock)).package
+            ).version;
+
           # Prefer wheels (fast). Native wheels get autoPatchelfHook below.
           overlay = workspace.mkPyprojectOverlay {
             sourcePreference = "wheel";
@@ -139,7 +146,7 @@
           ];
 
           se =
-            pkgs.runCommand "standardebooks-3.0.4"
+            pkgs.runCommand "standardebooks-${seVersion}"
               {
                 nativeBuildInputs = [ pkgs.makeWrapper ];
                 passthru.unwrapped = seVenv;
