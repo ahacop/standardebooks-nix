@@ -76,7 +76,10 @@
 
           pillow = prev.pillow.overrideAttrs (old: {
             nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ pkgs.autoPatchelfHook ];
-            buildInputs = (old.buildInputs or [ ]) ++ [ pkgs.stdenv.cc.cc.lib pkgs.zlib ];
+            buildInputs = (old.buildInputs or [ ]) ++ [
+              pkgs.stdenv.cc.cc.lib
+              pkgs.zlib
+            ];
           });
 
           lxml = prev.lxml.overrideAttrs (old: {
@@ -86,7 +89,10 @@
 
           cffi = prev.cffi.overrideAttrs (old: {
             nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ pkgs.autoPatchelfHook ];
-            buildInputs = (old.buildInputs or [ ]) ++ [ pkgs.stdenv.cc.cc.lib pkgs.libffi ];
+            buildInputs = (old.buildInputs or [ ]) ++ [
+              pkgs.stdenv.cc.cc.lib
+              pkgs.libffi
+            ];
           });
         };
 
@@ -123,21 +129,22 @@
           pkgs.geckodriver
         ];
 
-        se = pkgs.runCommand "standardebooks-3.0.3"
-          {
-            nativeBuildInputs = [ pkgs.makeWrapper ];
-            passthru.unwrapped = seVenv;
-          }
-          ''
-            mkdir -p $out/bin
-            for bin in ${seVenv}/bin/se ${seVenv}/bin/se-*; do
-              [ -e "$bin" ] || continue
-              name=$(basename "$bin")
-              makeWrapper "$bin" "$out/bin/$name" \
-                --prefix PATH : ${pkgs.lib.makeBinPath seBrowserDeps} \
-                --prefix LD_LIBRARY_PATH : ${seRuntimeLibs}
-            done
-          '';
+        se =
+          pkgs.runCommand "standardebooks-3.0.3"
+            {
+              nativeBuildInputs = [ pkgs.makeWrapper ];
+              passthru.unwrapped = seVenv;
+            }
+            ''
+              mkdir -p $out/bin
+              for bin in ${seVenv}/bin/se ${seVenv}/bin/se-*; do
+                [ -e "$bin" ] || continue
+                name=$(basename "$bin")
+                makeWrapper "$bin" "$out/bin/$name" \
+                  --prefix PATH : ${pkgs.lib.makeBinPath seBrowserDeps} \
+                  --prefix LD_LIBRARY_PATH : ${seRuntimeLibs}
+              done
+            '';
 
         # ---------------------------------------------------------------------
         # se-ext: project-local helper scripts (preview, page-scans, etc.)
