@@ -263,6 +263,7 @@
               se-ext
               pkgs.calibre
               pkgs.git
+              pkgs.just
               pkgs.epubcheck
               pkgs.delta
               pkgs.difftastic
