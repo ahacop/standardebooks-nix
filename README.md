@@ -58,4 +58,10 @@ nix flake check
 
 ## License
 
-GPL-3.0 (see LICENSE)
+The code in this repository is licensed under the GNU General Public License
+v3.0 (GPL-3.0). See [LICENSE](LICENSE) for the full text.
+
+The bundled Standard Ebooks documentation under `docs/se-manual/` is sourced
+from Standard Ebooks and released under the
+[Creative Commons CC0 1.0 Universal Public Domain Dedication](https://creativecommons.org/publicdomain/zero/1.0/),
+matching the upstream licensing of those works.
