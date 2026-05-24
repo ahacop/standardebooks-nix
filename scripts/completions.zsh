@@ -7,6 +7,7 @@ _se_ext() {
     'docs:Browse and search SE documentation'
     'find-archaic-words:Find archaic spellings not yet in the word list'
     'modernize-spelling:Apply archaic-to-modern spelling replacements'
+    'ngram:Show a word'\''s usage-frequency trajectory (Google Ngrams)'
     'page-scans:Open page scan URLs from ebook metadata'
     'preview:Build the ebook and open it in the default reader'
     'search-usage:Search SE GitHub for real-world semantic tag usage'
@@ -60,6 +61,13 @@ _se_ext() {
           _arguments \
             '--yes[Apply all replacements without confirmation]' \
             '1:ebook-directory:_directories'
+          ;;
+        ngram)
+          _arguments \
+            '--corpus[Query only one corpus]:corpus:(en-US en-GB)' \
+            '--json[Emit computed signals as JSON]' \
+            '1:term:' \
+            '2:other-term:'
           ;;
         page-scans)
           _arguments \

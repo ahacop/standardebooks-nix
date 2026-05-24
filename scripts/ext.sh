@@ -13,6 +13,7 @@ show_help() {
   echo "  docs                   Browse and search SE documentation"
   echo "  find-archaic-words     Find archaic spellings not yet in the word list"
   echo "  modernize-spelling     Apply archaic-to-modern spelling replacements"
+  echo "  ngram                  Show a word's usage-frequency trajectory (Google Ngrams)"
   echo "  page-scans             Open page scan URLs from ebook metadata"
   echo "  preview                Build the ebook and open it in the default reader"
   echo "  search-usage           Search SE GitHub for real-world semantic tag usage"
@@ -26,6 +27,7 @@ list_commands() {
   echo "docs"
   echo "find-archaic-words"
   echo "modernize-spelling"
+  echo "ngram"
   echo "page-scans"
   echo "preview"
   echo "search-usage"
@@ -47,6 +49,10 @@ case "${1:-}" in
   modernize-spelling)
     shift
     source "$SCRIPT_DIR/modernize-spelling.sh"
+    ;;
+  ngram)
+    shift
+    source "$SCRIPT_DIR/ngram.sh"
     ;;
   page-scans)
     shift

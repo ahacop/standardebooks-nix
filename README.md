@@ -25,6 +25,7 @@ This will give you access to:
 ```bash
 se-ext docs                 # Browse and search SE Manual / CLI reference
 se-ext search-usage         # Search SE GitHub for semantic tag usage
+se-ext ngram                # Show a word's usage-frequency trajectory (Google Ngrams)
 ```
 
 Run `se-ext --help` or `se-ext <command> --help` for details.

@@ -3,7 +3,7 @@ _se_ext() {
   COMPREPLY=()
   cur="${COMP_WORDS[COMP_CWORD]}"
   prev="${COMP_WORDS[COMP_CWORD-1]}"
-  commands="claude-init docs find-archaic-words modernize-spelling page-scans preview search-usage"
+  commands="claude-init docs find-archaic-words modernize-spelling ngram page-scans preview search-usage"
 
   if [ "$COMP_CWORD" -eq 1 ]; then
     COMPREPLY=($(compgen -W "$commands --help --version" -- "$cur"))
@@ -37,6 +37,14 @@ _se_ext() {
       if [ "$COMP_CWORD" -eq 2 ]; then
         COMPREPLY=($(compgen -W "--yes --help" -- "$cur"))
       fi
+      ;;
+    ngram)
+      case "$prev" in
+        --corpus)
+          COMPREPLY=($(compgen -W "en-US en-GB" -- "$cur")) ;;
+        *)
+          COMPREPLY=($(compgen -W "--corpus --json --help" -- "$cur")) ;;
+      esac
       ;;
     page-scans)
       COMPREPLY=($(compgen -W "--search --list --help" -- "$cur"))
