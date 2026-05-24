@@ -23,9 +23,14 @@ This will give you access to:
 `se-ext` provides additional helpers for ebook production:
 
 ```bash
-se-ext docs                 # Browse and search SE Manual / CLI reference
-se-ext search-usage         # Search SE GitHub for semantic tag usage
+se-ext claude-init          # Print or install a CLAUDE.md for this flake
+se-ext docs                 # Browse and search SE documentation
+se-ext find-archaic-words   # Find archaic spellings not yet in the word list
+se-ext modernize-spelling   # Apply archaic-to-modern spelling replacements
 se-ext ngram                # Show a word's usage-frequency trajectory (Google Ngrams)
+se-ext page-scans           # Open page scan URLs from ebook metadata
+se-ext preview              # Build the ebook and open it in the default reader
+se-ext search-usage         # Search SE GitHub for real-world tag/pattern usage
 ```
 
 Run `se-ext --help` or `se-ext <command> --help` for details.
