@@ -264,6 +264,7 @@
               pkgs.difftastic
               pkgs.epubcheck
               pkgs.git
+              pkgs.imagemagick
               pkgs.just
               se
               se-ext
