@@ -332,7 +332,7 @@ The following apply to all contributors, including the author(s), translator(s),
 
 1.  If there is exactly one contributor in a set (for example, only one author in a possible set of authors, or only one translator in a possible set of translators) then the `<meta property="display-seq">` element is omitted for that contributor.
 2.  By SE convention, contributors with `<meta property="display-seq">0</meta>` are excluded from the SE identifier.
-3.  It is not uncommon for one contributor to have multiple roles; for example, an author (`aut`) who also illustrated (`ill`) the book. In these cases, additional roles are assigned using additional `role` properties.
+3.  It is not uncommon for one contributor to have multiple roles; for example, an author (`aut`) who also illustrated (`ill`) the book and wrote a dedication (`dto`). In these cases, additional roles are assigned using additional `role` properties.
     1.  Multiple roles are ordered alphabetically by role.
 4.  By default, only authors and translators are included in the SE identifier, titlepage, and cover. To include other contributors, assign a non-zero `display-seq` to them.
 
@@ -342,6 +342,7 @@ The following apply to all contributors, including the author(s), translator(s),
 <dc:creator id="author">Jonathan Swift</dc:creator>
 ...
 <meta property="role" refines="#author" scheme="marc:relators">aut</meta>
+<meta property="role" refines="#author" scheme="marc:relators">dto</meta>
 <meta property="role" refines="#author" scheme="marc:relators">ill</meta>
 <meta property="role" refines="#author" scheme="marc:relators">win</meta>
 <meta property="role" refines="#author" scheme="marc:relators">wpr</meta>

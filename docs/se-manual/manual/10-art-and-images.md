@@ -179,6 +179,7 @@ Images that are explicitly marked as CC0 from these museums can be used without 
 - [Met Museum](https://www.metmuseum.org/art/collection/search?showOnly=withImage%7CopenAccess&material=Paintings) (CC0 items have an “OA Public Domain” icon under the picture, which leads to the Met's Open Access Initiative page that clarifies a CC0 license.)
 - [Minneapolis Institute of Art](https://collections.artsmia.org/) (Public domain items are listed as such under “Rights.”)
 - [Musea Brugge](https://www.museabrugge.be/en/collections/browse) (CC0 items indicate the images are published under the CC0 license in the “Copyright” line.)
+- [Museum Wales](https://images.museumwales.ac.uk/) (CC0 items have a CC0 license below the art details section.)
 - [National Gallery of Art](https://www.nga.gov) (CC0 items have a “0 Public Domain” icon under the picture, which leads to an Open Access policy mentioning a CC0 license.)
 - [National Gallery of Denmark](https://open.smk.dk/en/) (CC0 items have “No copyright” icon and a “Free to use” notice, and the About page states that such images are released via CC0.)
 - [National Museum of Sweden](https://www.nationalmuseum.se/) (Public domain items say “Public Domain” under the image, which links to a CC-PD license.)
@@ -284,6 +285,7 @@ The source image is an unedited, raw copy of the image that is in the highest-re
 
 1.  Source images are located in `./images/`.
 2.  There is always a source image for each corresponding distributable image, even if they are identical.
+3.  Where the image is generated from a non-image source, such as sheet music generated from a MusicXML file, the non-image source file is included as the image source in an editable state.
 
 ### Distributable images
 

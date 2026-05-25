@@ -69,14 +69,14 @@ After an ebook production is completed, it must go through rounds of review befo
 
     **`se`**` interactive-replace `*`"(\s)‘([a-z])"`*` `*`"\1’\2"`*` `<u>`.`</u>
 
-    Note the use of `‘` (left single-quotation mark, U+2018) and `’` (right single-quotation mark, U+2019) in the command above, and not `'` or `` ` ``. Using **`se`**` interactive-replace` is the safest as there are many potential false positive cases here that should not be change. Refer the the relevant section of the [Manual](/manual/latest/single-page#8.7.5). Note that sometimes this type of mistakes might be committed by **`se`**` typogrify`. For example:
+    Note the use of `‘` (left single-quotation mark, U+2018) and `’` (right single-quotation mark, U+2019) in the command above, and not `'` or `` ` ``. Using **`se`**` interactive-replace` is the safest as there are many potential false positive cases here that should not be changed. Refer to the relevant section of the [Manual](/manual/latest/single-page#8.7.5). Note that sometimes this type of mistake might be committed by **`se`**` typogrify`. For example:
 
     <figure class="wrong html full">
-    <span class="p"><code class="sourceCode html"><span class="er">&lt;</span></code></span><span class="nt"><code class="sourceCode html">p</code></span><span class="p"><code class="sourceCode html">&gt;</code></span><code class="sourceCode html">He had pork ‘n’ beans for dinner</code><span class="p"><code class="sourceCode html"><span class="er">&lt;</span>/</code></span><span class="nt"><code class="sourceCode html">p</code></span><span class="p"><code class="sourceCode html">&gt;</code></span>
+    <span class="p"><code class="sourceCode html full"><span class="er">&lt;</span></code></span><span class="nt"><code class="sourceCode html full">p</code></span><span class="p"><code class="sourceCode html full">&gt;</code></span><code class="sourceCode html full">He had pork ‘n’ beans for dinner</code><span class="p"><code class="sourceCode html full"><span class="er">&lt;</span>/</code></span><span class="nt"><code class="sourceCode html full">p</code></span><span class="p"><code class="sourceCode html full">&gt;</code></span>
     </figure>
 
     <figure class="corrected html full">
-    <span class="p"><code class="sourceCode html"><span class="er">&lt;</span></code></span><span class="nt"><code class="sourceCode html">p</code></span><span class="p"><code class="sourceCode html">&gt;</code></span><code class="sourceCode html">He had pork ’n’ beans for dinner</code><span class="p"><code class="sourceCode html"><span class="er">&lt;</span>/</code></span><span class="nt"><code class="sourceCode html">p</code></span><span class="p"><code class="sourceCode html">&gt;</code></span>
+    <span class="p"><code class="sourceCode html full"><span class="er">&lt;</span></code></span><span class="nt"><code class="sourceCode html full">p</code></span><span class="p"><code class="sourceCode html full">&gt;</code></span><code class="sourceCode html full">He had pork ’n’ beans for dinner</code><span class="p"><code class="sourceCode html full"><span class="er">&lt;</span>/</code></span><span class="nt"><code class="sourceCode html full">p</code></span><span class="p"><code class="sourceCode html full">&gt;</code></span>
     </figure>
 
     Note the right single-quotation mark is applied twice under this situation. More cases like this is in the section of the Manual linked above.
@@ -90,11 +90,11 @@ After an ebook production is completed, it must go through rounds of review befo
     In general, periods and commas always go inside quotation marks, both single and double. For example:
 
     <figure class="wrong html full">
-    <span class="p"><code class="sourceCode html"><span class="er">&lt;</span></code></span><span class="nt"><code class="sourceCode html">p</code></span><span class="p"><code class="sourceCode html">&gt;</code></span><code class="sourceCode html">He pronounced it “pleasure”, and as he said it he licked his lips.</code><span class="p"><code class="sourceCode html"><span class="er">&lt;</span>/</code></span><span class="nt"><code class="sourceCode html">p</code></span><span class="p"><code class="sourceCode html">&gt;</code></span>
+    <span class="p"><code class="sourceCode html full"><span class="er">&lt;</span></code></span><span class="nt"><code class="sourceCode html full">p</code></span><span class="p"><code class="sourceCode html full">&gt;</code></span><code class="sourceCode html full">He pronounced it “pleasure”, and as he said it he licked his lips.</code><span class="p"><code class="sourceCode html full"><span class="er">&lt;</span>/</code></span><span class="nt"><code class="sourceCode html full">p</code></span><span class="p"><code class="sourceCode html full">&gt;</code></span>
     </figure>
 
     <figure class="corrected html full">
-    <span class="p"><code class="sourceCode html"><span class="er">&lt;</span></code></span><span class="nt"><code class="sourceCode html">p</code></span><span class="p"><code class="sourceCode html">&gt;</code></span><code class="sourceCode html">He pronounced it “pleasure,” and as he said it he licked his lips.</code><span class="p"><code class="sourceCode html"><span class="er">&lt;</span>/</code></span><span class="nt"><code class="sourceCode html">p</code></span><span class="p"><code class="sourceCode html">&gt;</code></span>
+    <span class="p"><code class="sourceCode html full"><span class="er">&lt;</span></code></span><span class="nt"><code class="sourceCode html full">p</code></span><span class="p"><code class="sourceCode html full">&gt;</code></span><code class="sourceCode html full">He pronounced it “pleasure,” and as he said it he licked his lips.</code><span class="p"><code class="sourceCode html full"><span class="er">&lt;</span>/</code></span><span class="nt"><code class="sourceCode html full">p</code></span><span class="p"><code class="sourceCode html full">&gt;</code></span>
     </figure>
 
     Note the right single-quotation mark is applied twice under this situation. More cases like this is in the section of the Manual linked above.

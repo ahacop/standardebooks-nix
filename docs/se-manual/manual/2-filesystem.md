@@ -103,7 +103,7 @@ A bare Standard Ebooks directory structure looks like this:
         | The work’s first preface, titled “Preface to the 1850 Edition” | `preface-1.xhtml` |
         | The work’s second preface, titled “Preface to the Charles Dickens Edition” | `preface-2.xhtml` |
 
-5.  If a work contains images other than the cover art, the filename of each image should be `illustration-` followed by `-N`, where `N` is a number representing the image’s order of appearance in the work, starting at `1`.
+5.  If a work contains images other than the cover art, the filename of each image should be `illustration-` followed by `N`, where `N` is a number representing the image’s order of appearance in the work, starting at `1`.
 
 ## The `se-lint-ignore.xml` file
 
@@ -137,7 +137,7 @@ The `se lint` tool makes best guesses to alert the user to potential issues in a
 
     3.  Each `<file>` element contains one or more `<ignore>` elements.
 
-        1.  `<ignore>` elements have a `<code>` attribute containing the lint code to ignore. This code will be ignored for its parent file(s) when `se lint` is next run.
+        1.  `<ignore>` elements have a `code` attribute containing the lint code to ignore. This code will be ignored for its parent file(s) when `se lint` is next run.
         2.  `<ignore>` elements may contain zero or more `<line>` elements whose text is the line number to ignore for the given code.
         3.  `<ignore>` elements have one `<reason>` element whose text is a prose explanation about why the code was ignored. This aids future producers or reviewers in understanding the reasoning behind why an error code was ignored.
 

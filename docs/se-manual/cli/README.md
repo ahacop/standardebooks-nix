@@ -1,4 +1,4 @@
-# se — Standard Ebooks Toolset (3.0.3)
+# se — Standard Ebooks Toolset (3.0.4)
 
 usage: se [-h] [-p] [-v] COMMAND [ARGS ...]
 

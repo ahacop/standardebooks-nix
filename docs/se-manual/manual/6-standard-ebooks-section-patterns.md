@@ -87,7 +87,7 @@ The `<nav>` element’s top-level `<ol>` element contains a list of items in the
             </li>
     ```
 
-#### `<li>` descendents
+#### `<li>` descendants
 
 1.  Each `<li>` contains an `<a>` element pointing to a file or hash, and optionally also contains an `<ol>` element representing a nested series of ToC items.
 
@@ -150,9 +150,9 @@ The `<nav>` element’s top-level `<ol>` element contains a list of items in the
 
     </div>
 
-#### `<a>` descendents
+#### `<a>` descendants
 
-1.  The `title`, `subtitle`, `ordinal`, and any [related title epub semantics](https://www.w3.org/TR/epub-ssv-11/#sec-titles) are not included in ToC entries. Their usage context is only within actual heading content.
+1.  The `title`, `subtitle`, `z3998:ordinal`, and any [related title epub semantics](https://www.w3.org/TR/epub-ssv-11/#sec-titles) are not included in ToC entries. Their usage context is only within actual heading content.
 2.  The text of the `<a>` element is decided as follows:
     1.  If there is no `<hgroup>` in the section, the text becomes the inner XHTML of the top `<h1>`–`<h6>` element with any of the above semantics removed.
     2.  If there is an `<hgroup>` element:
@@ -175,8 +175,8 @@ Result: `A Daughter of Albion`
 <section id="book-1" epub:type="part">
     <hgroup>
         <h2>
-            <span epub:type="label">Book</span>
-            <span epub:type="ordinal z3998:roman">I</span>
+            <span epub:type="se:label">Book</span>
+            <span epub:type="z3998:ordinal z3998:roman">I</span>
         </h2>
         <p epub:type="title">The Coming of the Martians</p>
     </hgroup>
@@ -189,7 +189,7 @@ Result: `Book <span epub:type="z3998:roman">I</span>: The Coming of the Martians
 ``` html
 <section id="chapter-1" epub:type="chapter">
     <hgroup>
-        <h2 epub:type="ordinal z3998:roman">I</h2>
+        <h2 epub:type="z3998:ordinal z3998:roman">I</h2>
         <p epub:type="title">A Fellow Traveller</p>
     </hgroup>
     <p>...</p>
@@ -217,7 +217,7 @@ After the first `<nav>` element, there is a second `<nav>` element with the sema
 1.  The first child is an `<h2 epub:type="title">Landmarks</h2>` element.
 2.  The second child is an `<ol>` element listing the major structural divisions of the book.
 
-#### `<li>` descendents
+#### `<li>` descendants
 
 Each `<li>` element contains a link to either the start of the main text (i.e. the start of the bodymatter, excluding a half titlepage), or to a major reference section (i.e. backmatter including endnotes, bibliography, glossary, index, LoI, etc.). [See the IDPF a11y best practices document](http://idpf.org/epub/a11y/techniques/#sem-003) for more information.
 

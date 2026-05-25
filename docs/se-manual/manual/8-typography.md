@@ -8,12 +8,12 @@
 
 3.  Section titles do not have trailing periods.
 
-4.  Chapter titles omit the word `Chapter`, unless the word used is a stylistic choice for prose style purposes. Chapters with unique identifiers (i.e. not `Chapter`, but something unique to the style of the book, like `Book` or `Stave`) *do* include that unique identifier in the title, wrapped in `<span epub:type="label">`.
+4.  Chapter titles omit the word `Chapter`, unless the word used is a stylistic choice for prose style purposes. Chapters with unique identifiers (i.e. not `Chapter`, but something unique to the style of the book, like `Book` or `Stave`) *do* include that unique identifier in the title, wrapped in `<span epub:type="se:label">`.
 
     <div class="wrong">
 
     ``` html
-    <h2>Chapter <span epub:type="ordinal z3998:roman">II</span></h2>
+    <h2>Chapter <span epub:type="z3998:ordinal z3998:roman">II</span></h2>
     ```
 
     </div>
@@ -21,13 +21,13 @@
     <div class="corrected">
 
     ``` html
-    <h2 epub:type="ordinal z3998:roman">II</h2>
+    <h2 epub:type="z3998:ordinal z3998:roman">II</h2>
     ```
 
     ``` html
     <h2>
-        <span epub:type="label">Stave</span>
-        <span epub:type="ordinal z3998:roman">III</span>
+        <span epub:type="se:label">Stave</span>
+        <span epub:type="z3998:ordinal z3998:roman">III</span>
     </h2>
     ```
 
@@ -491,17 +491,17 @@
     <h2 epub:type="title" xml:lang="la">Ex Oblivione</h2>
 
     <hgroup>
-        <h2 epub:type="ordinal z3998:roman">XI</h2>
+        <h2 epub:type="z3998:ordinal z3998:roman">XI</h2>
         <p epub:type="title">The <i epub:type="se:name.vessel.ship">Nautilus</i></p>
     </hgroup>
 
     <hgroup>
-        <h2 epub:type="ordinal z3998:roman">XXXV</h2>
+        <h2 epub:type="z3998:ordinal z3998:roman">XXXV</h2>
         <p epub:type="title">Miss Thorne’s <i xml:lang="fr">Fête Champêtre</i></p>
     </hgroup>
 
     <hgroup>
-        <h2 epub:type="ordinal z3998:roman">XI</h2>
+        <h2 epub:type="z3998:ordinal z3998:roman">XI</h2>
         <p epub:type="title" xml:lang="la">Christus Nos Liberavit</p>
     </hgroup>
     ```
@@ -514,7 +514,7 @@
 
     ``` html
     <header>
-        <h2 epub:type="ordinal z3998:roman">II</h2>
+        <h2 epub:type="z3998:ordinal z3998:roman">II</h2>
         <blockquote epub:type="epigraph">
             <p>“Desire no more than to thy lot may fall. …”</p>
             <cite>—Chaucer.</cite>
@@ -534,7 +534,7 @@
 
     ``` html
     <header>
-        <h2 epub:type="ordinal z3998:roman">II</h2>
+        <h2 epub:type="z3998:ordinal z3998:roman">II</h2>
         <blockquote epub:type="epigraph">
             <p>“Desire no more than to thy lot may fall. …”</p>
             <cite>Chaucer</cite>
@@ -1954,7 +1954,7 @@ Any Morse code that appears in a book is changed to fit Standard Ebooks’ forma
 
 1.  Rough and smooth breathing marks are set using their precomposed character, if available; for example, `Ἁ`, `Ἀ`, `ἇ`, `ἄ`, and `Ἧ`.
     1.  If a precomposed rough breathing character is not available, `̔` (U+0314) is used when the mark must be combined with a character, and `ʽ` (U+02BD) is used in all other cases.
-    2.  If a precompsed smooth breathing character is not available, ` ̓` (U+0313) is used when the mark must be combined with a character, and `ʼ` (U+02BC) is used in all other cases.
+    2.  If a precomposed smooth breathing character is not available, ` ̓` (U+0313) is used when the mark must be combined with a character, and `ʼ` (U+02BC) is used in all other cases.
 
 ### Chinese
 
