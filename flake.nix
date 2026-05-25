@@ -49,18 +49,18 @@
           pkgs = nixpkgs.legacyPackages.${system};
 
           runtimeDeps = [
-            pkgs.jq
-            pkgs.curl
-            pkgs.gh
-            pkgs.gawk
-            pkgs.coreutils
-            pkgs.findutils
             (pkgs.aspellWithDicts (
               dicts: with dicts; [
                 en
                 en-computers
               ]
             ))
+            pkgs.coreutils
+            pkgs.curl
+            pkgs.findutils
+            pkgs.gawk
+            pkgs.gh
+            pkgs.jq
           ];
 
           # -------------------------------------------------------------------
@@ -259,14 +259,14 @@
 
           devShells.default = pkgs.mkShell {
             packages = [
-              se
-              se-ext
               pkgs.calibre
-              pkgs.git
-              pkgs.just
-              pkgs.epubcheck
               pkgs.delta
               pkgs.difftastic
+              pkgs.epubcheck
+              pkgs.git
+              pkgs.just
+              se
+              se-ext
             ];
 
             shellHook = ''
