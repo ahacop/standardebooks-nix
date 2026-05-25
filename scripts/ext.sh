@@ -12,6 +12,7 @@ show_help() {
   echo "  claude-init            Print or install a CLAUDE.md for this flake"
   echo "  docs                   Browse and search SE documentation"
   echo "  find-archaic-words     Find archaic spellings not yet in the word list"
+  echo "  ia-ocr                 Search an Internet Archive scan's OCR for a phrase"
   echo "  modernize-spelling     Apply archaic-to-modern spelling replacements"
   echo "  ngram                  Show a word's usage-frequency trajectory (Google Ngrams)"
   echo "  page-scans             Open page scan URLs from ebook metadata"
@@ -26,6 +27,7 @@ list_commands() {
   echo "claude-init"
   echo "docs"
   echo "find-archaic-words"
+  echo "ia-ocr"
   echo "modernize-spelling"
   echo "ngram"
   echo "page-scans"
@@ -45,6 +47,10 @@ case "${1:-}" in
   find-archaic-words)
     shift
     source "$SCRIPT_DIR/find-archaic-words.sh"
+    ;;
+  ia-ocr)
+    shift
+    source "$SCRIPT_DIR/ia-ocr.sh"
     ;;
   modernize-spelling)
     shift

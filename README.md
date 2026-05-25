@@ -26,6 +26,7 @@ This will give you access to:
 se-ext claude-init          # Print or install a CLAUDE.md for this flake
 se-ext docs                 # Browse and search SE documentation
 se-ext find-archaic-words   # Find archaic spellings not yet in the word list
+se-ext ia-ocr               # Search an Internet Archive scan's OCR for a phrase
 se-ext modernize-spelling   # Apply archaic-to-modern spelling replacements
 se-ext ngram                # Show a word's usage-frequency trajectory (Google Ngrams)
 se-ext page-scans           # Open page scan URLs from ebook metadata

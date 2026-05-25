@@ -6,6 +6,7 @@ _se_ext() {
     'claude-init:Print or install a CLAUDE.md for this flake'
     'docs:Browse and search SE documentation'
     'find-archaic-words:Find archaic spellings not yet in the word list'
+    'ia-ocr:Search an Internet Archive scan'\''s OCR for a phrase'
     'modernize-spelling:Apply archaic-to-modern spelling replacements'
     'ngram:Show a word'\''s usage-frequency trajectory (Google Ngrams)'
     'page-scans:Open page scan URLs from ebook metadata'
@@ -56,6 +57,17 @@ _se_ext() {
           ;;
         find-archaic-words)
           _arguments '1:ebook-directory:_directories'
+          ;;
+        ia-ocr)
+          _arguments \
+            '--url[Print only the canonical page-scan URL]' \
+            '--json[Emit the result as JSON]' \
+            '--all-matches[Report every match in the OCR, not just the first]' \
+            '--auto-retry[Narrow to a matching sub-phrase if the exact phrase is not found]' \
+            '--image-url[Print only the direct page-image (JPEG) URL]' \
+            '--image[Download the matching leaf'\''s JPEG and print the saved path]' \
+            '1:phrase:' \
+            '2:ebook-directory:_directories'
           ;;
         modernize-spelling)
           _arguments \

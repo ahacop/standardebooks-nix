@@ -23,6 +23,7 @@ The shell is provided by the [standardebooks-nix](https://github.com/ahacop/stan
 - `se-ext find-archaic-words` — list archaic/obsolete spellings in the book that aren't yet in the modernization word list, with one-line context.
 - `se-ext modernize-spelling` — apply archaic-to-modern spelling replacements from the curated word list to `src/epub/text/*.xhtml`. Destructive; review the diff before committing.
 - `se-ext page-scans` — extract page-scan URLs (Internet Archive, Google Books, HathiTrust) from `content.opf` and open or list them, optionally with a search term appended.
+- `se-ext ia-ocr` — search the Internet Archive scan's OCR for a phrase from the book's `archive.org` source and print the OCR context, the leaf and printed page it falls on, and a citable `page/NNN?q=…` scan URL. Use it to confirm a suspected transcription error before editing, and to produce the exact URL to cite in a commit (`--url` prints just that URL). `--all-matches` reports every occurrence in the book; `--auto-retry` narrows to a matching sub-phrase when the OCR has split, hyphenated, or misread a word. The OCR is a locator, not an authority — confirm letterforms (long-s, capitalization, punctuation) visually on the scan: `--image` downloads the matching leaf's full-resolution JPEG to `./<id>_<leaf>.jpg` (one file per match under `--all-matches`) and `--image-url` prints the direct image URL.
 - `se-ext preview` — `se build` the project and open the resulting EPUB in the system reader. `--advanced` to open the advanced (non-compatible) build.
 - `se-ext search-usage` — search the `standardebooks` GitHub org for real-world usage of a semantic tag or pattern, sorted by recency, to confirm prevailing convention before making a stylistic call.
 
@@ -73,7 +74,7 @@ Match Standard Ebooks' house style: terse imperative subject (≤8 words), typic
 - `[Editorial] Move semicolon outside of quotation marks per 8.7.2.1`
 - `Split merged paragraph`
 
-For edits citing a source scan, put the archive.org `page/NNN/mode/1up` URL alone in the body. No prose rationale — the URL is the evidence.
+For edits citing a source scan, put the archive.org `page/NNN/mode/1up` URL alone in the body. No prose rationale — the URL is the evidence. `se-ext ia-ocr --url '<phrase>'` produces that URL directly from the OCR.
 
 Avoid: character names, quote-level jargon ("outer / inner / must nest as"), em-dashes in subjects, and any sentence that explains *why* the change is correct. The scan and the diff together are enough.
 
