@@ -265,6 +265,7 @@
               pkgs.epubcheck
               pkgs.git
               pkgs.imagemagick
+              pkgs.jdk
               pkgs.just
               se
               se-ext
