@@ -16,15 +16,27 @@ _se_ext() {
       ;;
     docs)
       if [ "$COMP_CWORD" -eq 2 ]; then
-        COMPREPLY=($(compgen -W "index ls search open headings section lines --path --claude-md --help" -- "$cur"))
-      elif [ "${COMP_WORDS[2]}" = "search" ]; then
-        case "$prev" in
-          --scope|--exclude)
-            COMPREPLY=($(compgen -W "manual contribute cli third-party" -- "$cur")) ;;
-          -C|--context)
-            COMPREPLY=() ;;
-          *)
-            COMPREPLY=($(compgen -W "--context --scope --exclude --absolute" -- "$cur")) ;;
+        COMPREPLY=($(compgen -W "index ls search open headings section lines web --path --claude-md --help" -- "$cur"))
+      else
+        case "${COMP_WORDS[2]}" in
+          search)
+            case "$prev" in
+              --scope|--exclude)
+                COMPREPLY=($(compgen -W "manual contribute cli third-party" -- "$cur")) ;;
+              -C|--context)
+                COMPREPLY=() ;;
+              *)
+                COMPREPLY=($(compgen -W "--context --scope --exclude --absolute" -- "$cur")) ;;
+            esac
+            ;;
+          open|headings|section|lines)
+            if [ "$COMP_CWORD" -eq 3 ]; then
+              COMPREPLY=($(compgen -W "$(se-ext docs ls 2>/dev/null)" -- "$cur"))
+            fi
+            ;;
+          web)
+            COMPREPLY=($(compgen -W "--url $(se-ext docs ls 2>/dev/null)" -- "$cur"))
+            ;;
         esac
       fi
       ;;

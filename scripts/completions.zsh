@@ -33,19 +33,35 @@ _se_ext() {
             '--path[Print path to the template file]'
           ;;
         docs)
+          local docs_root
+          docs_root=$(se-ext docs --path 2>/dev/null)
           _arguments \
-            '1:subcommand:(index ls search open headings section lines --path --claude-md --help)' \
-            '*::search-arg:->docs_search_args'
+            '1:subcommand:(index ls search open headings section lines web --path --claude-md --help)' \
+            '*::arg:->docs_args'
           case "$state" in
-            docs_search_args)
-              if [ "$words[2]" = "search" ]; then
-                _arguments \
-                  '--context[Lines of context around match]:n:' \
-                  '-C[Lines of context around match]:n:' \
-                  '--scope[Limit to scope dir]:dir:(manual contribute cli third-party)' \
-                  '--exclude[Exclude scope dir]:dir:(manual contribute cli third-party)' \
-                  '--absolute[Print absolute paths]'
-              fi
+            docs_args)
+              case "$words[2]" in
+                search)
+                  _arguments \
+                    '--context[Lines of context around match]:n:' \
+                    '-C[Lines of context around match]:n:' \
+                    '--scope[Limit to scope dir]:dir:(manual contribute cli third-party)' \
+                    '--exclude[Exclude scope dir]:dir:(manual contribute cli third-party)' \
+                    '--absolute[Print absolute paths]'
+                  ;;
+                open|headings|section|lines)
+                  if [ "$CURRENT" -eq 3 ] && [ -n "$docs_root" ]; then
+                    _path_files -W "$docs_root" -g '*.md'
+                  fi
+                  ;;
+                web)
+                  if [ -n "$docs_root" ]; then
+                    _arguments \
+                      '--url[Print the URL instead of opening a browser]' \
+                      "*:doc file:_path_files -W $docs_root -g '*.md'"
+                  fi
+                  ;;
+              esac
               ;;
           esac
           ;;

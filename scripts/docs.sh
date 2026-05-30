@@ -24,6 +24,8 @@ COMMANDS
   headings <file>               List the headings in a file with line numbers
   section <file> <heading>      Print a single section of a file
   lines <file> <range>          Print a line range with line numbers prefixed
+  web [--url] <file>            Open the upstream web page for a doc in the
+                                browser (--url prints the URL instead)
   --path                        Print the docs directory path
   --claude-md                   Print a CLAUDE.md snippet for agent access
   --help, -h                    Show this help
@@ -50,6 +52,10 @@ matching headings are suggested.
 (K lines starting at N). Output lines are prefixed `<lineno>:` so the
 format matches `search` and `headings`.
 
+`web` maps a doc to its source on the web: manual and contribute pages go to
+standardebooks.org; third-party docs go to their GitHub source. The locally
+generated `cli/` docs (dumps of `se --help`) have no web page.
+
 When stdout is a terminal, `index` and `open` page through $PAGER (default
 `less`); when piped or redirected, they dump raw so agents can consume them.
 
@@ -63,6 +69,8 @@ EXAMPLES
   se-ext docs lines manual/8-typography.md 413-460
   se-ext docs lines manual/8-typography.md 413+50
   se-ext docs open cli/build.md
+  se-ext docs web manual/8-typography.md
+  se-ext docs web --url contribute/producers.md
 EOF
 }
 
@@ -77,6 +85,32 @@ resolve_doc() {
   else
     return 1
   fi
+}
+
+# Map a doc (absolute or relative path) to its upstream web URL.
+# Prints the URL and returns 0 on success; returns 1 for docs with no web page.
+doc_web_url() {
+  local rel="${1#"$SE_DOCS"/}"   # normalize to a path relative to $SE_DOCS
+  local stripped="${rel%.md}"
+  case "$rel" in
+    manual/*)
+      # Version lives in the INDEX heading "Manual of Style (vX.Y.Z)".
+      local ver
+      ver=$(grep -m1 'Manual of Style' "$SE_DOCS/INDEX.md" 2>/dev/null \
+              | grep -oE '[0-9]+\.[0-9]+\.[0-9]+')
+      [ -n "$ver" ] || ver="latest"
+      printf 'https://standardebooks.org/manual/%s/%s\n' "$ver" "${stripped#manual/}"
+      ;;
+    contribute/*)
+      printf 'https://standardebooks.org/%s\n' "$stripped"
+      ;;
+    third-party/b-t-k/*)
+      printf 'https://github.com/b-t-k/b-t-k.github.io/blob/main/%s\n' "${rel#third-party/b-t-k/}"
+      ;;
+    *)
+      return 1
+      ;;
+  esac
 }
 
 emit_file() {
@@ -365,6 +399,49 @@ case "${1:-}" in
       NR > e { exit }
       NR >= s { printf "%d:%s\n", NR, $0 }
     ' "$file"
+    ;;
+  web)
+    shift
+    print_only=0
+    file_arg=""
+    while [ $# -gt 0 ]; do
+      case "$1" in
+        --url|--print) print_only=1; shift ;;
+        -*)
+          echo "se-ext docs web: unknown option '$1'" >&2
+          exit 1 ;;
+        *)
+          if [ -z "$file_arg" ]; then
+            file_arg="$1"
+          else
+            echo "se-ext docs web: unexpected argument '$1'" >&2
+            exit 1
+          fi
+          shift ;;
+      esac
+    done
+    if [ -z "$file_arg" ]; then
+      echo "Usage: se-ext docs web [--url] <file>" >&2
+      echo "Example: se-ext docs web manual/8-typography.md" >&2
+      exit 1
+    fi
+    if ! file=$(resolve_doc "$file_arg"); then
+      echo "Error: $file_arg not found in docs" >&2
+      exit 1
+    fi
+    if ! url=$(doc_web_url "$file"); then
+      echo "Error: $file_arg has no upstream web page (cli/ docs are generated locally from 'se --help')." >&2
+      exit 1
+    fi
+    if [ "$print_only" = 1 ]; then
+      printf '%s\n' "$url"
+    elif command -v xdg-open >/dev/null 2>&1; then
+      echo "Opening: $url"
+      xdg-open "$url" >/dev/null 2>&1 &
+    else
+      echo "xdg-open not found; URL is:" >&2
+      printf '%s\n' "$url"
+    fi
     ;;
   index|"")
     emit_file "$SE_DOCS/INDEX.md"
