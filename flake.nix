@@ -227,6 +227,11 @@
             	side-by-side = false
             	line-numbers = true
             	syntax-theme = ansi
+            	# Character-level within-line diff (delta's own word-diff),
+            	# equivalent to git's --word-diff-regex=. ; max-line-distance=1.0
+            	# makes delta pair lines like `git --word-diff`.
+            	word-diff-regex = .
+            	max-line-distance = 1.0
 
             [delta "interactive"]
             	keep-plus-minus-markers = false
@@ -234,6 +239,9 @@
             [diff]
             	algorithm = histogram
             	colorMoved = default
+            	# Zero context lines (-U0). Delta renders within-line changes,
+            	# so you see only changed lines with char-level highlighting.
+            	context = 0
 
             [merge]
             	conflictstyle = diff3
