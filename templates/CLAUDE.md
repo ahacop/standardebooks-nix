@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this repo is
 
-A Standard Ebooks production. It is not code — it is an EPUB source tree that gets built into distributable ebook files by the `se` toolset. All meaningful "source" lives under `src/epub/` and follows the [Standard Ebooks Manual of Style](https://standardebooks.org/manual).
+A Standard Ebooks production. An EPUB source tree that gets built into distributable ebook files by the `se` toolset. All meaningful "source" lives under `src/epub/` and follows the [Standard Ebooks Manual of Style](https://standardebooks.org/manual).
 
 - `src/epub/content.opf` — package metadata (title, subjects, contributors, manifest, spine). Edit here when adding/removing files or changing metadata.
 - `src/epub/text/*.xhtml` — the book body. Front/back matter (`titlepage`, `halftitlepage`, `imprint`, `preface`, `epigraph`, `colophon`, `uncopyright`) plus per-chapter files. Each is polyglot XHTML5 with `epub:type` semantic attributes.
@@ -31,31 +31,39 @@ If direnv is not active, enter the shell manually with `nix develop github:ahaco
 
 ## Common commands
 
-All `se` subcommands accept the project root (`.`) as their target. Run from the repo root unless noted.
-
 ```bash
-se lint src                      # primary correctness check
-se lint -v src                   # verbose, shows each file being checked
-se build src                     # produce .epub / compatible.epub / .kepub.epub in ./dist
-se build --check src             # run epubcheck on the built artifacts
-se clean src                     # reformat XHTML/CSS/OPF canonically (whitespace, attribute order)
-se typogrify src                 # apply typography (curly quotes, en/em dashes, etc.)
-se semanticate src               # add common semantic markup (Latin phrases, etc.)
-se modernize-spelling src        # rewrite archaic spellings (to-day → today, &c.)
-se build-toc src                 # regenerate toc.xhtml from current chapter files/headings
-se build-manifest src            # regenerate <manifest> in content.opf
-se build-spine src               # regenerate <spine> in content.opf
-se word-count src
-se recompose-epub src            # single-file HTML, useful for grep/diff across the whole book
-se xpath src '//something'       # XPath against the ebook for targeted searches
-se find-mismatched-dashes src    # lint helpers for manual review
-se find-mismatched-diacritics src
-se find-unusual-characters src
+se lint .                        # primary correctness check
+se lint -v .                     # verbose, shows each file being checked
+se build .                       # produce .epub / compatible.epub / .kepub.epub in ./dist
+se build --check-only .          # run epubcheck without writing output files
+se clean .                       # reformat XHTML/CSS/OPF canonically (whitespace, attribute order)
+se typogrify .                   # apply typography (curly quotes, en/em dashes, etc.)
+se semanticate .                 # add common semantic markup (Latin phrases, etc.)
+se modernize-spelling .          # rewrite archaic spellings (to-day → today, &c.)
+se build-toc .                   # regenerate toc.xhtml from current chapter files/headings
+se build-manifest .              # regenerate <manifest> in content.opf
+se build-spine .                 # regenerate <spine> in content.opf
+se word-count .
+se recompose-epub .              # single-file HTML, useful for grep/diff across the whole book
+se xpath '//something' .         # XPath against the ebook (expression first, then target)
+se find-mismatched-dashes .      # lint helpers for manual review
+se find-mismatched-diacritics .
+se find-unusual-characters .
 ```
 
 There is no test suite. `se lint` is the closest thing to one — treat its output as the build gate. `se lint` warnings are categorized (`s-xxx` structural, `t-xxx` typography, `c-xxx` CSS, `m-xxx` metadata); many are intentional and can be ignored with judgement, but new warnings introduced by a change should be addressed.
 
 **Do not run `se lint` reflexively during early production.** A book in production usually has metadata placeholders, unfinished semantic tagging, and other in-progress work that makes `se lint` emit hundreds of warnings unrelated to whatever change you just made. Running it after a small edit buries the signal. Only run `se lint` when the user asks for it, or at a natural checkpoint near the end of a production pass. For verifying the effect of a specific edit, prefer a targeted check (e.g., `se xpath`, `grep`, re-reading the file) over a full lint.
+
+### Justfile shortcuts
+
+If a `Justfile` is present (added by `se-ext init`), `just --list` shows convenience recipes that wrap the `se` commands above; they run against the book root `.` by default (override to narrow, e.g. `just dir=src/epub/text clean`). The underlying `se` commands remain the source of truth — the recipes only bundle the common multi-step sequences:
+
+- `just normalize` — `se typogrify` + `se semanticate` + `se modernize-spelling`, then `se clean`. The everyday "process, then clean" pass.
+- `just rebuild-meta` — `se build-manifest` + `se build-spine` + `se build-toc` together, after you add / rename / split / remove a file under `src/epub/text/`.
+- `just clean` / `just build` / `just check` / `just lint` / `just word-count` / `just preview` — thin aliases for the matching `se` / `se-ext` command.
+
+There is deliberately no "lint everything" or "do it all" recipe — see the note above about not running `se lint` reflexively. Prefer `just rebuild-meta` to hand-editing the manifest, spine, and toc separately.
 
 ## Workflow conventions
 

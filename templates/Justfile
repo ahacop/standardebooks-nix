@@ -1,0 +1,50 @@
+# Justfile for a Standard Ebooks production.
+#
+# `se` is the real task runner — these recipes exist only to (1) bundle the
+# multi-step conventions documented in CLAUDE.md and (2) list the vocabulary
+# in one place via `just --list`. Deliberately NO "lint everything" or "do it
+# all" recipe: CLAUDE.md warns against running `se lint` reflexively or
+# chaining it onto the clean/typogrify sequence during production.
+
+dir := "."
+
+# List available recipes
+default:
+    @just --list
+
+# Canonicalize formatting (idempotent; run after manual edits)
+clean:
+    se clean {{dir}}
+
+# Typogrify + semanticate + modernize-spelling, then clean (no lint — see CLAUDE.md)
+normalize:
+    se typogrify {{dir}}
+    se semanticate {{dir}}
+    se modernize-spelling {{dir}}
+    se clean {{dir}}
+
+# Regenerate manifest + spine + toc together (after you add/rename/split a text file)
+rebuild-meta:
+    se build-manifest {{dir}}
+    se build-spine {{dir}}
+    se build-toc {{dir}}
+
+# Build the ebook
+build:
+    se build {{dir}}
+
+# Run epubcheck on the built epub without writing output files — release gate
+check:
+    se build --check-only {{dir}}
+
+# Lint — run at checkpoints, NOT reflexively (see CLAUDE.md)
+lint:
+    se lint {{dir}}
+
+# Word count
+word-count:
+    se word-count {{dir}}
+
+# Build and open the ebook in the system reader
+preview:
+    se-ext preview

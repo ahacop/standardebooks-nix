@@ -13,16 +13,44 @@ use flake github:ahacop/standardebooks-nix
 Then run `direnv allow` to activate the environment.
 
 This will give you access to:
+
 - Standard Ebooks tools (`se`)
 - Extended tools (`se-ext`)
 - Calibre
 - epubcheck
+
+## Starting a new ebook project
+
+Once you have _any_ shell with `se-ext` on `PATH` (e.g. `nix develop
+github:ahacop/standardebooks-nix`), scaffold a fresh book directory in one
+step:
+
+```bash
+se create-draft --author "…" --title "…"   # generate the ebook skeleton (src/, content.opf, …)
+cd <new-book-dir>
+se-ext init                                 # drop in .envrc, .gitignore, Justfile, CLAUDE.md
+direnv allow                                # activate the per-project environment
+```
+
+`se-ext init` writes the project-local "glue" files and nothing more:
+
+- `.envrc` — `use flake github:ahacop/standardebooks-nix` (pass `--local` to
+  point at a sibling `../standardebooks-nix` checkout instead)
+- `.gitignore` — the SE-idiomatic ignore (`.*`, `CLAUDE.md`, `notes/`, …)
+- `Justfile` — common `se` recipes (`just normalize`, `just rebuild-meta`, …)
+- `CLAUDE.md` — agent guidance (same template as `se-ext claude-init`)
+
+It is idempotent — existing files are left alone unless you pass `--force` — so
+it is safe to run before or after `se create-draft`. Because the generated
+`.gitignore` ignores dotfiles and `CLAUDE.md`, most of what it writes is
+intentionally untracked.
 
 ## Extended tools
 
 `se-ext` provides additional helpers for ebook production:
 
 ```bash
+se-ext init                 # Scaffold a new ebook project (.envrc, .gitignore, Justfile, CLAUDE.md)
 se-ext claude-init          # Print or install a CLAUDE.md for this flake
 se-ext docs                 # Browse and search SE documentation
 se-ext find-archaic-words   # Find archaic spellings not yet in the word list

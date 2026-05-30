@@ -7,6 +7,7 @@ _se_ext() {
     'docs:Browse and search SE documentation'
     'find-archaic-words:Find archaic spellings not yet in the word list'
     'ia-ocr:Search an Internet Archive scan'\''s OCR for a phrase'
+    'init:Scaffold a new ebook project (.envrc, .gitignore, Justfile, CLAUDE.md)'
     'modernize-spelling:Apply archaic-to-modern spelling replacements'
     'ngram:Show a word'\''s usage-frequency trajectory (Google Ngrams)'
     'page-scans:Open page scan URLs from ebook metadata'
@@ -68,6 +69,12 @@ _se_ext() {
             '--image[Download the matching leaf'\''s JPEG and print the saved path]' \
             '1:phrase:' \
             '2:ebook-directory:_directories'
+          ;;
+        init)
+          _arguments \
+            '--remote[.envrc points at the GitHub flake (default)]' \
+            '--local[.envrc points at a sibling ../standardebooks-nix checkout]' \
+            '--force[Overwrite files that already exist]'
           ;;
         modernize-spelling)
           _arguments \

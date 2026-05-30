@@ -13,6 +13,7 @@ show_help() {
   echo "  docs                   Browse and search SE documentation"
   echo "  find-archaic-words     Find archaic spellings not yet in the word list"
   echo "  ia-ocr                 Search an Internet Archive scan's OCR for a phrase"
+  echo "  init                   Scaffold a new ebook project (.envrc, .gitignore, Justfile, CLAUDE.md)"
   echo "  modernize-spelling     Apply archaic-to-modern spelling replacements"
   echo "  ngram                  Show a word's usage-frequency trajectory (Google Ngrams)"
   echo "  page-scans             Open page scan URLs from ebook metadata"
@@ -28,6 +29,7 @@ list_commands() {
   echo "docs"
   echo "find-archaic-words"
   echo "ia-ocr"
+  echo "init"
   echo "modernize-spelling"
   echo "ngram"
   echo "page-scans"
@@ -51,6 +53,10 @@ case "${1:-}" in
   ia-ocr)
     shift
     source "$SCRIPT_DIR/ia-ocr.sh"
+    ;;
+  init)
+    shift
+    source "$SCRIPT_DIR/init.sh"
     ;;
   modernize-spelling)
     shift
