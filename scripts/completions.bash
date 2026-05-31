@@ -46,7 +46,7 @@ _se_ext() {
       fi
       ;;
     ia-ocr)
-      COMPREPLY=($(compgen -W "--url --json --all-matches --auto-retry --image --image-url --help" -- "$cur"))
+      COMPREPLY=($(compgen -W "--id --url --json --all-matches --auto-retry --image --image-url --help" -- "$cur"))
       ;;
     init)
       COMPREPLY=($(compgen -W "--remote --local --force --help" -- "$cur"))

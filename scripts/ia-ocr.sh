@@ -17,6 +17,9 @@ if [ "$1" = "" ] || [ "$1" = "--help" ] || [ "$1" = "-h" ]; then
   echo "punctuation). Confirm those visually on the scan."
   echo ""
   echo "OPTIONS"
+  echo "  --id <id|url>          Use this Internet Archive item instead of the"
+  echo "                         one in content.opf. Accepts a bare identifier"
+  echo "                         or a full archive.org/details/<id> URL."
   echo "  --url                  Print only the canonical page-scan URL"
   echo "  --json                 Emit the result as JSON (overrides --url)"
   echo "  --all-matches          Report every match in the OCR, not just the"
@@ -41,6 +44,7 @@ if [ "$1" = "" ] || [ "$1" = "--help" ] || [ "$1" = "-h" ]; then
   echo ""
   echo "EXAMPLES"
   echo "  se-ext ia-ocr 'I was to Journey thither on foot'"
+  echo "  se-ext ia-ocr --id someotheritem 'Journey thither' # override source"
   echo "  se-ext ia-ocr --auto-retry 'I was to Journey thither on foot'"
   echo "  se-ext ia-ocr --all-matches 'Journey thither' # every hit in the book"
   echo "  se-ext ia-ocr --url 'Journey thither'      # paste-ready commit URL"
@@ -56,6 +60,7 @@ MIN_WORDS=3
 
 PHRASE=""
 EBOOK_DIR=""
+IA_ID_OVERRIDE=""
 URL_ONLY=false
 JSON_MODE=false
 AUTO_RETRY=false
@@ -65,6 +70,13 @@ IMAGE_URL_ONLY=false
 
 while [ $# -gt 0 ]; do
   case "$1" in
+    --id)
+      if [ -z "$2" ]; then
+        echo "Error: --id requires an argument." >&2
+        exit 2
+      fi
+      IA_ID_OVERRIDE="$2"; shift 2 ;;
+    --id=*) IA_ID_OVERRIDE="${1#--id=}"; shift ;;
     --url) URL_ONLY=true; shift ;;
     --json) JSON_MODE=true; shift ;;
     --all-matches) ALL_MATCHES=true; shift ;;
@@ -100,11 +112,25 @@ fi
 EBOOK_DIR="${EBOOK_DIR:-.}"
 OPF="$EBOOK_DIR/src/epub/content.opf"
 
-if [ ! -f "$OPF" ]; then
+# content.opf is only needed to discover the IA source; --id supplies it directly.
+if [ -z "$IA_ID_OVERRIDE" ] && [ ! -f "$OPF" ]; then
   echo "Error: content.opf not found at $OPF" >&2
   echo "Are you in a Standard Ebooks project directory?" >&2
   exit 1
 fi
+
+# Reduce an archive.org/details/<id> URL (or a bare identifier) to the identifier.
+normalize_ia_id() {
+  local id="$1"
+  case "$id" in
+    *archive.org/details/*)
+      id="${id#*archive.org/details/}"
+      id="${id%%/*}"
+      id="${id%%\?*}"
+      ;;
+  esac
+  printf '%s' "$id"
+}
 
 # Percent-encode a string, wrapping it in double quotes for exact-phrase search.
 percent_encode_phrase() {
@@ -137,23 +163,29 @@ fetch_image() {
   printf '%s\n' "$out"
 }
 
-# Find the first archive.org/details identifier among the dc:source entries.
-IA_ID=""
-while IFS= read -r url; do
-  case "$url" in
-    *archive.org/details/*)
-      IA_ID="${url#*archive.org/details/}"
-      IA_ID="${IA_ID%%/*}"
-      IA_ID="${IA_ID%%\?*}"
-      break
-      ;;
-  esac
-done < <(grep -oP '(?<=<dc:source>)[^<]+' "$OPF")
+if [ -n "$IA_ID_OVERRIDE" ]; then
+  IA_ID=$(normalize_ia_id "$IA_ID_OVERRIDE")
+  if [ -z "$IA_ID" ]; then
+    echo "Error: could not parse an Internet Archive identifier from --id '$IA_ID_OVERRIDE'." >&2
+    exit 2
+  fi
+else
+  # Find the first archive.org/details identifier among the dc:source entries.
+  IA_ID=""
+  while IFS= read -r url; do
+    case "$url" in
+      *archive.org/details/*)
+        IA_ID=$(normalize_ia_id "$url")
+        break
+        ;;
+    esac
+  done < <(grep -oP '(?<=<dc:source>)[^<]+' "$OPF")
 
-if [ -z "$IA_ID" ]; then
-  echo "Error: no Internet Archive source found in $OPF." >&2
-  echo "ia-ocr only works with archive.org/details/ sources." >&2
-  exit 4
+  if [ -z "$IA_ID" ]; then
+    echo "Error: no Internet Archive source found in $OPF." >&2
+    echo "ia-ocr only works with archive.org/details/ sources." >&2
+    exit 4
+  fi
 fi
 
 # Resolve the item's data server and path from the IA metadata API.

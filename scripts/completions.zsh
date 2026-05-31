@@ -77,6 +77,7 @@ _se_ext() {
           ;;
         ia-ocr)
           _arguments \
+            '--id[Use this Internet Archive item instead of content.opf]:id or url:' \
             '--url[Print only the canonical page-scan URL]' \
             '--json[Emit the result as JSON]' \
             '--all-matches[Report every match in the OCR, not just the first]' \
