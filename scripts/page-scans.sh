@@ -11,18 +11,23 @@ if [ "$1" = "--help" ] || [ "$1" = "-h" ]; then
   echo "OPTIONS"
   echo "  -s, --search <term>    Search term to append to the page scan URL"
   echo "  -l, --list             List URLs without opening them"
+  echo "      --id <id|url>      Use this Internet Archive item instead of the"
+  echo "                         ones in content.opf. Accepts a bare identifier"
+  echo "                         or a full archive.org/details/<id> URL."
   echo "  <ebook-directory>      Path to the ebook project root (default: .)"
   echo ""
   echo "EXAMPLES"
   echo "  se-ext page-scans"
   echo "  se-ext page-scans --search \"Chapter IV\""
   echo "  se-ext page-scans --list /path/to/ebook"
+  echo "  se-ext page-scans --id someotheritem        # override source"
   exit 0
 fi
 
 SEARCH_TERM=""
 LIST_ONLY=false
 EBOOK_DIR=""
+IA_ID_OVERRIDE=""
 
 while [ $# -gt 0 ]; do
   case "$1" in
@@ -32,6 +37,18 @@ while [ $# -gt 0 ]; do
       ;;
     -l|--list)
       LIST_ONLY=true
+      shift
+      ;;
+    --id)
+      if [ -z "$2" ]; then
+        echo "Error: --id requires an argument." >&2
+        exit 2
+      fi
+      IA_ID_OVERRIDE="$2"
+      shift 2
+      ;;
+    --id=*)
+      IA_ID_OVERRIDE="${1#--id=}"
       shift
       ;;
     -*)
@@ -45,39 +62,62 @@ while [ $# -gt 0 ]; do
   esac
 done
 
-EBOOK_DIR="${EBOOK_DIR:-.}"
-OPF="$EBOOK_DIR/src/epub/content.opf"
-
-if [ ! -f "$OPF" ]; then
-  echo "Error: content.opf not found at $OPF" >&2
-  echo "Are you in a Standard Ebooks project directory?" >&2
-  exit 1
-fi
-
-# Extract all dc:source URLs
-SOURCES=$(grep -oP '(?<=<dc:source>)[^<]+' "$OPF")
-
-if [ -z "$SOURCES" ]; then
-  echo "No dc:source entries found in $OPF" >&2
-  exit 1
-fi
-
-# Filter to page scan URLs (exclude Gutenberg transcription sources and Wikisource)
-PAGE_SCANS=""
-while IFS= read -r url; do
-  case "$url" in
-    *gutenberg.org*) ;;
-    *wikisource.org*) ;;
-    *) PAGE_SCANS="${PAGE_SCANS:+$PAGE_SCANS
-}$url" ;;
+# Reduce an archive.org/details/<id> URL (or a bare identifier) to the identifier.
+normalize_ia_id() {
+  local id="$1"
+  case "$id" in
+    *archive.org/details/*)
+      id="${id#*archive.org/details/}"
+      id="${id%%/*}"
+      id="${id%%\?*}"
+      ;;
   esac
-done <<< "$SOURCES"
+  printf '%s' "$id"
+}
 
-if [ -z "$PAGE_SCANS" ]; then
-  echo "No page scan URLs found (only transcription sources)." >&2
-  echo "All sources:" >&2
-  echo "$SOURCES" >&2
-  exit 1
+if [ -n "$IA_ID_OVERRIDE" ]; then
+  # --id supplies the source directly, so content.opf is not consulted.
+  IA_ID=$(normalize_ia_id "$IA_ID_OVERRIDE")
+  if [ -z "$IA_ID" ]; then
+    echo "Error: could not parse an Internet Archive identifier from --id '$IA_ID_OVERRIDE'." >&2
+    exit 2
+  fi
+  PAGE_SCANS="https://archive.org/details/$IA_ID"
+else
+  EBOOK_DIR="${EBOOK_DIR:-.}"
+  OPF="$EBOOK_DIR/src/epub/content.opf"
+
+  if [ ! -f "$OPF" ]; then
+    echo "Error: content.opf not found at $OPF" >&2
+    echo "Are you in a Standard Ebooks project directory?" >&2
+    exit 1
+  fi
+
+  # Extract all dc:source URLs
+  SOURCES=$(grep -oP '(?<=<dc:source>)[^<]+' "$OPF")
+
+  if [ -z "$SOURCES" ]; then
+    echo "No dc:source entries found in $OPF" >&2
+    exit 1
+  fi
+
+  # Filter to page scan URLs (exclude Gutenberg transcription sources and Wikisource)
+  PAGE_SCANS=""
+  while IFS= read -r url; do
+    case "$url" in
+      *gutenberg.org*) ;;
+      *wikisource.org*) ;;
+      *) PAGE_SCANS="${PAGE_SCANS:+$PAGE_SCANS
+}$url" ;;
+    esac
+  done <<< "$SOURCES"
+
+  if [ -z "$PAGE_SCANS" ]; then
+    echo "No page scan URLs found (only transcription sources)." >&2
+    echo "All sources:" >&2
+    echo "$SOURCES" >&2
+    exit 1
+  fi
 fi
 
 # Append search term to URL where supported

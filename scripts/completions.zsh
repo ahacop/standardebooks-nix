@@ -109,6 +109,7 @@ _se_ext() {
           _arguments \
             '--search[Search term to append to URL]:term:' \
             '--list[List URLs without opening]' \
+            '--id[Use this Internet Archive item instead of content.opf]:id or url:' \
             '1:ebook-directory:_directories'
           ;;
         preview)

@@ -65,7 +65,7 @@ _se_ext() {
       esac
       ;;
     page-scans)
-      COMPREPLY=($(compgen -W "--search --list --help" -- "$cur"))
+      COMPREPLY=($(compgen -W "--search --list --id --help" -- "$cur"))
       ;;
     preview)
       COMPREPLY=($(compgen -W "--output-dir --advanced --help" -- "$cur"))
