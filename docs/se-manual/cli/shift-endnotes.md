@@ -1,20 +1,47 @@
 # se shift-endnotes
 
 ```
-usage: shift-endnotes [-h] (-d | -i) [-a NUMBER] ENDNOTE-NUMBER DIRECTORY
+USAGE
 
-Increment or decrement the specified endnote and all following endnotes by 1
-or a specified amount.
+	shift-endnotes [-h,--help] [-a,--amount <NUMBER>] [-d,--decrement]
+	[-i,--increment] <ENDNOTE-NUMBER> <DIRECTORY>
 
-positional arguments:
-  ENDNOTE-NUMBER       the endnote number to start shifting at
-  DIRECTORY            a Standard Ebooks source directory
+DESCRIPTION
 
-options:
-  -h, --help           show this help message and exit
-  -d, --decrement      decrement the target endnote number and all following
-                       endnotes
-  -i, --increment      increment the target endnote number and all following
-                       endnotes
-  -a, --amount NUMBER  the amount to increment or decrement by; defaults to 1
+	Increment or decrement the specified endnote and all following
+	endnotes by 1 or a specified amount.
+
+POSITIONAL ARGUMENTS
+
+	<ENDNOTE-NUMBER>
+
+		The endnote number to start shifting at.
+
+
+	<DIRECTORY>
+
+		A Standard Ebooks source directory.
+
+OPTIONS
+
+	-h,--help
+
+		Show this help message and exit.
+
+
+	-a,--amount <NUMBER>
+
+		The amount to increment or decrement by; defaults to 1.
+
+
+	-d,--decrement
+
+		Decrement the target endnote number and all following
+		endnotes.
+
+
+	-i,--increment
+
+		Increment the target endnote number and all following
+		endnotes.
 ```

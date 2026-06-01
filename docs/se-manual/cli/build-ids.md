@@ -1,17 +1,36 @@
 # se build-ids
 
 ```
-usage: build-ids [-h] [-n] [-v] DIRECTORY [DIRECTORY ...]
+USAGE
 
-Change ID attributes for non-sectioning content to their expected values
-across the entire ebook. IDs must be globally unique and correctly referenced,
-and the ebook spine must be complete.
+	build-ids [-h,--help] [-n,--no-endnotes] [-v,--verbose]
+	<DIRECTORY> [<DIRECTORY> ...]
 
-positional arguments:
-  DIRECTORY          a Standard Ebooks source directory
+DESCRIPTION
 
-options:
-  -h, --help         show this help message and exit
-  -n, --no-endnotes  exclude endnotes
-  -v, --verbose      increase output verbosity
+	Change id attributes for non-sectioning content to their expected
+	values across the entire ebook. IDs must be globally unique and
+	correctly referenced, and the ebook spine must be complete.
+
+POSITIONAL ARGUMENTS
+
+	<DIRECTORY> [<DIRECTORY> ...]
+
+		A Standard Ebooks source directory.
+
+OPTIONS
+
+	-h,--help
+
+		Show this help message and exit.
+
+
+	-n,--no-endnotes
+
+		Exclude endnotes.
+
+
+	-v,--verbose
+
+		Increase output verbosity.
 ```

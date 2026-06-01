@@ -1,14 +1,29 @@
 # se build-loi
 
 ```
-usage: build-loi [-h] [-s] DIRECTORY [DIRECTORY ...]
+USAGE
 
-Update the LoI file based on all <figure> elements that contain an <img>.
+	build-loi [-h,--help] [-s,--stdout] <DIRECTORY> [<DIRECTORY> ...]
 
-positional arguments:
-  DIRECTORY     a Standard Ebooks source directory
+DESCRIPTION
 
-options:
-  -h, --help    show this help message and exit
-  -s, --stdout  print to stdout instead of writing to the LoI file
+	Update the LoI file based on all <figure> elements that contain an
+	<img>.
+
+POSITIONAL ARGUMENTS
+
+	<DIRECTORY> [<DIRECTORY> ...]
+
+		A Standard Ebooks source directory.
+
+OPTIONS
+
+	-h,--help
+
+		Show this help message and exit.
+
+
+	-s,--stdout
+
+		Print to stdout instead of writing to the LoI file.
 ```

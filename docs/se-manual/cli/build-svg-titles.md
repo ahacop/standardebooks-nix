@@ -1,15 +1,30 @@
 # se build-svg-titles
 
 ```
-usage: build-svg-titles [-h] [-v] DIRECTORY [DIRECTORY ...]
+USAGE
 
-Update or add SVG <title> elements based on the alt attributes from the <img>
-elements.
+	build-svg-titles [-h,--help] [-v,--verbose]
+	<DIRECTORY> [<DIRECTORY> ...]
 
-positional arguments:
-  DIRECTORY      a Standard Ebooks source directory
+DESCRIPTION
 
-options:
-  -h, --help     show this help message and exit
-  -v, --verbose  increase output verbosity
+	Update or add SVG <title> elements based on the alt attributes from
+	the <img> elements.
+
+POSITIONAL ARGUMENTS
+
+	<DIRECTORY> [<DIRECTORY> ...]
+
+		A Standard Ebooks source directory.
+
+OPTIONS
+
+	-h,--help
+
+		Show this help message and exit.
+
+
+	-v,--verbose
+
+		Increase output verbosity.
 ```

@@ -1,14 +1,24 @@
 # se find-unusual-characters
 
 ```
-usage: find-unusual-characters [-h] TARGET [TARGET ...]
+USAGE
 
-Find characters outside a nominal expected range in a set of XHTML files. This
-can be useful to find transcription mistakes and mojibake.
+	find-unusual-characters [-h,--help] <TARGET> [<TARGET> ...]
 
-positional arguments:
-  TARGET      an XHTML file, or a directory containing XHTML files
+DESCRIPTION
 
-options:
-  -h, --help  show this help message and exit
+	Find characters outside a nominal expected range in a set of XHTML
+	files. This can be useful to find transcription mistakes and mojibake.
+
+POSITIONAL ARGUMENTS
+
+	<TARGET> [<TARGET> ...]
+
+		An XHTML file, or a directory containing XHTML files.
+
+OPTIONS
+
+	-h,--help
+
+		Show this help message and exit.
 ```

@@ -1,21 +1,47 @@
 # se shift-illustrations
 
 ```
-usage: shift-illustrations [-h] (-d | -i) [-a NUMBER]
-                           ILLUSTRATION-NUMBER DIRECTORY
+USAGE
 
-Increment or decrement the specified illustration and all following
-illustrations by 1 or a specified amount.
+	shift-illustrations [-h,--help] [-a,--amount <NUMBER>]
+	[-d,--decrement] [-i,--increment] <ILLUSTRATION-NUMBER> <DIRECTORY>
 
-positional arguments:
-  ILLUSTRATION-NUMBER  the illustration number to start shifting at
-  DIRECTORY            a Standard Ebooks source directory
+DESCRIPTION
 
-options:
-  -h, --help           show this help message and exit
-  -d, --decrement      decrement the target illustration number and all
-                       following illustrations
-  -i, --increment      increment the target illustration number and all
-                       following illustrations
-  -a, --amount NUMBER  the amount to increment or decrement by; defaults to 1
+	Increment or decrement the specified illustration and all following
+	illustrations by 1 or a specified amount.
+
+POSITIONAL ARGUMENTS
+
+	<ILLUSTRATION-NUMBER>
+
+		The illustration number to start shifting at.
+
+
+	<DIRECTORY>
+
+		A Standard Ebooks source directory.
+
+OPTIONS
+
+	-h,--help
+
+		Show this help message and exit.
+
+
+	-a,--amount <NUMBER>
+
+		The amount to increment or decrement by; defaults to 1.
+
+
+	-d,--decrement
+
+		Decrement the target illustration number and all following
+		illustrations.
+
+
+	-i,--increment
+
+		Increment the target illustration number and all following
+		illustrations.
 ```

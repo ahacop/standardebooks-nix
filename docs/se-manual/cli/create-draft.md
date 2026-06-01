@@ -1,25 +1,66 @@
 # se create-draft
 
 ```
-usage: create-draft [-h] [-r TRANSLATOR [TRANSLATOR ...]] [-p PG_ID]
-                    [-e EMAIL] [-o] -a AUTHOR [AUTHOR ...] -t TITLE [-w] [-v]
-                    [-f FP_ID]
+USAGE
 
-Create a skeleton of a new Standard Ebook in the current directory.
+	create-draft [-h,--help] -a,--author <AUTHOR> [<AUTHOR> ...]
+	[-e,--email <EMAIL>] [-f,--fp-id <FP_ID>] [-o,--offline]
+	[-p,--pg-id <PG_ID>] [-r,--translator <TRANSLATOR> [<TRANSLATOR> ...]]
+	-t,--title <TITLE> [-v,--verbose] [-w,--white-label]
 
-options:
-  -h, --help            show this help message and exit
-  -r, --translator TRANSLATOR [TRANSLATOR ...]
-                        a translator of the ebook
-  -p, --pg-id PG_ID     the Project Gutenberg ID number of the ebook to
-                        download
-  -e, --email EMAIL     use this email address as the main committer for the
-                        local Git repository
-  -o, --offline         create draft without network access
-  -a, --author AUTHOR [AUTHOR ...]
-                        an author of the ebook
-  -t, --title TITLE     the title of the ebook
-  -w, --white-label     create a generic epub skeleton without S.E. branding
-  -v, --verbose         increase output verbosity
-  -f, --fp-id FP_ID     the Faded Page ID number of the ebook to download
+DESCRIPTION
+
+	Create a skeleton of a new Standard Ebook in the current directory.
+
+OPTIONS
+
+	-h,--help
+
+		Show this help message and exit.
+
+
+	-a,--author <AUTHOR> [<AUTHOR> ...]
+
+		An author of the ebook.
+
+
+	-e,--email <EMAIL>
+
+		Use this email address as the main committer for the local Git
+		repository.
+
+
+	-f,--fp-id <FP_ID>
+
+		The Faded Page ID number of the ebook to download.
+
+
+	-o,--offline
+
+		Create draft without network access.
+
+
+	-p,--pg-id <PG_ID>
+
+		The Project Gutenberg ID number of the ebook to download.
+
+
+	-r,--translator <TRANSLATOR> [<TRANSLATOR> ...]
+
+		A translator of the ebook.
+
+
+	-t,--title <TITLE>
+
+		The title of the ebook.
+
+
+	-v,--verbose
+
+		Increase output verbosity.
+
+
+	-w,--white-label
+
+		Create a generic epub skeleton without S.E. branding.
 ```

@@ -1,14 +1,28 @@
 # se titlecase
 
 ```
-usage: titlecase [-h] [-n] [STRING ...]
+USAGE
 
-Convert a string to titlecase.
+	titlecase [-h,--help] [-n,--no-newline] [<STRING> ...]
 
-positional arguments:
-  STRING            a string
+DESCRIPTION
 
-options:
-  -h, --help        show this help message and exit
-  -n, --no-newline  don’t end output with a newline
+	Convert a string to titlecase.
+
+POSITIONAL ARGUMENTS
+
+	[<STRING> ...]
+
+		A string.
+
+OPTIONS
+
+	-h,--help
+
+		Show this help message and exit.
+
+
+	-n,--no-newline
+
+		Don’t end output with a newline.
 ```

@@ -1,14 +1,24 @@
 # se find-mismatched-diacritics
 
 ```
-usage: find-mismatched-diacritics [-h] TARGET [TARGET ...]
+USAGE
 
-Find words with mismatched diacritics in a set of XHTML files. For example,
-`cafe` in one file and `café` in another.
+	find-mismatched-diacritics [-h,--help] <TARGET> [<TARGET> ...]
 
-positional arguments:
-  TARGET      an XHTML file, or a directory containing XHTML files
+DESCRIPTION
 
-options:
-  -h, --help  show this help message and exit
+	Find words with mismatched diacritics in a set of XHTML files. For
+	example, cafe in one file and café in another.
+
+POSITIONAL ARGUMENTS
+
+	<TARGET> [<TARGET> ...]
+
+		An XHTML file, or a directory containing XHTML files.
+
+OPTIONS
+
+	-h,--help
+
+		Show this help message and exit.
 ```

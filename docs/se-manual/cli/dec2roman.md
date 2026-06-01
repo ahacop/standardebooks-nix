@@ -1,14 +1,28 @@
 # se dec2roman
 
 ```
-usage: dec2roman [-h] [-n] [INTEGER ...]
+USAGE
 
-Convert a decimal number to a Roman numeral.
+	dec2roman [-h,--help] [-n,--no-newline] [<INTEGER> ...]
 
-positional arguments:
-  INTEGER           an integer
+DESCRIPTION
 
-options:
-  -h, --help        show this help message and exit
-  -n, --no-newline  don’t end output with a newline
+	Convert a decimal number to a Roman numeral.
+
+POSITIONAL ARGUMENTS
+
+	[<INTEGER> ...]
+
+		An integer.
+
+OPTIONS
+
+	-h,--help
+
+		Show this help message and exit.
+
+
+	-n,--no-newline
+
+		Don’t end output with a newline.
 ```

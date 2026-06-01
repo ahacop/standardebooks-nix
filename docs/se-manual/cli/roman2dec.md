@@ -1,14 +1,28 @@
 # se roman2dec
 
 ```
-usage: roman2dec [-h] [-n] NUMERAL [NUMERAL ...]
+USAGE
 
-Convert a Roman numeral to a decimal number.
+	roman2dec [-h,--help] [-n,--no-newline] <NUMERAL> [<NUMERAL> ...]
 
-positional arguments:
-  NUMERAL           a Roman numeral
+DESCRIPTION
 
-options:
-  -h, --help        show this help message and exit
-  -n, --no-newline  don’t end output with a newline
+	Convert a Roman numeral to a decimal number.
+
+POSITIONAL ARGUMENTS
+
+	<NUMERAL> [<NUMERAL> ...]
+
+		A Roman numeral.
+
+OPTIONS
+
+	-h,--help
+
+		Show this help message and exit.
+
+
+	-n,--no-newline
+
+		Don’t end output with a newline.
 ```

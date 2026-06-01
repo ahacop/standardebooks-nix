@@ -1,14 +1,28 @@
 # se make-url-safe
 
 ```
-usage: make-url-safe [-h] [-n] [STRING ...]
+USAGE
 
-Make a string URL-safe.
+	make-url-safe [-h,--help] [-n,--no-newline] [<STRING> ...]
 
-positional arguments:
-  STRING            a string
+DESCRIPTION
 
-options:
-  -h, --help        show this help message and exit
-  -n, --no-newline  don’t end output with a newline
+	Make a string URL-safe.
+
+POSITIONAL ARGUMENTS
+
+	[<STRING> ...]
+
+		A string.
+
+OPTIONS
+
+	-h,--help
+
+		Show this help message and exit.
+
+
+	-n,--no-newline
+
+		Don’t end output with a newline.
 ```

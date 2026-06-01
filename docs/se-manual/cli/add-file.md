@@ -1,16 +1,36 @@
 # se add-file
 
 ```
-usage: add-file [-h] [-f] FILE_TYPE DIRECTORY [DIRECTORY ...]
+USAGE
 
-Add an SE template file and any accompanying CSS.
+	add-file [-h,--help] [-f,--force] <FILE_TYPE>
+	<DIRECTORY> [<DIRECTORY> ...]
 
-positional arguments:
-  FILE_TYPE    the type of file to add; one of (dedication, dramatis-personae,
-               endnotes, epigraph, glossary, halftitlepage, ignore)
-  DIRECTORY    a Standard Ebooks source directory
+DESCRIPTION
 
-options:
-  -h, --help   show this help message and exit
-  -f, --force  overwrite any existing files
+	Add an SE template file and any accompanying CSS.
+
+POSITIONAL ARGUMENTS
+
+	<FILE_TYPE>
+
+		The type of file to add; one of: dedication,
+		dramatis-personae, endnotes, epigraph, glossary,
+		halftitlepage, ignore.
+
+
+	<DIRECTORY> [<DIRECTORY> ...]
+
+		A Standard Ebooks source directory.
+
+OPTIONS
+
+	-h,--help
+
+		Show this help message and exit.
+
+
+	-f,--force
+
+		Overwrite any existing files.
 ```

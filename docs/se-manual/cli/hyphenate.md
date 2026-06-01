@@ -1,19 +1,41 @@
 # se hyphenate
 
 ```
-usage: hyphenate [-h] [-i] [-l LANGUAGE] [-v] TARGET [TARGET ...]
+USAGE
 
-Insert soft hyphens at syllable breaks in XHTML files.
+	hyphenate [-h,--help] [-i,--ignore-h-tags] [-l,--language <LANGUAGE>]
+	[-v,--verbose] <TARGET> [<TARGET> ...]
 
-positional arguments:
-  TARGET                an XHTML file, or a directory containing XHTML files
+DESCRIPTION
 
-options:
-  -h, --help            show this help message and exit
-  -i, --ignore-h-tags   don’t add soft hyphens to text in <h1-6> tags
-  -l, --language LANGUAGE
-                        specify the language for the XHTML files; if
-                        unspecified, defaults to the `xml:lang` or `lang`
-                        attribute of the root <html> element
-  -v, --verbose         increase output verbosity
+	Insert soft hyphens at syllable breaks in XHTML files.
+
+POSITIONAL ARGUMENTS
+
+	<TARGET> [<TARGET> ...]
+
+		An XHTML file, or a directory containing XHTML files.
+
+OPTIONS
+
+	-h,--help
+
+		Show this help message and exit.
+
+
+	-i,--ignore-h-tags
+
+		Don’t add soft hyphens to text in <h1-6> tags.
+
+
+	-l,--language <LANGUAGE>
+
+		Specify the language for the XHTML files; if unspecified,
+		defaults to the xml:lang or lang attribute of the root <html>
+		element.
+
+
+	-v,--verbose
+
+		Increase output verbosity.
 ```

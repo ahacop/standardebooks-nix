@@ -1,17 +1,40 @@
 # se prepare-release
 
 ```
-usage: prepare-release [-h] [-w] [-r] [-v] DIRECTORY [DIRECTORY ...]
+USAGE
 
-Calculate work word count, insert release date if not yet set, and update
-modified date and revision number.
+	prepare-release [-h,--help] [-r,--no-revision] [-v,--verbose]
+	[-w,--no-word-count] <DIRECTORY> [<DIRECTORY> ...]
 
-positional arguments:
-  DIRECTORY            a Standard Ebooks source directory
+DESCRIPTION
 
-options:
-  -h, --help           show this help message and exit
-  -w, --no-word-count  don’t calculate word count
-  -r, --no-revision    don’t increment the revision number
-  -v, --verbose        increase output verbosity
+	Calculate work word count, insert release date if not yet set, and
+	update modified date and revision number.
+
+POSITIONAL ARGUMENTS
+
+	<DIRECTORY> [<DIRECTORY> ...]
+
+		A Standard Ebooks source directory.
+
+OPTIONS
+
+	-h,--help
+
+		Show this help message and exit.
+
+
+	-r,--no-revision
+
+		Don’t increment the revision number.
+
+
+	-v,--verbose
+
+		Increase output verbosity.
+
+
+	-w,--no-word-count
+
+		Don’t calculate word count.
 ```

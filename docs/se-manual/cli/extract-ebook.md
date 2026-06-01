@@ -1,17 +1,35 @@
 # se extract-ebook
 
 ```
-usage: extract-ebook [-h] [-o OUTPUT_DIR] [-v] TARGET [TARGET ...]
+USAGE
 
-Extract an .epub, .mobi, or .azw3 ebook into ./FILENAME.extracted/ or a target
-directory.
+	extract-ebook [-h,--help] [-o,--output-dir <OUTPUT_DIR>]
+	[-v,--verbose] <TARGET> [<TARGET> ...]
 
-positional arguments:
-  TARGET                an epub, mobi, or azw3 file
+DESCRIPTION
 
-options:
-  -h, --help            show this help message and exit
-  -o, --output-dir OUTPUT_DIR
-                        a target directory to extract into
-  -v, --verbose         increase output verbosity
+	Extract an .epub, .mobi, or .azw3 ebook into ./FILENAME.extracted/ or
+	a target directory.
+
+POSITIONAL ARGUMENTS
+
+	<TARGET> [<TARGET> ...]
+
+		An epub, mobi, or azw3 file.
+
+OPTIONS
+
+	-h,--help
+
+		Show this help message and exit.
+
+
+	-o,--output-dir <OUTPUT_DIR>
+
+		A target directory to extract into.
+
+
+	-v,--verbose
+
+		Increase output verbosity.
 ```

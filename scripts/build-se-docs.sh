@@ -110,6 +110,10 @@ done
 
 echo "==> Dumping CLI help..."
 
+# se 3.0.5+ colorizes subcommand --help with ANSI escapes even when piped to a
+# non-TTY; NO_COLOR keeps the captured help as plain text for the docs.
+export NO_COLOR=1
+
 SE_VERSION=$(se --version 2>&1 | grep -oE '[0-9]+\.[0-9]+\.[0-9]+' || echo "unknown")
 echo "    se version: $SE_VERSION"
 

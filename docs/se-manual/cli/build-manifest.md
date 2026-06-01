@@ -1,15 +1,29 @@
 # se build-manifest
 
 ```
-usage: build-manifest [-h] [-s] DIRECTORY [DIRECTORY ...]
+USAGE
 
-Generate the <manifest> element for the given Standard Ebooks source directory
-and write it to the ebook’s metadata file.
+	build-manifest [-h,--help] [-s,--stdout] <DIRECTORY> [<DIRECTORY> ...]
 
-positional arguments:
-  DIRECTORY     a Standard Ebooks source directory
+DESCRIPTION
 
-options:
-  -h, --help    show this help message and exit
-  -s, --stdout  print to stdout instead of writing to the metadata file
+	Generate the <manifest> element for the given Standard Ebooks source
+	directory and write it to the ebook’s metadata file.
+
+POSITIONAL ARGUMENTS
+
+	<DIRECTORY> [<DIRECTORY> ...]
+
+		A Standard Ebooks source directory.
+
+OPTIONS
+
+	-h,--help
+
+		Show this help message and exit.
+
+
+	-s,--stdout
+
+		Print to stdout instead of writing to the metadata file.
 ```

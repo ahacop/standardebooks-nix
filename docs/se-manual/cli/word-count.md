@@ -1,21 +1,43 @@
 # se word-count
 
 ```
-usage: word-count [-h] [-c] [-p] [-x] TARGET [TARGET ...]
+USAGE
 
-Count the number of words in an XHTML file and optionally categorize by
-length. If multiple files are specified, show the total word count for all.
+	word-count [-h,--help] [-c,--categorize] [-p,--ignore-pg-boilerplate]
+	[-x,--exclude-se-files] <TARGET> [<TARGET> ...]
 
-positional arguments:
-  TARGET                an XHTML file, or a directory containing XHTML files
+DESCRIPTION
 
-options:
-  -h, --help            show this help message and exit
-  -c, --categorize      include length categorization in output
-  -p, --ignore-pg-boilerplate
-                        attempt to ignore Project Gutenberg boilerplate
-                        headers and footers before counting
-  -x, --exclude-se-files
-                        exclude some non-bodymatter files common to S.E.
-                        ebooks, like the ToC and colophon
+	Count the number of words in an XHTML file and optionally categorize
+	by length. If multiple files are specified, show the total word count
+	for all.
+
+POSITIONAL ARGUMENTS
+
+	<TARGET> [<TARGET> ...]
+
+		An XHTML file, or a directory containing XHTML files.
+
+OPTIONS
+
+	-h,--help
+
+		Show this help message and exit.
+
+
+	-c,--categorize
+
+		Include length categorization in output.
+
+
+	-p,--ignore-pg-boilerplate
+
+		Attempt to ignore Project Gutenberg boilerplate headers and
+		footers before counting.
+
+
+	-x,--exclude-se-files
+
+		Exclude some non-bodymatter files common to S.E. ebooks, like
+		the ToC and colophon.
 ```

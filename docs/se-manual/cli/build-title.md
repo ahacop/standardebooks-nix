@@ -1,16 +1,35 @@
 # se build-title
 
 ```
-usage: build-title [-h] [-n] [-s] TARGET [TARGET ...]
+USAGE
 
-Generate the title of an XHTML file based on its headings and update the
-file’s <title> element.
+	build-title [-h,--help] [-n,--no-newline] [-s,--stdout]
+	<TARGET> [<TARGET> ...]
 
-positional arguments:
-  TARGET            an XHTML file, or a directory containing XHTML files
+DESCRIPTION
 
-options:
-  -h, --help        show this help message and exit
-  -n, --no-newline  with --stdout, don’t end output with a newline
-  -s, --stdout      print to stdout instead of writing to the file
+	Generate the title of an XHTML file based on its headings and update
+	the file’s <title> element.
+
+POSITIONAL ARGUMENTS
+
+	<TARGET> [<TARGET> ...]
+
+		An XHTML file, or a directory containing XHTML files.
+
+OPTIONS
+
+	-h,--help
+
+		Show this help message and exit.
+
+
+	-n,--no-newline
+
+		With --stdout, don’t end output with a newline.
+
+
+	-s,--stdout
+
+		Print to stdout instead of writing to the file.
 ```

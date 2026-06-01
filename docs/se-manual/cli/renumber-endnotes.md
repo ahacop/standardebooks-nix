@@ -1,18 +1,37 @@
 # se renumber-endnotes
 
 ```
-usage: renumber-endnotes [-h] [-b] [-v] DIRECTORY [DIRECTORY ...]
+USAGE
 
-Renumber all endnotes and noterefs sequentially from the beginning, taking
-care to match noterefs and endnotes if possible.
+	renumber-endnotes [-h,--help] [-b,--brute-force] [-v,--verbose]
+	<DIRECTORY> [<DIRECTORY> ...]
 
-positional arguments:
-  DIRECTORY          a Standard Ebooks source directory
+DESCRIPTION
 
-options:
-  -h, --help         show this help message and exit
-  -b, --brute-force  renumber without checking that noterefs and endnotes
-                     match; may result in endnotes with empty backlinks or
-                     noterefs without matching endnotes
-  -v, --verbose      increase output verbosity
+	Renumber all endnotes and noterefs sequentially from the beginning,
+	taking care to match noterefs and endnotes if possible.
+
+POSITIONAL ARGUMENTS
+
+	<DIRECTORY> [<DIRECTORY> ...]
+
+		A Standard Ebooks source directory.
+
+OPTIONS
+
+	-h,--help
+
+		Show this help message and exit.
+
+
+	-b,--brute-force
+
+		Renumber without checking that noterefs and endnotes match;
+		may result in endnotes with empty backlinks or noterefs
+		without matching endnotes.
+
+
+	-v,--verbose
+
+		Increase output verbosity.
 ```

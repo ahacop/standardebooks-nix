@@ -1,18 +1,42 @@
 # se css-select
 
 ```
-usage: css-select [-h] [-f] [-q] SELECTOR TARGET [TARGET ...]
+USAGE
 
-Print the results of a CSS selector evaluated against a set of XHTML files.
+	css-select [-h,--help] [-f,--only-filenames] [-q,--quiet] <SELECTOR>
+	<TARGET> [<TARGET> ...]
 
-positional arguments:
-  SELECTOR              a CSS selector
-  TARGET                an XHTML file, or a directory containing XHTML files
+DESCRIPTION
 
-options:
-  -h, --help            show this help message and exit
-  -f, --only-filenames  only output filenames of files that contain matches,
-                        not the matches themselves
-  -q, --quiet           don’t output anything, only a return code if matches
-                        exist in any files
+	Print the results of a CSS selector evaluated against a set of XHTML
+	files.
+
+POSITIONAL ARGUMENTS
+
+	<SELECTOR>
+
+		A CSS selector.
+
+
+	<TARGET> [<TARGET> ...]
+
+		An XHTML file, or a directory containing XHTML files.
+
+OPTIONS
+
+	-h,--help
+
+		Show this help message and exit.
+
+
+	-f,--only-filenames
+
+		Only output filenames of files that contain matches, not the
+		matches themselves.
+
+
+	-q,--quiet
+
+		Don’t output anything, only a return code if matches exist in
+		any files.
 ```

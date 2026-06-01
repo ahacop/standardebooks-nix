@@ -1,15 +1,29 @@
 # se build-toc
 
 ```
-usage: build-toc [-h] [-s] DIRECTORY [DIRECTORY ...]
+USAGE
 
-Generate the table of contents for the ebook’s source directory and update the
-ToC file.
+	build-toc [-h,--help] [-s,--stdout] <DIRECTORY> [<DIRECTORY> ...]
 
-positional arguments:
-  DIRECTORY     a Standard Ebooks source directory
+DESCRIPTION
 
-options:
-  -h, --help    show this help message and exit
-  -s, --stdout  print to stdout instead of writing to the ToC file
+	Generate the table of contents for the ebook’s source directory and
+	update the ToC file.
+
+POSITIONAL ARGUMENTS
+
+	<DIRECTORY> [<DIRECTORY> ...]
+
+		A Standard Ebooks source directory.
+
+OPTIONS
+
+	-h,--help
+
+		Show this help message and exit.
+
+
+	-s,--stdout
+
+		Print to stdout instead of writing to the ToC file.
 ```

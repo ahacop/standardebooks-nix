@@ -1,14 +1,28 @@
 # se semanticate
 
 ```
-usage: semanticate [-h] [-v] TARGET [TARGET ...]
+USAGE
 
-Automatically add semantics to Standard Ebooks source directories.
+	semanticate [-h,--help] [-v,--verbose] <TARGET> [<TARGET> ...]
 
-positional arguments:
-  TARGET         an XHTML file, or a directory containing XHTML files
+DESCRIPTION
 
-options:
-  -h, --help     show this help message and exit
-  -v, --verbose  increase output verbosity
+	Automatically add semantics to Standard Ebooks source directories.
+
+POSITIONAL ARGUMENTS
+
+	<TARGET> [<TARGET> ...]
+
+		An XHTML file, or a directory containing XHTML files.
+
+OPTIONS
+
+	-h,--help
+
+		Show this help message and exit.
+
+
+	-v,--verbose
+
+		Increase output verbosity.
 ```
