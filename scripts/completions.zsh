@@ -108,6 +108,7 @@ _se_ext() {
         page-scans)
           _arguments \
             '--search[Search term to append to URL]:term:' \
+            '--chapter[Open the scan at a chapter (number or filename)]:chapter:' \
             '--list[List URLs without opening]' \
             '--id[Use this Internet Archive item instead of content.opf]:id or url:' \
             '1:ebook-directory:_directories'
