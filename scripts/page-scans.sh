@@ -255,6 +255,6 @@ while IFS= read -r url; do
     echo "$url"
   else
     echo "Opening: $url"
-    xdg-open "$url" 2>/dev/null &
+    xdg-open "$url" >/dev/null 2>&1 &
   fi
 done <<< "$PAGE_SCANS"
