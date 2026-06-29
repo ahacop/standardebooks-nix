@@ -239,9 +239,13 @@
             [diff]
             	algorithm = histogram
             	colorMoved = default
-            	# Zero context lines (-U0). Delta renders within-line changes,
-            	# so you see only changed lines with char-level highlighting.
-            	context = 0
+            	tool = difftastic
+
+            [difftool]
+            	prompt = false
+
+            [difftool "difftastic"]
+            	cmd = ${pkgs.difftastic}/bin/difft "$LOCAL" "$REMOTE"
 
             [merge]
             	conflictstyle = diff3
@@ -284,11 +288,6 @@
               export GIT_CONFIG_COUNT=1
               export GIT_CONFIG_KEY_0="include.path"
               export GIT_CONFIG_VALUE_0="${gitConfigLocal}"
-
-              # Configure difftastic as an alternative diff tool
-              ${pkgs.git}/bin/git config --local diff.tool difftastic
-              ${pkgs.git}/bin/git config --local difftool.prompt false
-              ${pkgs.git}/bin/git config --local difftool.difftastic.cmd '${pkgs.difftastic}/bin/difft "$LOCAL" "$REMOTE"'
 
               # Make SE docs, data, and templates available
               export SE_DOCS="${se-ext}/share/se-docs"
