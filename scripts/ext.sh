@@ -10,6 +10,7 @@ show_help() {
   echo ""
   echo "COMMANDS"
   echo "  claude-init            Print or install a CLAUDE.md for this flake"
+  echo "  cover                  Render the cover (art + title) to an optimized PNG"
   echo "  docs                   Browse and search SE documentation"
   echo "  find-archaic-words     Find archaic spellings not yet in the word list"
   echo "  ia-ocr                 Search an Internet Archive scan's OCR for a phrase"
@@ -26,6 +27,7 @@ show_help() {
 # List subcommands (used by completion)
 list_commands() {
   echo "claude-init"
+  echo "cover"
   echo "docs"
   echo "find-archaic-words"
   echo "ia-ocr"
@@ -41,6 +43,10 @@ case "${1:-}" in
   claude-init)
     shift
     source "$SCRIPT_DIR/claude-init.sh"
+    ;;
+  cover)
+    shift
+    source "$SCRIPT_DIR/cover.sh"
     ;;
   docs)
     shift

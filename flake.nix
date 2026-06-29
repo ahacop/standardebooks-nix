@@ -167,6 +167,9 @@
           # -------------------------------------------------------------------
           seExtRuntimeDeps = runtimeDeps ++ [
             se
+            pkgs.imagemagick # `identify`, for reporting cover PNG dimensions
+            pkgs.librsvg # `rsvg-convert`, renders the cover SVG to PNG
+            pkgs.oxipng # losslessly optimizes the rendered cover PNG
             pkgs.python3
           ];
 

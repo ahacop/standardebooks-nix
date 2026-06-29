@@ -59,6 +59,7 @@ se-ext modernize-spelling   # Apply archaic-to-modern spelling replacements
 se-ext ngram                # Show a word's usage-frequency trajectory (Google Ngrams)
 se-ext page-scans           # Open page scan URLs from ebook metadata
 se-ext preview              # Build the ebook and open it in the default reader
+se-ext cover                # Render the cover (art + title) to an optimized PNG
 se-ext search-usage         # Search SE GitHub for real-world tag/pattern usage
 ```
 

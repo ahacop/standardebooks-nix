@@ -4,6 +4,7 @@ _se_ext() {
   local -a commands
   commands=(
     'claude-init:Print or install a CLAUDE.md for this flake'
+    'cover:Render the cover (art + title) to an optimized PNG'
     'docs:Browse and search SE documentation'
     'find-archaic-words:Find archaic spellings not yet in the word list'
     'ia-ocr:Search an Internet Archive scan'\''s OCR for a phrase'
@@ -31,6 +32,14 @@ _se_ext() {
             '--append[Append template to ./CLAUDE.md]' \
             '--force[Overwrite existing CLAUDE.md when used with --write]' \
             '--path[Print path to the template file]'
+          ;;
+        cover)
+          _arguments \
+            '(-o --output)'{-o,--output}'[Output PNG path]:file:_files -g "*.png"' \
+            '(-w --width)'{-w,--width}'[Output width in pixels]:px:' \
+            '(-s --source)'{-s,--source}'[Render the editable images/cover.svg]' \
+            '(-O --open)'{-O,--open}'[Open the PNG after writing it]' \
+            '1:ebook-directory:_directories'
           ;;
         docs)
           local docs_root
