@@ -40,7 +40,7 @@ EXAMPLES
 EOF
 }
 
-mode=print
+mode="print"
 force=0
 
 while [ $# -gt 0 ]; do
@@ -50,9 +50,9 @@ while [ $# -gt 0 ]; do
     --path)
       echo "$TEMPLATE"; exit 0 ;;
     --write)
-      mode=write; shift ;;
+      mode="write"; shift ;;
     --append)
-      mode=append; shift ;;
+      mode="append"; shift ;;
     --force)
       force=1; shift ;;
     *)
