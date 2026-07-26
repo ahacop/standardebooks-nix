@@ -66,7 +66,7 @@
           # -------------------------------------------------------------------
           # standardebooks Python toolchain, built from uv.lock via uv2nix.
           # -------------------------------------------------------------------
-          python = pkgs.python313;
+          python = pkgs.python314;
 
           workspace = uv2nix.lib.workspace.loadWorkspace { workspaceRoot = ./nix/uv; };
 
