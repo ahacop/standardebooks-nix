@@ -3,7 +3,7 @@
 ```
 USAGE
 
-	lint [-h,--help]
+	se lint [-h,--help]
 	[-a,--allow <ALLOWED_MESSAGES> [<ALLOWED_MESSAGES> ...]]
 	[-s,--skip-lint-ignore] [-v,--verbose] <DIRECTORY> [<DIRECTORY> ...]
 

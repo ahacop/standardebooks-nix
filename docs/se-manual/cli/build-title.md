@@ -3,7 +3,7 @@
 ```
 USAGE
 
-	build-title [-h,--help] [-n,--no-newline] [-s,--stdout]
+	se build-title [-h,--help] [-n,--no-newline] [-s,--stdout]
 	<TARGET> [<TARGET> ...]
 
 DESCRIPTION

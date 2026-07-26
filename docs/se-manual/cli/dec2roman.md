@@ -3,7 +3,7 @@
 ```
 USAGE
 
-	dec2roman [-h,--help] [-n,--no-newline] [<INTEGER> ...]
+	se dec2roman [-h,--help] [-n,--no-newline] [<INTEGER> ...]
 
 DESCRIPTION
 

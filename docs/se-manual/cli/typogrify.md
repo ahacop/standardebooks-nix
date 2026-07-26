@@ -3,7 +3,7 @@
 ```
 USAGE
 
-	typogrify [-h,--help] [-n,--no-quotes] [-v,--verbose]
+	se typogrify [-h,--help] [-n,--no-quotes] [-v,--verbose]
 	<TARGET> [<TARGET> ...]
 
 DESCRIPTION

@@ -3,9 +3,9 @@
 ```
 USAGE
 
-	build [-h,--help] [-b,--kobo] [-c,--check] [-k,--kindle]
-	[-o,--output-dir <DIRECTORY>] [-p,--proof] [-v,--verbose]
-	[-y,--check-only] <DIRECTORY> [<DIRECTORY> ...]
+	se build [-h,--help] [-b,--kobo] [-c,--check] [-k,--kindle]
+	[-n,--no-cache] [-o,--output-dir <DIRECTORY>] [-p,--proof]
+	[-v,--verbose] [-y,--check-only] <DIRECTORY> [<DIRECTORY> ...]
 
 DESCRIPTION
 
@@ -42,6 +42,11 @@ OPTIONS
 	-k,--kindle
 
 		Also build an .azw3 file for Kindle.
+
+
+	-n,--no-cache
+
+		Don’t use cached generated images; always rebuild them.
 
 
 	-o,--output-dir <DIRECTORY>

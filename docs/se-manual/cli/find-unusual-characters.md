@@ -3,7 +3,7 @@
 ```
 USAGE
 
-	find-unusual-characters [-h,--help] <TARGET> [<TARGET> ...]
+	se find-unusual-characters [-h,--help] <TARGET> [<TARGET> ...]
 
 DESCRIPTION
 

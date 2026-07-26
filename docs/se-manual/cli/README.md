@@ -1,22 +1,125 @@
-# se — Standard Ebooks Toolset (3.0.5)
+# se — Standard Ebooks Toolset (4.0.0)
 
-usage: se [-h] [-p] [-v] COMMAND [ARGS ...]
+USAGE
 
-The entry point for the Standard Ebooks toolset.
+	se [-h,--help] [--color] [-p,--plain] [-v,--version] <COMMAND>
+	[<ARGS> ...]
 
-positional arguments:
-  COMMAND        one of: add-file british2american build build-ids build-
-                 images build-loi build-manifest build-spine build-svg-titles
-                 build-title build-toc clean compare-versions create-draft
-                 css-select dec2roman extract-ebook find-mismatched-dashes
-                 find-mismatched-diacritics find-unusual-characters help
-                 hyphenate interactive-replace lint make-url-safe modernize-
-                 spelling prepare-release recompose-epub renumber-endnotes
-                 roman2dec semanticate shift-endnotes shift-illustrations
-                 split-file titlecase typogrify unicode-names word-count xpath
-  ARGS           arguments for the subcommand
+DESCRIPTION
 
-options:
-  -h, --help     show this help message and exit
-  -p, --plain    print plain text output, without tables or formatting
-  -v, --version  print version number and exit
+	The entry point for the Standard Ebooks toolset.
+
+POSITIONAL ARGUMENTS
+
+	<COMMAND>
+
+		The command to execute; one of:
+
+		• add-file
+
+		• british2american
+
+		• build
+
+		• build-ids
+
+		• build-images
+
+		• build-loi
+
+		• build-manifest
+
+		• build-spine
+
+		• build-svg-titles
+
+		• build-title
+
+		• build-toc
+
+		• clean
+
+		• compare-versions
+
+		• create-draft
+
+		• css-select
+
+		• dec2roman
+
+		• extract-ebook
+
+		• find-mismatched-dashes
+
+		• find-mismatched-diacritics
+
+		• find-unusual-characters
+
+		• help
+
+		• hyphenate
+
+		• interactive-replace
+
+		• lint
+
+		• make-url-safe
+
+		• modernize-spelling
+
+		• prepare-release
+
+		• recompose-epub
+
+		• renumber-endnotes
+
+		• roman2dec
+
+		• semanticate
+
+		• shift-endnotes
+
+		• shift-illustrations
+
+		• split-file
+
+		• titlecase
+
+		• typogrify
+
+		• unicode-names
+
+		• word-count
+
+		• xpath
+
+
+	[<ARGS> ...]
+
+		Arguments for <COMMAND>.
+
+OPTIONS
+
+	-h,--help
+
+		Show this help message and exit.
+
+
+	--color
+
+		Print output in color, even when not connected to an
+		interactive terminal, but not if the NO_COLOR environmental
+		variable is set.
+
+
+	-p,--plain
+
+		Print plain text output, without tables, colors, or other
+		formatting. For tabular output but without colors, set the
+		NO_COLOR environmental variable to a non-empty value instead
+		of this option.
+
+
+	-v,--version
+
+		Print version number and exit.

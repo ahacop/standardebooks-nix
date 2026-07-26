@@ -3,7 +3,8 @@
 ```
 USAGE
 
-	build-manifest [-h,--help] [-s,--stdout] <DIRECTORY> [<DIRECTORY> ...]
+	se build-manifest [-h,--help] [-s,--stdout]
+	<DIRECTORY> [<DIRECTORY> ...]
 
 DESCRIPTION
 

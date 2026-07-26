@@ -3,7 +3,7 @@
 ```
 USAGE
 
-	unicode-names [-h,--help] [<STRING> ...]
+	se unicode-names [-h,--help] <STRING> [<STRING> ...]
 
 DESCRIPTION
 
@@ -14,7 +14,7 @@ DESCRIPTION
 
 POSITIONAL ARGUMENTS
 
-	[<STRING> ...]
+	<STRING> [<STRING> ...]
 
 		A Unicode string.
 

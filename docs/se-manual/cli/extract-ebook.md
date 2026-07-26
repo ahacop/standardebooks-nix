@@ -3,7 +3,7 @@
 ```
 USAGE
 
-	extract-ebook [-h,--help] [-o,--output-dir <OUTPUT_DIR>]
+	se extract-ebook [-h,--help] [-o,--output-dir <DIRECTORY>]
 	[-v,--verbose] <TARGET> [<TARGET> ...]
 
 DESCRIPTION
@@ -15,7 +15,7 @@ POSITIONAL ARGUMENTS
 
 	<TARGET> [<TARGET> ...]
 
-		An epub, mobi, or azw3 file.
+		An .epub, .mobi, or .azw3 file.
 
 OPTIONS
 
@@ -24,7 +24,7 @@ OPTIONS
 		Show this help message and exit.
 
 
-	-o,--output-dir <OUTPUT_DIR>
+	-o,--output-dir <DIRECTORY>
 
 		A target directory to extract into.
 

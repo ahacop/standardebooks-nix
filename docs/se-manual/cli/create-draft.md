@@ -3,7 +3,7 @@
 ```
 USAGE
 
-	create-draft [-h,--help] -a,--author <AUTHOR> [<AUTHOR> ...]
+	se create-draft [-h,--help] -a,--author <AUTHOR> [<AUTHOR> ...]
 	[-e,--email <EMAIL>] [-f,--fp-id <FP_ID>] [-o,--offline]
 	[-p,--pg-id <PG_ID>] [-r,--translator <TRANSLATOR> [<TRANSLATOR> ...]]
 	-t,--title <TITLE> [-v,--verbose] [-w,--white-label]
@@ -37,7 +37,7 @@ OPTIONS
 
 	-o,--offline
 
-		Create draft without network access.
+		Create a draft without network access.
 
 
 	-p,--pg-id <PG_ID>
@@ -62,5 +62,6 @@ OPTIONS
 
 	-w,--white-label
 
-		Create a generic epub skeleton without S.E. branding.
+		Create a generic epub skeleton without Standard Ebooks
+		branding.
 ```

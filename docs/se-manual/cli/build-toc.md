@@ -3,7 +3,7 @@
 ```
 USAGE
 
-	build-toc [-h,--help] [-s,--stdout] <DIRECTORY> [<DIRECTORY> ...]
+	se build-toc [-h,--help] [-s,--stdout] <DIRECTORY> [<DIRECTORY> ...]
 
 DESCRIPTION
 

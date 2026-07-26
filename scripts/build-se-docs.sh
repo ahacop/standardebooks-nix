@@ -124,15 +124,29 @@ echo "    se version: $SE_VERSION"
   se --help 2>&1
 } > "$DOCS_DIR/cli/README.md"
 
-# Each subcommand — help text wraps across lines with hyphen continuation
+# Each subcommand. `se --help` lists them one per line as indented bullets:
+#
+#     <COMMAND>
+#
+#         The command to execute; one of:
+#
+#         • add-file
+#         • british2american
+#
+# Match only lines holding a lone bullet plus a lowercase command name, so
+# wrapped prose elsewhere in the help can never be mistaken for a command.
 SUBCOMMANDS=$(se --help 2>&1 \
-  | sed -n '/one of:/,/^  [A-Z]/p' \
-  | head -n -1 \
-  | sed 's/.*one of: //' \
-  | perl -p0e 's/-\n\s+/-/g' \
-  | tr -s ' \n' '\n' \
-  | grep -v '^$' \
+  | sed -n 's/^[[:space:]]*•[[:space:]]*\([a-z][a-z0-9-]*\)[[:space:]]*$/\1/p' \
   | sort -u)
+
+# A help-format change upstream would silently produce a near-empty or
+# nonsense command list, so refuse to write the CLI docs from one.
+SUBCOMMAND_COUNT=$(echo "$SUBCOMMANDS" | grep -c . || true)
+if [ "$SUBCOMMAND_COUNT" -lt 20 ]; then
+  echo "Error: parsed only $SUBCOMMAND_COUNT subcommands from 'se --help'." >&2
+  echo "The help format likely changed; update the parser in $0." >&2
+  exit 1
+fi
 
 for cmd in $SUBCOMMANDS; do
   if [ -z "$cmd" ]; then continue; fi

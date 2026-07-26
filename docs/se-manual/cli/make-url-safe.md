@@ -3,7 +3,7 @@
 ```
 USAGE
 
-	make-url-safe [-h,--help] [-n,--no-newline] [<STRING> ...]
+	se make-url-safe [-h,--help] [-n,--no-newline] [<STRING> ...]
 
 DESCRIPTION
 

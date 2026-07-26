@@ -3,8 +3,8 @@
 ```
 USAGE
 
-	hyphenate [-h,--help] [-i,--ignore-h-tags] [-l,--language <LANGUAGE>]
-	[-v,--verbose] <TARGET> [<TARGET> ...]
+	se hyphenate [-h,--help] [-i,--ignore-h-tags]
+	[-l,--language <LANGUAGE>] [-v,--verbose] <TARGET> [<TARGET> ...]
 
 DESCRIPTION
 

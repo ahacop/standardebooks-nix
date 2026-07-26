@@ -3,8 +3,8 @@
 ```
 USAGE
 
-	compare-versions [-h,--help] [-i,--include-se-files] [-n,--no-images]
-	[-v,--verbose] <TARGET> [<TARGET> ...]
+	se compare-versions [-h,--help] [-i,--include-se-files]
+	[-n,--no-images] [-v,--verbose] <TARGET> [<TARGET> ...]
 
 DESCRIPTION
 
@@ -30,8 +30,8 @@ OPTIONS
 
 	-i,--include-se-files
 
-		Include commonly-excluded S.E. files like imprint, titlepage,
-		and colophon.
+		Include commonly-excluded Standard Ebooks files like imprint,
+		titlepage, and colophon.
 
 
 	-n,--no-images

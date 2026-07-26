@@ -3,8 +3,9 @@
 ```
 USAGE
 
-	word-count [-h,--help] [-c,--categorize] [-p,--ignore-pg-boilerplate]
-	[-x,--exclude-se-files] <TARGET> [<TARGET> ...]
+	se word-count [-h,--help] [-c,--categorize]
+	[-p,--ignore-pg-boilerplate] [-x,--exclude-se-files]
+	<TARGET> [<TARGET> ...]
 
 DESCRIPTION
 
@@ -38,6 +39,6 @@ OPTIONS
 
 	-x,--exclude-se-files
 
-		Exclude some non-bodymatter files common to S.E. ebooks, like
-		the ToC and colophon.
+		Exclude some non-bodymatter files common to Standard Ebooks
+		ebooks, like the ToC and colophon.
 ```

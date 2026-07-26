@@ -3,7 +3,7 @@
 ```
 USAGE
 
-	build-images [-h,--help] [-g,--no-generate] [-v,--verbose]
+	se build-images [-h,--help] [-g,--no-generate] [-v,--verbose]
 	<DIRECTORY> [<DIRECTORY> ...]
 
 DESCRIPTION

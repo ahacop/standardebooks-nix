@@ -3,7 +3,8 @@
 ```
 USAGE
 
-	find-mismatched-diacritics [-h,--help] <TARGET> [<TARGET> ...]
+	se find-mismatched-diacritics [-h,--help] [-a,--all]
+	<TARGET> [<TARGET> ...]
 
 DESCRIPTION
 
@@ -21,4 +22,9 @@ OPTIONS
 	-h,--help
 
 		Show this help message and exit.
+
+
+	-a,--all
+
+		Consider words less than 3 characters in length.
 ```

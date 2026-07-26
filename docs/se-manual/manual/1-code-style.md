@@ -392,4 +392,20 @@ The `se clean` tool in the [Standard Ebooks toolset](https://standardebooks.org/
 ## Commits and Commit Messages
 
 1.  Commits are broken into single units of work. A single unit of work may be, for example, "fixing typos across 10 files", or "adding cover art", or "working on metadata".
-2.  Commits that introduce material changes to the ebook text (for example modernizing spelling or fixing a probable printer’s typo; but not fixing a transcriber’s typo) are prefaced with the string `[Editorial]`, followed by a space, then the commit message. This makes it easy to search the repo history for commits that make editorial changes to the work.
+
+2.  Commits that introduce changes to the ebook text that might affect the meaning of the work are prefaced with the string `[Editorial]`, followed by a space, then the commit message. This makes it easy to search the repo history for commits that make editorial changes to the work. A rule of thumb is that if you think knowing about a change would be of interest to an informed but not necessarily professional or academic reader, then mark it as `[Editorial]`.
+
+    Examples of things that *would* be marked as editorial changes:
+
+    - Modernizing spelling and hyphenation.
+    - Fixing what *might* be, but what might also *not be*, typos that are present in the source page scans.
+    - Changing capitalization for better readability.
+    - Correcting mismatched dashes or diacritics.
+
+    Examples of things that *would not* be marked as editorial changes:
+
+    - Fixing typos introduced by the transcription.
+    - Fixing obvious, indisputable printer’s typos.
+    - Converting British-style quotation to American-style.
+    - Moving punctuation inside quotation marks.
+    - Changing section ordinals to Roman numerals.

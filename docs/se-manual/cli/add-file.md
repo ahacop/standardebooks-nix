@@ -3,12 +3,12 @@
 ```
 USAGE
 
-	add-file [-h,--help] [-f,--force] <FILE_TYPE>
+	se add-file [-h,--help] [-f,--force] <FILE_TYPE>
 	<DIRECTORY> [<DIRECTORY> ...]
 
 DESCRIPTION
 
-	Add an SE template file and any accompanying CSS.
+	Add a Standard Ebooks template file and any accompanying CSS.
 
 POSITIONAL ARGUMENTS
 

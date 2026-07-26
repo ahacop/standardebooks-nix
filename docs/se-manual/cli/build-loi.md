@@ -3,7 +3,7 @@
 ```
 USAGE
 
-	build-loi [-h,--help] [-s,--stdout] <DIRECTORY> [<DIRECTORY> ...]
+	se build-loi [-h,--help] [-s,--stdout] <DIRECTORY> [<DIRECTORY> ...]
 
 DESCRIPTION
 

@@ -432,7 +432,9 @@ Table of Contents
 
     Here’s a short list of some of the more common semantic issues you’ll encounter:
 
-    - Semantics for italics: <span class="p">`<`</span><span class="nt">`em`</span><span class="p">`>`</span> should be used for when a passage is emphasized, as in when dialog is shouted or whispered. <span class="p">`<`</span><span class="nt">`i`</span><span class="p">`>`</span> is used for all other italics, [with the appropriate semantic inflection](/manual/latest/4-semantics#4.2). Older transcriptions usually use just <span class="p">`<`</span><span class="nt">`i`</span><span class="p">`>`</span> for both, so you must change them manually if necessary.
+    - Semantics for italics: <span class="p">`<`</span><span class="nt">`em`</span><span class="p">`>`</span> should be used for when a passage is emphasized, as in when dialog is shouted or whispered. <span class="p">`<`</span><span class="nt">`i`</span><span class="p">`>`</span> is used for all other italics, [with the appropriate semantic inflection](/manual/latest/4-semantics#4.2). Older transcriptions usually use just <span class="p">`<`</span><span class="nt">`i`</span><span class="p">`>`</span> for both, so you must change them manually if necessary. Use the following command to check instances of italics:
+
+      **`grep`**` --recursive --line-number --extended-regexp `*`"<i|<em"`*` `<u>`src/epub/text/`*`*`*`.xhtml`</u>
 
     - [Semantics rules for chapter titles](/manual/latest/8-typography#8.1).
 

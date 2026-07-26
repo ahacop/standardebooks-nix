@@ -95,7 +95,7 @@ For example, an ebook producer may want to convey that the contents of a certain
 
 1.  The epub spec includes a [vocabulary](https://www.w3.org/TR/epub-ssv-11/) that can be used in the `epub:type` attribute. This vocabulary has priority when selecting a semantic keyword, even if other vocabularies contain the same one.
 
-2.  The epub spec might not contain a keyword necessary to describe the semantics of a particular element. In that case, the [z3998 vocabulary](http://www.daisy.org/z3998/2012/vocab/structure/) is consulted next.
+2.  The epub spec might not contain a keyword necessary to describe the semantics of a particular element. In that case, the [z3998 vocabulary](https://www.daisy.org/z3998/2012/vocab/structure/) is consulted next.
 
     Keywords using this vocabulary are preceded by the `z3998` namespace.
 

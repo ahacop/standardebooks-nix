@@ -3,7 +3,7 @@
 ```
 USAGE
 
-	renumber-endnotes [-h,--help] [-b,--brute-force] [-v,--verbose]
+	se renumber-endnotes [-h,--help] [-b,--brute-force] [-v,--verbose]
 	<DIRECTORY> [<DIRECTORY> ...]
 
 DESCRIPTION

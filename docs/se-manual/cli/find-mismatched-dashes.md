@@ -3,7 +3,7 @@
 ```
 USAGE
 
-	find-mismatched-dashes [-h,--help] <TARGET> [<TARGET> ...]
+	se find-mismatched-dashes [-h,--help] <TARGET> [<TARGET> ...]
 
 DESCRIPTION
 

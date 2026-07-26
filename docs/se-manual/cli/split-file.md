@@ -3,7 +3,7 @@
 ```
 USAGE
 
-	split-file [-h,--help] [-f,--filename-format <STRING>]
+	se split-file [-h,--help] [-f,--filename-format <STRING>]
 	[-s,--start-at <INTEGER>] [-t,--template-file <FILE>] <FILE>
 
 DESCRIPTION

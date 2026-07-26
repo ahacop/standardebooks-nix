@@ -3,7 +3,7 @@
 ```
 USAGE
 
-	modernize-spelling [-h,--help] [-n,--no-hyphens] [-v,--verbose]
+	se modernize-spelling [-h,--help] [-n,--no-hyphens] [-v,--verbose]
 	<TARGET> [<TARGET> ...]
 
 DESCRIPTION

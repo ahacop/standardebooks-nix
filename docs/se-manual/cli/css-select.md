@@ -3,8 +3,8 @@
 ```
 USAGE
 
-	css-select [-h,--help] [-f,--only-filenames] [-q,--quiet] <SELECTOR>
-	<TARGET> [<TARGET> ...]
+	se css-select [-h,--help] [-f,--only-filenames] [-q,--quiet]
+	<SELECTOR> <TARGET> [<TARGET> ...]
 
 DESCRIPTION
 

@@ -3,7 +3,7 @@
 ```
 USAGE
 
-	titlecase [-h,--help] [-n,--no-newline] [<STRING> ...]
+	se titlecase [-h,--help] [-n,--no-newline] [<STRING> ...]
 
 DESCRIPTION
 

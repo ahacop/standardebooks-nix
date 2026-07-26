@@ -27,7 +27,7 @@ Standard Ebooks handles instances of music notation in books by recreating them 
 
     If you are not using MuseScore, you may need to [install a plugin](https://www.musicxml.com/) to be able to export as MusicXML.
 
-    MusicXML files should be named `illustration-n.xml` and saved in `./images/`. Ensure that they have a .xml filename. SVG files should be saved as `illustration-n.svg` in `./src/epub/images/`.
+    MusicXML files should be named `illustration-n.musicxml` and saved in `./images/`. Ensure that they have a .musicxml filename. SVG files should be saved as `illustration-n.svg` in `./src/epub/images/`.
 
     While you may need to have extra bars at the end of a phrase to decrease the layout stretch and compress the notation visually for SVG export, you should remove these extra bars, as well as any unused titles or other elements before saving as MusicXML.
 

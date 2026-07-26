@@ -3,7 +3,7 @@
 ```
 USAGE
 
-	interactive-replace [-h,--help] [-d,--dot-all] [-i,--ignore-case]
+	se interactive-replace [-h,--help] [-d,--dot-all] [-i,--ignore-case]
 	[-m,--multiline] [-v,--vim] <REGEX> <REPLACE> <TARGET> [<TARGET> ...]
 
 DESCRIPTION
@@ -11,10 +11,19 @@ DESCRIPTION
 	Perform an interactive search and replace on a list of files using
 	Python-flavored regex. The view is scrolled using the arrow keys, with
 	alt to scroll by page in any direction. Basic Emacs (default) or Vim
-	style navigation is available. The following actions are possible: (y)
-	Accept replacement. (n) Reject replacement. (a) Accept all remaining
-	replacements in this file. (r) Reject all remaining replacements in
-	this file. (c) Center on match. (q) Save this file and quit.
+	style navigation is available. The following actions are possible:
+
+	        • (y) Accept replacement.
+
+	        • (n) Reject replacement.
+
+	        • (a) Accept all remaining replacements in this file.
+
+	        • (r) Reject all remaining replacements in this file.
+
+	        • (c) Center on match.
+
+	        • (q) Save this file and quit.
 
 POSITIONAL ARGUMENTS
 

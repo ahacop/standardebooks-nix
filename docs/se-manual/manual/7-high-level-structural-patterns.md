@@ -158,7 +158,7 @@ Within section titles, we distinguish between labels, ordinals, titles, and subt
     <h2><span epub:type="se:label">Canto</span> <span epub:type="z3998:ordinal z3998:roman">III</span></h2>
     ```
 
-2.  Ordinals are the number specifying the section’s numeric order in a sequence. They are usually wrapped in `<span epub:type="ordinal">` or `<span epub:type="z3998:ordinal z3998:roman">`, if the ordinal is a Roman numeral.
+2.  Ordinals are the number specifying the section’s numeric order in a sequence. They are usually wrapped in `<span epub:type="z3998:ordinal">` or `<span epub:type="z3998:ordinal z3998:roman">`, if the ordinal is a Roman numeral.
 
     ``` html
     <h2><span epub:type="se:label">Book</span> <span epub:type="z3998:ordinal z3998:roman">IV</span></h2>
@@ -1503,11 +1503,11 @@ The noteref is the superscripted number in the body text that links to the endno
 
 Glossaries may be included if there are a large number of domain-specific terms that are unlikely to be in a common dictionary, or which have unique meanings to the work.
 
-Glossaries follow the [EPUB Dictionaries and Glossaries 1.0 spec](http://idpf.org/epub/dict/epub-dict.html#sec-2.5.3).
+Glossaries follow the [EPUB Dictionaries and Glossaries 1.0 spec](https://idpf.org/epub/dict/epub-dict.html#sec-2.5.3).
 
 ### The glossary search key map file
 
-When including a glossary, a search key map file is required according to the [EPUB Dictionaries and Glossaries 1.0 spec](http://idpf.org/epub/dict/epub-dict.html#sec-2.5.3).
+When including a glossary, a search key map file is required according to the [EPUB Dictionaries and Glossaries 1.0 spec](https://idpf.org/epub/dict/epub-dict.html#sec-2.5.3).
 
 1.  The search key map file is named `./src/epub/glossary-search-key-map.xml`.
 2.  The search key map file contains `<value>` elements describing all stemmed variations of the parent search term that occur in the ebook. Variations that don't occur in the ebook are excluded.

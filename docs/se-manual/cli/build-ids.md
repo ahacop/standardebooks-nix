@@ -3,7 +3,7 @@
 ```
 USAGE
 
-	build-ids [-h,--help] [-n,--no-endnotes] [-v,--verbose]
+	se build-ids [-h,--help] [-n,--no-endnotes] [-v,--verbose]
 	<DIRECTORY> [<DIRECTORY> ...]
 
 DESCRIPTION

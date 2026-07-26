@@ -3,7 +3,7 @@
 ```
 USAGE
 
-	build-spine [-h,--help] [-s,--stdout] <DIRECTORY> [<DIRECTORY> ...]
+	se build-spine [-h,--help] [-s,--stdout] <DIRECTORY> [<DIRECTORY> ...]
 
 DESCRIPTION
 

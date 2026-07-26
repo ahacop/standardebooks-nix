@@ -3,8 +3,8 @@
 ```
 USAGE
 
-	shift-illustrations [-h,--help] [-a,--amount <NUMBER>]
-	[-d,--decrement] [-i,--increment] <ILLUSTRATION-NUMBER> <DIRECTORY>
+	se shift-illustrations [-h,--help] [-a,--amount <NUMBER>]
+	[-d,--decrement] [-i,--increment] <ILLUSTRATION_NUMBER> <DIRECTORY>
 
 DESCRIPTION
 
@@ -13,7 +13,7 @@ DESCRIPTION
 
 POSITIONAL ARGUMENTS
 
-	<ILLUSTRATION-NUMBER>
+	<ILLUSTRATION_NUMBER>
 
 		The illustration number to start shifting at.
 

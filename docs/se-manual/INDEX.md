@@ -3,7 +3,7 @@
 Local mirror of Standard Ebooks documentation for agent/tool consumption.
 Built by `scripts/build-se-docs.sh`. Check for updates with `scripts/check-se-docs.sh`.
 
-## Manual of Style (v1.8.8)
+## Manual of Style (v1.9.0)
 
 - [Art and Images](manual/10-art-and-images.md)
 - [XHTML, CSS, and SVG Code Style](manual/1-code-style.md)
@@ -44,7 +44,7 @@ Built by `scripts/build-se-docs.sh`. Check for updates with `scripts/check-se-do
 - [Indesign](third-party/b-t-k/ebook/how-tos.md)
 - [Basic header](third-party/b-t-k/ebook/templates.md)
 
-## CLI Reference (se 3.0.5)
+## CLI Reference (se 4.0.0)
 
 - [Overview](cli/README.md)
 - [se add-file](cli/add-file.md)

@@ -219,7 +219,7 @@ After the first `<nav>` element, there is a second `<nav>` element with the sema
 
 #### `<li>` descendants
 
-Each `<li>` element contains a link to either the start of the main text (i.e. the start of the bodymatter, excluding a half titlepage), or to a major reference section (i.e. backmatter including endnotes, bibliography, glossary, index, LoI, etc.). [See the IDPF a11y best practices document](http://idpf.org/epub/a11y/techniques/#sem-003) for more information.
+Each `<li>` element contains a link to either the start of the main text (i.e. the start of the bodymatter, excluding a half titlepage), or to a major reference section (i.e. backmatter including endnotes, bibliography, glossary, index, LoI, etc.). [See the IDPF a11y best practices document](https://idpf.org/epub/a11y/techniques/#sem-003) for more information.
 
 1.  Each `<li>` element has the computed semantic inflection of top-level `<section>` element in the file. The computed semantic inflection includes inherited semantic inflection from the `<body>` element.
 

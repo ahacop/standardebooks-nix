@@ -3,7 +3,7 @@
 ```
 USAGE
 
-	build-svg-titles [-h,--help] [-v,--verbose]
+	se build-svg-titles [-h,--help] [-v,--verbose]
 	<DIRECTORY> [<DIRECTORY> ...]
 
 DESCRIPTION

@@ -3,7 +3,7 @@
 ```
 USAGE
 
-	recompose-epub [-h,--help] [-e,--extra-css-file <FILE>]
+	se recompose-epub [-h,--help] [-e,--extra-css-file <FILE>]
 	[-i,--image-files] [-o,--output <FILE>] [-x,--xhtml] <DIRECTORY>
 
 DESCRIPTION

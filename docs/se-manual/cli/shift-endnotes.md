@@ -3,17 +3,17 @@
 ```
 USAGE
 
-	shift-endnotes [-h,--help] [-a,--amount <NUMBER>] [-d,--decrement]
-	[-i,--increment] <ENDNOTE-NUMBER> <DIRECTORY>
+	se shift-endnotes [-h,--help] [-d,--decrement <NUMBER>]
+	[-i,--increment <NUMBER>] <ENDNOTE_NUMBER> <DIRECTORY>
 
 DESCRIPTION
 
 	Increment or decrement the specified endnote and all following
-	endnotes by 1 or a specified amount.
+	endnotes by a specified amount.
 
 POSITIONAL ARGUMENTS
 
-	<ENDNOTE-NUMBER>
+	<ENDNOTE_NUMBER>
 
 		The endnote number to start shifting at.
 
@@ -29,19 +29,14 @@ OPTIONS
 		Show this help message and exit.
 
 
-	-a,--amount <NUMBER>
+	-d,--decrement <NUMBER>
 
-		The amount to increment or decrement by; defaults to 1.
-
-
-	-d,--decrement
-
-		Decrement the target endnote number and all following
-		endnotes.
+		Decrement the target endnote number and all following endnotes
+		by this amount.
 
 
-	-i,--increment
+	-i,--increment <NUMBER>
 
-		Increment the target endnote number and all following
-		endnotes.
+		Increment the target endnote number and all following endnotes
+		by this amount.
 ```

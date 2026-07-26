@@ -3,7 +3,7 @@
 ```
 USAGE
 
-	roman2dec [-h,--help] [-n,--no-newline] <NUMERAL> [<NUMERAL> ...]
+	se roman2dec [-h,--help] [-n,--no-newline] [<NUMERAL> ...]
 
 DESCRIPTION
 
@@ -11,7 +11,7 @@ DESCRIPTION
 
 POSITIONAL ARGUMENTS
 
-	<NUMERAL> [<NUMERAL> ...]
+	[<NUMERAL> ...]
 
 		A Roman numeral.
 

@@ -3,7 +3,7 @@
 ```
 USAGE
 
-	semanticate [-h,--help] [-v,--verbose] <TARGET> [<TARGET> ...]
+	se semanticate [-h,--help] [-v,--verbose] <TARGET> [<TARGET> ...]
 
 DESCRIPTION
 

@@ -3,7 +3,7 @@
 ```
 USAGE
 
-	prepare-release [-h,--help] [-r,--no-revision] [-v,--verbose]
+	se prepare-release [-h,--help] [-r,--no-revision] [-v,--verbose]
 	[-w,--no-word-count] <DIRECTORY> [<DIRECTORY> ...]
 
 DESCRIPTION

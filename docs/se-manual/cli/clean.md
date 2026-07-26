@@ -3,7 +3,7 @@
 ```
 USAGE
 
-	clean [-h,--help] [-v,--verbose] <TARGET> [<TARGET> ...]
+	se clean [-h,--help] [-v,--verbose] <TARGET> [<TARGET> ...]
 
 DESCRIPTION
 

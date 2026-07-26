@@ -3,7 +3,7 @@
 ```
 USAGE
 
-	xpath [-h,--help] [-f,--only-filenames] [-q,--quiet] <XPATH>
+	se xpath [-h,--help] [-f,--only-filenames] [-q,--quiet] <XPATH>
 	<TARGET> [<TARGET> ...]
 
 DESCRIPTION
