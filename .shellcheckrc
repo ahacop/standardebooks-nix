@@ -1,0 +1,6 @@
+# se-ext dispatches subcommands by sourcing sibling scripts through a runtime
+# "$SCRIPT_DIR", which shellcheck cannot resolve on its own. Following those
+# files means the dispatcher is checked against the code it actually runs,
+# rather than reporting SC1091 once per subcommand.
+external-sources=true
+source-path=SCRIPTDIR
