@@ -291,6 +291,7 @@
               pkgs.imagemagick
               pkgs.jdk
               pkgs.just
+              pkgs.shellcheck
               se
               se-ext
             ];
