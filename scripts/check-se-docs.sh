@@ -1,4 +1,11 @@
 #!/usr/bin/env bash
+
+# manual_tag, web_sha, btk_sha, se_version, and fetched all arrive by sourcing
+# .versions further down, so shellcheck never sees them assigned. They stay
+# undeclared here on purpose: under `set -u` a key missing from .versions
+# should abort rather than compare against an empty string.
+# shellcheck disable=SC2154
+
 set -euo pipefail
 
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
@@ -24,6 +31,7 @@ if [ ! -f "$VERSIONS_FILE" ]; then
 fi
 
 # Read current pinned versions
+# shellcheck source=/dev/null # path is built at runtime from the repo root
 source "$VERSIONS_FILE"
 
 echo "Checking for SE documentation updates..."
