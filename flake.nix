@@ -173,6 +173,12 @@
             pkgs.python3
           ];
 
+          # se-ext has no release cycle of its own, so a build is identified by
+          # the flake revision it came from. Reading it from `self` keeps
+          # `se-ext --version` from drifting the way a hand-edited constant
+          # does. A dirty working tree has no `rev`, only `dirtyShortRev`.
+          seExtVersion = self.shortRev or self.dirtyShortRev or "unknown";
+
           se-ext = pkgs.stdenv.mkDerivation {
             name = "se-ext";
             src = lib.fileset.toSource {
@@ -190,8 +196,10 @@
             installPhase = ''
               mkdir -p $out/bin $out/share/se-docs $out/share/se-ext-data $out/share/se-ext/templates $out/share/bash-completion/completions $out/share/zsh/site-functions
 
-              # Install documentation
-              cp -r docs/se-manual/* $out/share/se-docs/
+              # Install documentation. Copy the directory's contents rather than
+              # a glob so the leading-dot .versions file ships too — `se-ext
+              # --version` reports the doc versions pinned in it.
+              cp -r docs/se-manual/. $out/share/se-docs/
 
               # Install data files
               cp -r data/* $out/share/se-ext-data/
@@ -207,6 +215,7 @@
               # Create the se-ext wrapper with runtime deps on PATH
               makeWrapper $out/bin/ext.sh $out/bin/se-ext \
                 --prefix PATH : ${lib.makeBinPath seExtRuntimeDeps} \
+                --set SE_EXT_VERSION ${seExtVersion} \
                 --set SE_DOCS $out/share/se-docs \
                 --set SE_EXT_DATA $out/share/se-ext-data \
                 --set SE_EXT_TEMPLATE_DIR $out/share/se-ext/templates

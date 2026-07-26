@@ -1,7 +1,11 @@
 #!/usr/bin/env bash
 
-VERSION="0.1.0"
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+# The flake revision this build came from, set by the Nix wrapper. Running the
+# script straight out of a checkout has no wrapper, so fall back to the working
+# tree's revision.
+VERSION="${SE_EXT_VERSION:-$(git -C "$SCRIPT_DIR" rev-parse --short HEAD 2>/dev/null || echo unknown)}"
 
 show_help() {
   echo "se-ext $VERSION — Standard Ebooks extended tools"
@@ -22,6 +26,24 @@ show_help() {
   echo "  search-usage           Search SE GitHub for real-world semantic tag usage"
   echo ""
   echo "Run 'se-ext <command> --help' for more info on a command."
+}
+
+# Report the build revision, then what the bundled documentation was built
+# from. The doc versions are the useful half: they say which manual and which
+# se release `se-ext docs` will answer questions from.
+show_version() {
+  echo "se-ext $VERSION"
+
+  if [ -f "${SE_DOCS:-}/.versions" ]; then
+    # .versions is written by build-se-docs.sh as shell-sourceable key=value
+    # pairs. Source it in a subshell to keep the names out of this one.
+    # shellcheck disable=SC1091,SC2154 # names come from the sourced file
+    (
+      . "$SE_DOCS/.versions"
+      echo "  docs built $fetched from manual $manual_tag, se $se_version"
+      echo "  contribute pages $web_sha, b-t-k hints $btk_sha"
+    )
+  fi
 }
 
 # List subcommands (used by completion)
@@ -85,7 +107,7 @@ case "${1:-}" in
     source "$SCRIPT_DIR/search-usage.sh"
     ;;
   --version|-v)
-    echo "se-ext $VERSION"
+    show_version
     ;;
   --help|-h|"")
     show_help
