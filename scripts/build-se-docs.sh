@@ -64,7 +64,7 @@ for page in "${CONTRIBUTE_PAGES[@]}"; do
   echo "    Fetching $page"
   curl -sS "https://standardebooks.org/contribute/$page" \
     | pandoc -f html -t gfm --wrap=none \
-    | sed '/^<div/d; /^<\/div>/d' \
+    | sed '/^<div/d; /^<\/div>/d; s/<a href="#[^"]*" class="heading-permalink"[^>]*><\/a>//g' \
     > "$DOCS_DIR/contribute/$page.md"
 done
 
@@ -84,7 +84,7 @@ for page in "${HOWTO_PAGES[@]}"; do
   echo "    Fetching how-tos/$page"
   curl -sS "https://standardebooks.org/contribute/how-tos/$page" \
     | pandoc -f html -t gfm --wrap=none \
-    | sed '/^<div/d; /^<\/div>/d' \
+    | sed '/^<div/d; /^<\/div>/d; s/<a href="#[^"]*" class="heading-permalink"[^>]*><\/a>//g' \
     > "$DOCS_DIR/contribute/how-tos/$page.md"
 done
 
