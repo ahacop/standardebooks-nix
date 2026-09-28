@@ -14,9 +14,9 @@ POSITIONAL ARGUMENTS
 
 	<FILE_TYPE>
 
-		The type of file to add; one of: dedication,
+		The type of file to add; one of: chapter, dedication,
 		dramatis-personae, endnotes, epigraph, glossary,
-		halftitlepage, ignore.
+		halftitlepage, ignore, loi, part.
 
 
 	<DIRECTORY> [<DIRECTORY> ...]

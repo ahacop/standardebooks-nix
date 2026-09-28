@@ -44,7 +44,7 @@ Built by `scripts/build-se-docs.sh`. Check for updates with `scripts/check-se-do
 - [Indesign](third-party/b-t-k/ebook/how-tos.md)
 - [Basic header](third-party/b-t-k/ebook/templates.md)
 
-## CLI Reference (se 4.0.0)
+## CLI Reference (se 4.1.0)
 
 - [Overview](cli/README.md)
 - [se add-file](cli/add-file.md)

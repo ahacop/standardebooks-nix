@@ -31,8 +31,8 @@ OPTIONS
 	-l,--language <LANGUAGE>
 
 		Specify the language for the XHTML files; if unspecified,
-		defaults to the xml:lang or lang attribute of the root <html>
-		element.
+		defaults to the @xml:lang or @lang attribute of the root
+		<html> element.
 
 
 	-v,--verbose

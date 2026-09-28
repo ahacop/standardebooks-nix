@@ -3,8 +3,8 @@
 ```
 USAGE
 
-	se xpath [-h,--help] [-f,--only-filenames] [-q,--quiet] <XPATH>
-	<TARGET> [<TARGET> ...]
+	se xpath [-h,--help] [-f,--only-filenames] [-q,--quiet]
+	[-n,--no-line-numbers] <XPATH> <TARGET> [<TARGET> ...]
 
 DESCRIPTION
 
@@ -39,4 +39,9 @@ OPTIONS
 
 		Don’t output anything, only a return code if matches exist in
 		any files.
+
+
+	-n,--no-line-numbers
+
+		Don’t output line numbers.
 ```

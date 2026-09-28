@@ -4,7 +4,7 @@
 USAGE
 
 	se css-select [-h,--help] [-f,--only-filenames] [-q,--quiet]
-	<SELECTOR> <TARGET> [<TARGET> ...]
+	[-n,--no-line-numbers] <SELECTOR> <TARGET> [<TARGET> ...]
 
 DESCRIPTION
 
@@ -39,4 +39,9 @@ OPTIONS
 
 		Don’t output anything, only a return code if matches exist in
 		any files.
+
+
+	-n,--no-line-numbers
+
+		Don’t output line numbers.
 ```

@@ -32,7 +32,7 @@ OPTIONS
 
 	-i,--image-files
 
-		Leave image src attributes as relative URLs instead of
+		Leave image @src attributes as relative URLs instead of
 		inlining as data: URIs.
 
 

@@ -8,7 +8,7 @@ USAGE
 
 DESCRIPTION
 
-	Change id attributes for non-sectioning content to their expected
+	Change @id attributes for non-sectioning content to their expected
 	values across the entire ebook. IDs must be globally unique and
 	correctly referenced, and the ebook spine must be complete.
 

@@ -8,7 +8,7 @@ USAGE
 
 DESCRIPTION
 
-	Update or add SVG <title> elements based on the alt attributes from
+	Update or add SVG <title> elements based on the @alt attributes from
 	the <img> elements.
 
 POSITIONAL ARGUMENTS

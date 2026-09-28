@@ -1,4 +1,4 @@
-# se — Standard Ebooks Toolset (4.0.0)
+# se — Standard Ebooks Toolset (4.1.0)
 
 USAGE
 
