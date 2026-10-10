@@ -21,36 +21,38 @@ This will give you access to:
 
 ## Starting a new ebook project
 
-Once you have _any_ shell with `se-ext` on `PATH` (e.g. `nix develop
-github:ahacop/standardebooks-nix`), scaffold a fresh book directory in one
-step:
+`se-ext new` creates a book in one command. You do not need a dev shell first:
 
 ```bash
-se create-draft --author "…" --title "…"   # generate the ebook skeleton (src/, content.opf, …)
+nix run github:ahacop/standardebooks-nix -- new --author "…" --title "…" --pg-id 1234
 cd <new-book-dir>
-se-ext init                                 # drop in .envrc, .gitignore, Justfile, CLAUDE.md
-direnv allow                                # activate the per-project environment
+direnv allow
 ```
 
-`se-ext init` writes the project-local "glue" files and nothing more:
+It runs `se create-draft` with the options you give it, changes into the new
+book directory, and runs `se-ext init` there. Run `se create-draft --help` to
+see the options. `--local`, `--remote` and `--force` go to `se-ext init`.
+
+`se-ext init` adds these files to a book that already exists:
 
 - `.envrc` — `use flake github:ahacop/standardebooks-nix` (pass `--local` to
   point at a sibling `../standardebooks-nix` checkout instead)
-- `.gitignore` — the SE-idiomatic ignore (`.*`, `CLAUDE.md`, `notes/`, …)
 - `Justfile` — common `se` recipes (`just normalize`, `just rebuild-meta`, …)
 - `CLAUDE.md` — agent guidance (same template as `se-ext claude-init`)
 
-It is idempotent — existing files are left alone unless you pass `--force` — so
-it is safe to run before or after `se create-draft`. Because the generated
-`.gitignore` ignores dotfiles and `CLAUDE.md`, most of what it writes is
-intentionally untracked.
+It also adds `CLAUDE.md`, `Justfile`, `notes/` and `*.patch` to
+`.git/info/exclude`, so they cannot be committed. It does not change the
+`.gitignore` that `se create-draft` writes, because that file is part of the
+book you submit. The `.gitignore` already ignores `.envrc`, like every other
+dotfile. Existing files are left alone unless you pass `--force`.
 
 ## Extended tools
 
 `se-ext` provides additional helpers for ebook production:
 
 ```bash
-se-ext init                 # Scaffold a new ebook project (.envrc, .gitignore, Justfile, CLAUDE.md)
+se-ext new                  # Create a new book with se create-draft, then run init
+se-ext init                 # Add .envrc, Justfile and CLAUDE.md to an existing book
 se-ext claude-init          # Print or install a CLAUDE.md for this flake
 se-ext docs                 # Browse and search SE documentation
 se-ext find-archaic-words   # Find archaic spellings not yet in the word list

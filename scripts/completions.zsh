@@ -8,8 +8,9 @@ _se_ext() {
     'docs:Browse and search SE documentation'
     'find-archaic-words:Find archaic spellings not yet in the word list'
     'ia-ocr:Search an Internet Archive scan'\''s OCR for a phrase'
-    'init:Scaffold a new ebook project (.envrc, .gitignore, Justfile, CLAUDE.md)'
+    'init:Add .envrc, Justfile and CLAUDE.md to an existing book'
     'modernize-spelling:Apply archaic-to-modern spelling replacements'
+    'new:Create a new book with se create-draft, then run init'
     'ngram:Show a word'\''s usage-frequency trajectory (Google Ngrams)'
     'page-scans:Open page scan URLs from ebook metadata'
     'preview:Build the ebook and open it in the default reader'
@@ -101,6 +102,21 @@ _se_ext() {
             '--remote[.envrc points at the GitHub flake (default)]' \
             '--local[.envrc points at a sibling ../standardebooks-nix checkout]' \
             '--force[Overwrite files that already exist]'
+          ;;
+        new)
+          _arguments \
+            '--remote[.envrc points at the GitHub flake (default)]' \
+            '--local[.envrc points at a sibling ../standardebooks-nix checkout]' \
+            '--force[Overwrite files that already exist]' \
+            '(-a --author)'{-a,--author}'[An author of the ebook]:author:' \
+            '(-t --title)'{-t,--title}'[The title of the ebook]:title:' \
+            '(-r --translator)'{-r,--translator}'[A translator of the ebook]:translator:' \
+            '(-p --pg-id)'{-p,--pg-id}'[Project Gutenberg ID to download]:id:' \
+            '(-f --fp-id)'{-f,--fp-id}'[Faded Page ID to download]:id:' \
+            '(-o --offline)'{-o,--offline}'[Create a draft without network access]' \
+            '(-e --email)'{-e,--email}'[Committer email for the git repository]:email:' \
+            '(-w --white-label)'{-w,--white-label}'[Create a generic epub without SE branding]' \
+            '(-v --verbose)'{-v,--verbose}'[Increase output verbosity]'
           ;;
         modernize-spelling)
           _arguments \

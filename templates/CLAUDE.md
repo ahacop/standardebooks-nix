@@ -57,7 +57,7 @@ There is no test suite. `se lint` is the closest thing to one — treat its outp
 
 ### Justfile shortcuts
 
-If a `Justfile` is present (added by `se-ext init`), `just --list` shows convenience recipes that wrap the `se` commands above; they run against the book root `.` by default (override to narrow, e.g. `just dir=src/epub/text clean`). The underlying `se` commands remain the source of truth — the recipes only bundle the common multi-step sequences:
+If a `Justfile` is present (added by `se-ext new` or `se-ext init`, and kept out of commits by `.git/info/exclude`), `just --list` shows convenience recipes that wrap the `se` commands above; they run against the book root `.` by default (override to narrow, e.g. `just dir=src/epub/text clean`). The underlying `se` commands remain the source of truth — the recipes only bundle the common multi-step sequences:
 
 - `just normalize` — `se typogrify` + `se semanticate` + `se modernize-spelling`, then `se clean`. The everyday "process, then clean" pass.
 - `just rebuild-meta` — `se build-manifest` + `se build-spine` + `se build-toc` together, after you add / rename / split / remove a file under `src/epub/text/`.

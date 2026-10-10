@@ -59,6 +59,7 @@
             pkgs.findutils
             pkgs.gawk
             pkgs.gh
+            pkgs.git
             pkgs.jq
           ];
 
@@ -313,8 +314,8 @@
               echo ""
               echo "SE docs available: se-ext docs, se-ext docs search <term>"
               echo ""
-              echo "Starting a new book? Scaffold .envrc, .gitignore, Justfile, and"
-              echo "CLAUDE.md in one step with: se-ext init"
+              echo "Starting a new book? Run: se-ext new --author \"…\" --title \"…\""
+              echo "Adding .envrc, Justfile and CLAUDE.md to an existing book? Run: se-ext init"
               echo ""
               echo "Git diff improvements enabled:"
               echo "  • Delta pager for better long-line diffs"

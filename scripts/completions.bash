@@ -3,7 +3,7 @@ _se_ext() {
   COMPREPLY=()
   cur="${COMP_WORDS[COMP_CWORD]}"
   prev="${COMP_WORDS[COMP_CWORD-1]}"
-  commands="claude-init cover docs find-archaic-words ia-ocr init modernize-spelling ngram page-scans preview search-usage"
+  commands="claude-init cover docs find-archaic-words ia-ocr init modernize-spelling new ngram page-scans preview search-usage"
 
   if [ "$COMP_CWORD" -eq 1 ]; then
     COMPREPLY=($(compgen -W "$commands --help --version" -- "$cur"))
@@ -53,6 +53,9 @@ _se_ext() {
       ;;
     init)
       COMPREPLY=($(compgen -W "--remote --local --force --help" -- "$cur"))
+      ;;
+    new)
+      COMPREPLY=($(compgen -W "--remote --local --force --author --title --translator --pg-id --fp-id --offline --email --white-label --verbose --help" -- "$cur"))
       ;;
     modernize-spelling)
       if [ "$COMP_CWORD" -eq 2 ]; then
