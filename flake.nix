@@ -52,7 +52,6 @@
             (pkgs.aspellWithDicts (
               dicts: with dicts; [
                 en
-                en-computers
               ]
             ))
             pkgs.coreutils
