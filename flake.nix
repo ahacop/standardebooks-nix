@@ -244,6 +244,9 @@
             	# makes delta pair lines like `git --word-diff`.
             	word-diff-regex = .
             	max-line-distance = 1.0
+            	# A paragraph of SE text is one line. This pager has no -S, so
+            	# less wraps the line even when the user's LESS has -S.
+            	pager = ${pkgs.less}/bin/less -FiRwX
 
             [delta "interactive"]
             	keep-plus-minus-markers = false
@@ -264,6 +267,7 @@
 
             [alias]
             	dw = diff --word-diff
+            	wd = diff --word-diff=color
             	dc = diff --color-words
             	sw = show --word-diff
             	scw = show --color-words
