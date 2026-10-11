@@ -82,6 +82,15 @@
             sourcePreference = "wheel";
           };
 
+          # A .desktop entry for firefox-unwrapped, which ships none. Only the
+          # Exec line matters: installed_browsers runs it with --version.
+          seFirefoxDesktopEntry = pkgs.writeTextDir "share/applications/firefox.desktop" ''
+            [Desktop Entry]
+            Type=Application
+            Name=Firefox
+            Exec=${pkgs.firefox-unwrapped}/bin/firefox %U
+          '';
+
           # Native-wheel overrides — patch RPATH / add bundled-lib deps so the
           # interpreters can dlopen the wheels' embedded shared objects.
           pyprojectOverrides = _final: prev: {
@@ -101,6 +110,18 @@
             lxml = prev.lxml.overrideAttrs (old: {
               nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ pkgs.autoPatchelfHook ];
               buildInputs = (old.buildInputs or [ ]) ++ [ pkgs.stdenv.cc.cc.lib ];
+            });
+
+            # `se build` finds a browser through installed_browsers, which only
+            # reads .desktop files from hard-coded FHS and Snap folders. Add a
+            # folder that holds a Firefox entry for firefox-unwrapped, so SVG
+            # widths come from a real render instead of the viewbox.
+            installed-browsers = prev.installed-browsers.overrideAttrs (old: {
+              postInstall = (old.postInstall or "") + ''
+                substituteInPlace $out/${python.sitePackages}/installed_browsers/linux.py \
+                  --replace-fail '"/usr/share/applications",' \
+                    '"${seFirefoxDesktopEntry}/share/applications", "/usr/share/applications",'
+              '';
             });
 
             cffi = prev.cffi.overrideAttrs (old: {
@@ -138,8 +159,11 @@
           ];
 
           # firefox + geckodriver are needed by `se build` when a book contains
-          # MathML, and by `se compare-versions`. Hardcoding firefox-unwrapped
-          # avoids the user-namespace sandbox the wrapped firefox binary uses.
+          # MathML or SVGs, and by `se compare-versions`. Hardcoding
+          # firefox-unwrapped avoids the user-namespace sandbox the wrapped
+          # firefox binary uses. The wrapper sets SE_GECKODRIVER because
+          # Selenium otherwise runs its bundled selenium-manager binary,
+          # which is not patched for NixOS and cannot start.
           seBrowserDeps = [
             pkgs.firefox-unwrapped
             pkgs.geckodriver
@@ -158,6 +182,7 @@
                   name=$(basename "$bin")
                   makeWrapper "$bin" "$out/bin/$name" \
                     --prefix PATH : ${lib.makeBinPath seBrowserDeps} \
+                    --set SE_GECKODRIVER ${pkgs.geckodriver}/bin/geckodriver \
                     --prefix LD_LIBRARY_PATH : ${seRuntimeLibs}
                 done
               '';
