@@ -270,6 +270,11 @@
             [tig]
             	wrap-lines = yes
 
+            # tig stops wrapping while word-diff is on, so word-diff stays off
+            # and w switches it on and off.
+            [tig "bind"]
+            	generic = w :toggle word-diff
+
             [alias]
             	dw = diff --word-diff
             	wd = diff --word-diff=color
