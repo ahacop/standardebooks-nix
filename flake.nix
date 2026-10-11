@@ -265,6 +265,11 @@
             [merge]
             	conflictstyle = diff3
 
+            # tig draws diffs itself and ignores the pager, so it needs its
+            # own setting to wrap the one-line paragraphs of SE text.
+            [tig]
+            	wrap-lines = yes
+
             [alias]
             	dw = diff --word-diff
             	wd = diff --word-diff=color
