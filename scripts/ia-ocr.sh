@@ -4,8 +4,15 @@ if [ "$1" = "" ] || [ "$1" = "--help" ] || [ "$1" = "-h" ]; then
   echo "Usage: se-ext ia-ocr [options] <phrase> [<ebook-directory>]"
   echo ""
   echo "Search the Internet Archive scan's OCR text for a phrase from the"
-  echo "ebook's first archive.org source, and report the OCR'd context, the"
+  echo "ebook's archive.org source, and report the OCR'd context, the"
   echo "leaf and printed page it falls on, and a canonical page-scan URL."
+  echo ""
+  echo "When content.opf lists several archive.org sources, as a collection"
+  echo "does, put the story title in an XML comment on the line above each"
+  echo "source (<!--Outpost on Io-->). ia-ocr finds the text file that"
+  echo "contains the phrase and searches the scan with that file's <title>."
+  echo "If no single story matches, it searches each source in turn for the"
+  echo "exact phrase."
   echo ""
   echo "Unlike 'page-scans', which opens a scan in your browser, this prints"
   echo "the OCR text to stdout — so it can be used to confirm a suspected"
@@ -18,7 +25,7 @@ if [ "$1" = "" ] || [ "$1" = "--help" ] || [ "$1" = "-h" ]; then
   echo ""
   echo "OPTIONS"
   echo "  --id <id|url>          Use this Internet Archive item instead of the"
-  echo "                         one in content.opf. Accepts a bare identifier"
+  echo "                         ones in content.opf. Accepts a bare identifier"
   echo "                         or a full archive.org/details/<id> URL."
   echo "  --url                  Print only the canonical page-scan URL"
   echo "  --json                 Emit the result as JSON (overrides --url)"
@@ -163,39 +170,107 @@ fetch_image() {
   printf '%s\n' "$out"
 }
 
+# Make book text and a search phrase comparable: replace curly quotes with
+# straight ones, decode &amp;, remove word joiners and hair spaces, and turn
+# no-break spaces into plain spaces. Reads stdin, writes stdout.
+normalize_text() {
+  sed -e "s/‘/'/g" -e "s/’/'/g" -e 's/“/"/g' -e 's/”/"/g' \
+    -e 's/&amp;/\&/g' -e 's/\xe2\x81\xa0//g' -e 's/\xe2\x80\x8a//g' \
+    -e 's/\xc2\xa0/ /g'
+}
+
+# Print the <title> of the one file under src/epub/text that contains the
+# phrase. Tags are stripped first, so a phrase can cross <i> or <abbr>
+# markup, but not a line break. Returns 1 if no file or more than one file
+# contains the phrase.
+story_title_for_phrase() {
+  local needle f
+  local -a hits=()
+  needle=$(printf '%s' "$1" | normalize_text)
+  for f in "$EBOOK_DIR"/src/epub/text/*.xhtml; do
+    [ -f "$f" ] || continue
+    if sed -e 's/<[^>]*>//g' "$f" | normalize_text | grep -qiF -- "$needle"; then
+      hits+=("$f")
+    fi
+  done
+  [ "${#hits[@]}" -eq 1 ] || return 1
+  grep -oP '(?<=<title>)[^<]+' "${hits[0]}" | head -n 1 | normalize_text
+}
+
+# Set SERVER and DIR for IA_ID from the IA metadata API. Returns 1 on failure.
+resolve_item() {
+  local meta
+  meta=$(curl -s --max-time 30 -A "$UA" "https://archive.org/metadata/$IA_ID") || return 1
+  SERVER=$(printf '%s' "$meta" | jq -r '.server // .d1 // empty' 2>/dev/null)
+  DIR=$(printf '%s' "$meta" | jq -r '.dir // empty' 2>/dev/null)
+  [ -n "$SERVER" ] && [ -n "$DIR" ]
+}
+
+# CANDIDATES holds the IA items to search, in order. Usually it holds one
+# item: the --id item, the book's only archive.org source, or the scan of the
+# story that contains the phrase. When the story is unknown, it holds every
+# archive.org source, and each one gets an exact-phrase search in turn.
+CANDIDATES=()
+
 if [ -n "$IA_ID_OVERRIDE" ]; then
   IA_ID=$(normalize_ia_id "$IA_ID_OVERRIDE")
   if [ -z "$IA_ID" ]; then
     echo "Error: could not parse an Internet Archive identifier from --id '$IA_ID_OVERRIDE'." >&2
     exit 2
   fi
+  CANDIDATES=("$IA_ID")
 else
-  # Find the first archive.org/details identifier among the dc:source entries.
-  IA_ID=""
-  while IFS= read -r url; do
-    case "$url" in
-      *archive.org/details/*)
-        IA_ID=$(normalize_ia_id "$url")
-        break
-        ;;
-    esac
-  done < <(grep -oP '(?<=<dc:source>)[^<]+' "$OPF")
+  # Collect each archive.org/details source together with the title in the
+  # XML comment on the line directly above it. A collection gives each story
+  # its own scan this way, for example:
+  #   <!--Outpost on Io-->
+  #   <dc:source>https://archive.org/details/Planet_Stories_v02n01_1942-Winter</dc:source>
+  # A source without such a comment gets an empty title.
+  IA_IDS=()
+  IA_TITLES=()
+  re_comment='<!--(.*)-->'
+  re_source='<dc:source>([^<]*archive\.org/details/[^<]*)</dc:source>'
+  prev_title=""
+  while IFS= read -r line; do
+    if [[ $line =~ $re_comment ]]; then
+      prev_title=$(printf '%s' "${BASH_REMATCH[1]}" | normalize_text)
+      continue
+    fi
+    if [[ $line =~ $re_source ]]; then
+      IA_IDS+=("$(normalize_ia_id "${BASH_REMATCH[1]}")")
+      IA_TITLES+=("$prev_title")
+    fi
+    prev_title=""
+  done < "$OPF"
 
-  if [ -z "$IA_ID" ]; then
+  if [ "${#IA_IDS[@]}" -eq 0 ]; then
     echo "Error: no Internet Archive source found in $OPF." >&2
     echo "ia-ocr only works with archive.org/details/ sources." >&2
     exit 4
   fi
+
+  if [ "${#IA_IDS[@]}" -eq 1 ]; then
+    CANDIDATES=("${IA_IDS[0]}")
+  else
+    # Find the story that contains the phrase, then the source with that title.
+    if story=$(story_title_for_phrase "$PHRASE") && [ -n "$story" ]; then
+      for i in "${!IA_IDS[@]}"; do
+        if [ "${IA_TITLES[i],,}" = "${story,,}" ]; then
+          CANDIDATES=("${IA_IDS[i]}")
+          echo "Using the scan for \"$story\": ${IA_IDS[i]}" >&2
+          break
+        fi
+      done
+    fi
+    if [ "${#CANDIDATES[@]}" -eq 0 ]; then
+      CANDIDATES=("${IA_IDS[@]}")
+      echo "Could not match the phrase to one story; searching all ${#IA_IDS[@]} archive.org sources..." >&2
+    fi
+  fi
+  IA_ID="${CANDIDATES[0]}"
 fi
 
-# Resolve the item's data server and path from the IA metadata API.
-META=$(curl -s --max-time 30 -A "$UA" "https://archive.org/metadata/$IA_ID") || {
-  echo "Error: could not reach the Internet Archive metadata API." >&2
-  exit 1
-}
-SERVER=$(printf '%s' "$META" | jq -r '.server // .d1 // empty' 2>/dev/null)
-DIR=$(printf '%s' "$META" | jq -r '.dir // empty' 2>/dev/null)
-if [ -z "$SERVER" ] || [ -z "$DIR" ]; then
+if [ "${#CANDIDATES[@]}" -eq 1 ] && ! resolve_item; then
   echo "Error: could not resolve the scan server for item '$IA_ID'." >&2
   exit 1
 fi
@@ -213,13 +288,47 @@ do_search() {
   [ "$n" -gt 0 ] 2>/dev/null
 }
 
+# Prepare a phrase copied from the book text for IA's search-inside. IA
+# finds nothing for curly apostrophes, but a straight apostrophe matches the
+# curly ones in the OCR. Double quotes are removed: the query already puts
+# the phrase inside "…" for an exact match, and a " inside the phrase breaks
+# that quoting, so IA then matches the words anywhere.
+PHRASE=$(printf '%s' "$PHRASE" | normalize_text | tr -d '"')
+
 MATCHED=""
 EXACT=true
 
-do_search "$PHRASE"
-rc=$?
-if [ "$rc" -eq 0 ]; then
-  MATCHED="$PHRASE"
+if [ "${#CANDIDATES[@]}" -gt 1 ]; then
+  # Search each item for the exact phrase and stop at the first match.
+  # --auto-retry does not run here: it multiplies the requests by the number
+  # of items.
+  for IA_ID in "${CANDIDATES[@]}"; do
+    resolve_item || continue
+    if do_search "$PHRASE"; then
+      MATCHED="$PHRASE"
+      echo "Found in $IA_ID" >&2
+      break
+    fi
+  done
+  if [ -z "$MATCHED" ]; then
+    if [ "$JSON_MODE" = true ]; then
+      jq -n --arg phrase "$PHRASE" '{found: false, phrase: $phrase, identifier: null}'
+    else
+      echo "Not found in the OCR of any archive.org source: \"$PHRASE\"" >&2
+      echo "Pass --id <item> to choose the scan; --auto-retry then works too." >&2
+    fi
+    exit 5
+  fi
+else
+  do_search "$PHRASE"
+  rc=$?
+  if [ "$rc" -eq 0 ]; then
+    MATCHED="$PHRASE"
+  fi
+fi
+
+if [ -n "$MATCHED" ]; then
+  :
 elif [ "$rc" -eq 2 ]; then
   echo "Error: search-inside request failed for item '$IA_ID'." >&2
   exit 1
