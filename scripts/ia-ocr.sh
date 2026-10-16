@@ -393,9 +393,12 @@ fi
 ENC=$(percent_encode_phrase "$MATCHED")
 
 # Fetch the BookReader page data once and fold it into a leaf -> printed-page
-# lookup, reused for every match below.
+# lookup, reused for every match below. subPrefix names the image stack. It
+# is DOC for the same reason that search-inside needs DOC: without it,
+# BookReader looks for a stack named after the item ID and returns "Couldn't
+# find image stack" for items whose files are named differently.
 JSIA=$(curl -s --max-time 60 -A "$UA" \
-  "https://$SERVER/BookReader/BookReaderJSIA.php?id=$IA_ID&itemPath=$DIR&server=$SERVER&format=json")
+  "https://$SERVER/BookReader/BookReaderJSIA.php?id=$IA_ID&itemPath=$DIR&server=$SERVER&format=json&subPrefix=$DOC")
 PAGEMAP=$(printf '%s' "$JSIA" | jq -c '
   [.. | objects
     | select(.leafNum != null and .pageNum != null and .pageNum != "")
