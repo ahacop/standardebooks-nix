@@ -197,12 +197,23 @@ story_title_for_phrase() {
   grep -oP '(?<=<title>)[^<]+' "${hits[0]}" | head -n 1 | normalize_text
 }
 
-# Set SERVER and DIR for IA_ID from the IA metadata API. Returns 1 on failure.
+# Set SERVER, DIR and DOC for IA_ID from the IA metadata API. Returns 1 on
+# failure.
+#
+# DOC is the base name of the item's OCR files, which search-inside needs as
+# its doc parameter. It is usually the same as the item ID, but some items
+# name their files differently: in.ernet.dli.2015.125478 has
+# 2015.125478.Big-Money_djvu.xml. If the item lists no OCR file, DOC is the
+# item ID.
 resolve_item() {
   local meta
   meta=$(curl -s --max-time 30 -A "$UA" "https://archive.org/metadata/$IA_ID") || return 1
   SERVER=$(printf '%s' "$meta" | jq -r '.server // .d1 // empty' 2>/dev/null)
   DIR=$(printf '%s' "$meta" | jq -r '.dir // empty' 2>/dev/null)
+  DOC=$(printf '%s' "$meta" | jq -r '
+    [.files[]?.name | select(test("_(djvu\\.xml|hocr\\.html|chocr\\.html\\.gz|abbyy\\.gz)$"))
+     | sub("_(djvu\\.xml|hocr\\.html|chocr\\.html\\.gz|abbyy\\.gz)$"; "")][0] // empty' 2>/dev/null)
+  [ -n "$DOC" ] || DOC="$IA_ID"
   [ -n "$SERVER" ] && [ -n "$DIR" ]
 }
 
@@ -276,14 +287,22 @@ if [ "${#CANDIDATES[@]}" -eq 1 ] && ! resolve_item; then
 fi
 
 # Run one "search inside" query. Stores the raw response in SEARCH_RESP.
-# Returns 0 if there was at least one match, 1 if none, 2 on network/parse error.
+# Returns 0 if there was at least one match, 1 if none, 2 on network/parse
+# error or when the response has an "error" field. IA puts a reason such as
+# "No hOCR or Abbyy file present" in that field and returns no matches, so
+# the error is printed to stderr instead of being reported as "not found".
 SEARCH_RESP=""
 do_search() {
-  local enc resp n
+  local enc resp n err
   enc=$(percent_encode_phrase "$1")
   resp=$(curl -s --max-time 40 -A "$UA" \
-    "https://$SERVER/fulltext/inside.php?item_id=$IA_ID&doc=$IA_ID&path=$DIR&q=$enc") || return 2
+    "https://$SERVER/fulltext/inside.php?item_id=$IA_ID&doc=$DOC&path=$DIR&q=$enc") || return 2
   SEARCH_RESP="$resp"
+  err=$(printf '%s' "$resp" | jq -r '.error // empty' 2>/dev/null) || return 2
+  if [ -n "$err" ]; then
+    echo "search-inside error for item '$IA_ID' (doc '$DOC'): $err" >&2
+    return 2
+  fi
   n=$(printf '%s' "$resp" | jq -r '(.matches // []) | length' 2>/dev/null) || return 2
   [ "$n" -gt 0 ] 2>/dev/null
 }
